@@ -4,16 +4,18 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class Evento {
-	protected String nombre;
-	protected String codigo;
-	protected Date fecha;
-	protected ArrayList<Participante>participantes;
+	private String nombre;
+	private String codigo;
+	private Date fechainicio;
+	private Date fechafinal;
+	private ArrayList<Participante>participantes;
 	
-	public Evento(String nombre, String codigo, Date fecha) {
+	public Evento(String nombre, String codigo, Date fechainicio,Date fechafinal) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
-		this.fecha = fecha;
+		this.fechainicio = fechainicio;
+		this.fechafinal=fechafinal;
 		this.participantes = new ArrayList<>();
 	}
 
@@ -33,13 +35,6 @@ public class Evento {
 		this.codigo = codigo;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
 
 	public ArrayList<Participante> getParticipantes() {
 		return participantes;
@@ -47,6 +42,22 @@ public class Evento {
 
 	public void setParticipantes(ArrayList<Participante> participantes) {
 		this.participantes = participantes;
+	}
+
+	public Date getFechainicio() {
+		return fechainicio;
+	}
+
+	public void setFechainicio(Date fechainicio) {
+		this.fechainicio = fechainicio;
+	}
+
+	public Date getFechafinal() {
+		return fechafinal;
+	}
+
+	public void setFechafinal(Date fechafinal) {
+		this.fechafinal = fechafinal;
 	}
 	
 	
