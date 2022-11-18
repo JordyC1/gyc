@@ -4,13 +4,13 @@ public class Trabajo {
 	private String codigo;
 	private Participante propietario;
 	private float calificacion;
-	private String area;
-	public Trabajo(String codigo, Participante propietario, float calificacion, String area) {
+	private String titulo;
+	public Trabajo(String codigo, Participante propietario, float calificacion, String titulo) {
 		super();
 		this.codigo = codigo;
 		this.propietario = propietario;
 		this.calificacion = calificacion;
-		this.area = area;
+		this.titulo = titulo;
 	}
 	public String getCodigo() {
 		return codigo;
@@ -30,11 +30,15 @@ public class Trabajo {
 	public void setCalificacion(float calificacion) {
 		this.calificacion = calificacion;
 	}
-	public String getArea() {
-		return area;
+	public String gettitulo() {
+		return titulo;
 	}
-	public void setArea(String area) {
-		this.area = area;
+	public void settitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
+	public void agregarcalif(float calif) {
+		this.calificacion=calif;
 	}
 	
 }

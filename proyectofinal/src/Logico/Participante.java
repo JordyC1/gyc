@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 public class Participante extends Miembro{
 	private ArrayList<Trabajo>trabajos;
-	private float prompuntos;
-	public Participante(String id, String nombre, String telefono,float prompuntos) {
+	private String codparticipante;
+	
+	public Participante(String id, String nombre, String telefono,String codparticipante) {
 		super(id, nombre, telefono);
 		trabajos=new ArrayList<>();
-	    this.prompuntos=prompuntos;
+	    this.codparticipante=codparticipante;
+	}
+	public void agregartrabajos(Trabajo trabajo) {
+		trabajos.add(trabajo);
 	}
 	public ArrayList<Trabajo> getTrabajos() {
 		return trabajos;
@@ -16,11 +20,13 @@ public class Participante extends Miembro{
 	public void setTrabajos(ArrayList<Trabajo> trabajos) {
 		this.trabajos = trabajos;
 	}
-	public float getPrompuntos() {
-		return prompuntos;
-	}
-	public void setPrompuntos(float prompuntos) {
-		this.prompuntos = prompuntos;
+	
+	public float prompuntos() {
+		float califtotal=0;
+		for (Trabajo trabajo : trabajos) {
+			califtotal+=trabajo.getCalificacion();
+		}
+		return califtotal/trabajos.size();
 	}
 	
 }

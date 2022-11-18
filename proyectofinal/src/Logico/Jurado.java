@@ -3,30 +3,31 @@ package Logico;
 import java.util.ArrayList;
 
 public class Jurado extends Miembro{
-	private String area;
-	private ArrayList<Trabajo>trabajos;
-
-	public Jurado(String id, String nombre, String telefono,String area) {
-		super(id, nombre, telefono);
-		this.area=area;
-		this.trabajos=new ArrayList<>();
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
-	}
-
-	public ArrayList<Trabajo> getTrabajos() {
-		return trabajos;
-	}
-
-	public void setTrabajos(ArrayList<Trabajo> trabajos) {
-		this.trabajos = trabajos;
-	}
 	
+	private String Codjurado;
+	private String areaespecializado;
+
+     public Jurado(String Cedula, String nombre, String telefono,String Codjurado,String areaespecializado) {
+		super(Cedula, nombre, telefono);
+		this.Codjurado=Codjurado;
+		this.areaespecializado=areaespecializado;
+	}
+
+	public String getCodjurado() {
+		return Codjurado;
+	}
+
+	public void setCodjurado(String Codjurado) {
+		this.Codjurado = Codjurado;
+	}
+
+	public String getAreaespecializado() {
+		return areaespecializado;
+	}
+
+	public void setAreaespecializado(String areaespecializado) {
+		this.areaespecializado = areaespecializado;
+	}
+
 	
 }

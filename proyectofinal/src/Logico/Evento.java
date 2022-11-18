@@ -6,19 +6,31 @@ import java.util.ArrayList;
 public class Evento {
 	private String nombre;
 	private String codigo;
+	private String ubicacion;
 	private Date fechainicio;
 	private Date fechafinal;
-	private ArrayList<Participante>participantes;
+	private int cupo;
+	private ArrayList<Recurso>recursos;
+	private ArrayList<Comision>comisiones;
 	
-	public Evento(String nombre, String codigo, Date fechainicio,Date fechafinal) {
+	public Evento(String nombre, String codigo,String ubicacion, Date fechainicio,Date fechafinal,int cupo) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
+		this.ubicacion=ubicacion;
 		this.fechainicio = fechainicio;
 		this.fechafinal=fechafinal;
-		this.participantes = new ArrayList<>();
+		this.cupo=cupo;
+		this.comisiones = new ArrayList<>();
+		this.recursos = new ArrayList<>();
 	}
 
+	public void agregarcomision(Comision c) {
+		comisiones.add(c);
+	}
+	public void agregarecursos(Recurso r) {
+		recursos.add(r);
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -31,17 +43,40 @@ public class Evento {
 		return codigo;
 	}
 
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public int getCupo() {
+		return cupo;
+	}
+
+	public void setCupo(int cupo) {
+		this.cupo = cupo;
+	}
+
+	public ArrayList<Recurso> getRecursos() {
+		return recursos;
+	}
+
+	public void setRecursos(ArrayList<Recurso> recursos) {
+		this.recursos = recursos;
+	}
+
+	public ArrayList<Comision> getComisiones() {
+		return comisiones;
+	}
+
+	public void setComisiones(ArrayList<Comision> comisiones) {
+		this.comisiones = comisiones;
+	}
+
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-
-	public ArrayList<Participante> getParticipantes() {
-		return participantes;
-	}
-
-	public void setParticipantes(ArrayList<Participante> participantes) {
-		this.participantes = participantes;
 	}
 
 	public Date getFechainicio() {

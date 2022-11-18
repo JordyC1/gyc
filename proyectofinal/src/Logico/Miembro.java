@@ -1,20 +1,20 @@
 package Logico;
 
 public class Miembro {
-	protected String id;
+	protected String Cedula;
 	protected String nombre;
 	protected String telefono;
-	public Miembro(String id, String nombre, String telefono) {
+	public Miembro(String Cedula, String nombre, String telefono) {
 		super();
-		this.id = id;
+		this.Cedula = Cedula;
 		this.nombre = nombre;
 		this.telefono = telefono;
 	}
-	public String getId() {
-		return id;
+	public String getCedula() {
+		return Cedula;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setCedula(String id) {
+		this.Cedula = id;
 	}
 	public String getNombre() {
 		return nombre;
