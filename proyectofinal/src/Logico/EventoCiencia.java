@@ -1,6 +1,14 @@
 package Logico;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+
 
 public class EventoCiencia {
 	private ArrayList<Persona>personas;
@@ -274,6 +282,42 @@ public class EventoCiencia {
 	
 	public void agregarrecursoevento(Recurso cosa, Evento event) {
 		event.agregarrecurso(cosa);
+	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//funciones para guardar y cargar
+	
+	public void guardarpersona() throws IOException, ClassNotFoundException {
+		FileOutputStream f = new FileOutputStream ("F:/Personas.dat");
+		ObjectOutputStream guardador = new ObjectOutputStream(f);
+		
+		guardador.writeInt(personas.size());
+		for (Persona person : personas) {
+			guardador.writeObject(person);
+		}
+		
+		guardador.close();
+		f.close();
+	}
+	
+	public void cargarpersona() throws IOException, ClassNotFoundException {
+		FileInputStream f = new FileInputStream ("F:/Personas.dat");
+		ObjectInputStream cargador = new ObjectInputStream(f);
+		int size = cargador.readInt();
+		
+		for (int i = 0; i < size; i++){	
+			Persona aux = (Persona)cargador.readObject();
+			personas.add(aux);
+		}
+		cargador.close();
+		f.close();
+	}
+	
+	public void guardartodo(){
+	}
+	
+	public void cargartodo() {
+		
 	}
 	
 	
