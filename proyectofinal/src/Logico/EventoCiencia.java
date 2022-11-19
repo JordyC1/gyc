@@ -9,6 +9,14 @@ public class EventoCiencia {
 	private ArrayList<Recurso>recursos;
 	private ArrayList<Comision>comisiones;
 	
+	private int codjurado;
+	private int codparticipante;
+	private int codtrabajo;
+	private int codrecurso;
+	private int codevento;
+	private int codcomision;
+	
+	
 	public EventoCiencia() {
 		super();
 		this.personas= new ArrayList<>();
@@ -16,6 +24,38 @@ public class EventoCiencia {
 		this.recursos = new ArrayList<>();
 		this.comisiones=new ArrayList<>();
 		this.eventos = new ArrayList<>();
+	}
+	
+	public int getCodjurado() {
+		return codjurado;
+	}
+
+	public void setCodjurado(int codjurado) {
+		this.codjurado = codjurado;
+	}
+
+	public int getCodparticipante() {
+		return codparticipante;
+	}
+
+	public void setCodparticipante(int codparticipante) {
+		this.codparticipante = codparticipante;
+	}
+
+	public int getCodrecurso() {
+		return codrecurso;
+	}
+
+	public void setCodrecurso(int codrecurso) {
+		this.codrecurso = codrecurso;
+	}
+
+	public int getCodevento() {
+		return codevento;
+	}
+
+	public void setCodevento(int codevento) {
+		this.codevento = codevento;
 	}
 
 	public ArrayList<Trabajo> getTrabajos() {
@@ -76,22 +116,31 @@ public class EventoCiencia {
 	
 	public void agregarpersonas(Persona persona) {
 		personas.add(persona);
+		
+		if(persona instanceof Participante)
+			codparticipante++;
+		if(persona instanceof Jurado)
+			codjurado++;
 	}
 	
 	public void agregartrabajo(Trabajo trabajo) {
 		trabajos.add(trabajo);
+		codtrabajo++;
 	}
 	
 	public void agregarevento(Evento evento) {
 		eventos.add(evento);
+		codevento++;
 	}
 	
 	public void agregarrecurso(Recurso recurso) {
 		recursos.add(recurso);
+		codrecurso++;
 	}
 	
 	public void agregarcomisiones(Comision comicion) {
 		comisiones.add(comicion);
+		codcomision++;
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,6 +162,27 @@ public class EventoCiencia {
 		}
 		
 		return comi;
+	}
+	
+	public Participante buscaparticipante(String codigo) {
+		Participante parti = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < personas.size() && encontrado == false) {
+			if(personas.get(i) instanceof Participante)
+			{
+				if(((Participante)personas.get(i)).getCodparticipante().equals(codigo))
+				{
+					encontrado = true;
+					parti = (Participante)personas.get(i);
+				}
+			}
+			
+			i++;
+		}
+		
+		return parti;
 	}
 	
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,6 +218,15 @@ public class EventoCiencia {
 			}
 		}
 		return mejorparticipante;
+	}
+	
+	public void agregartrabajo(String cod,String titulo, String codparticipante){
+		Participante parti = buscaparticipante(codparticipante);
+		
+		Trabajo trabajo = new Trabajo(cod, parti, titulo);
+		
+		agregartrabajo(trabajo);
+		parti.agregartrabajo(trabajo);
 	}
 	
 	

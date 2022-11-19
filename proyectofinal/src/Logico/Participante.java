@@ -6,12 +6,11 @@ public class Participante extends Persona{
 	private ArrayList<Trabajo>trabajos;
 	private String codparticipante;
 	
-	public Participante(String id, String nombre, String telefono,String codparticipante) {
+	public Participante(String id, String nombre, String telefono, String cod) {
 		super(id, nombre, telefono);
 		trabajos=new ArrayList<>();
-	    this.codparticipante=codparticipante;
+	    this.codparticipante= cod;
 	}
-	
 	
 	public ArrayList<Trabajo> getTrabajos() {
 		return trabajos;
@@ -28,7 +27,11 @@ public class Participante extends Persona{
 	public void setCodparticipante(String codparticipante) {
 		this.codparticipante = codparticipante;
 	}
-
+	
+	public void agregartrabajo(Trabajo trabajo) {
+		trabajos.add(trabajo);
+	}
+	
 	public float prompuntos() {
 		float califtotal=0;
 		for (Trabajo trabajo : trabajos) {

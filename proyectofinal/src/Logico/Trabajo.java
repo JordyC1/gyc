@@ -5,13 +5,15 @@ public class Trabajo {
 	private Participante propietario;
 	private float calificacion;
 	private String titulo;
-	public Trabajo(String codigo, Participante propietario, float calificacion, String titulo) {
+	
+	public Trabajo(String codigo, Participante propietario, String titulo) {
 		super();
 		this.codigo = codigo;
 		this.propietario = propietario;
-		this.calificacion = calificacion;
+		calificacion = 0;
 		this.titulo = titulo;
 	}
+	
 	public String getCodigo() {
 		return codigo;
 	}
