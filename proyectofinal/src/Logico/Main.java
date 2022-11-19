@@ -1,8 +1,10 @@
 package Logico;
 
+import java.io.IOException;
+
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		EventoCiencia feria = new EventoCiencia();
 		
 		Persona participante1 = new Participante("098","Javier","809-987",""+feria.getCodparticipante());
@@ -18,6 +20,9 @@ public class Main {
 		Persona jurado2 = new Jurado("095","perez","829-922",""+feria.getCodjurado(),"matematic");
 		feria.agregarpersonas(jurado2);
 		
+		System.out.println(feria.getPersonas().get(1).getCedula());
+	
+		feria.guardarpersona();
 		
 		Comision comi1 = new Comision(""+feria.getCodcomision(),"fisica",(Jurado)jurado1);
 		feria.agregarcomisiones(comi1);

@@ -97,12 +97,12 @@ public class EventoCiencia {
 		this.trabajos = trabajos;
 	}
 
-	public ArrayList<Persona> getMiembros() {
+	public ArrayList<Persona> getPersonas() {
 		return personas;
 	}
 
-	public void setMiembros(ArrayList<Persona> miembros) {
-		this.personas = miembros;
+	public void serPersonas(ArrayList<Persona> persona) {
+		this.personas = persona;
 	}
 
 	public ArrayList<Comision> getComisiones() {
@@ -288,7 +288,7 @@ public class EventoCiencia {
 	//funciones para guardar y cargar
 	
 	public void guardarpersona() throws IOException, ClassNotFoundException {
-		FileOutputStream f = new FileOutputStream ("F:/Personas.dat");
+		FileOutputStream f = new FileOutputStream ("Personas.dat");
 		ObjectOutputStream guardador = new ObjectOutputStream(f);
 		
 		guardador.writeInt(personas.size());
@@ -301,7 +301,7 @@ public class EventoCiencia {
 	}
 	
 	public void cargarpersona() throws IOException, ClassNotFoundException {
-		FileInputStream f = new FileInputStream ("F:/Personas.dat");
+		FileInputStream f = new FileInputStream ("Personas.dat");
 		ObjectInputStream cargador = new ObjectInputStream(f);
 		int size = cargador.readInt();
 		
