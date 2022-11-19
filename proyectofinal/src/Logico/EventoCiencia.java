@@ -269,7 +269,7 @@ public class EventoCiencia {
 	
 	public void evaluartrabajo(String codtrabajo, float evaluacion){
 		Trabajo trab = buscatrabajo(codtrabajo);
-		
+		trab.agregarcalif(evaluacion);
 	}
 	
 	

@@ -27,12 +27,20 @@ public class Main {
 		
 		feria.agregartrabajo(""+feria.getCodtrabajo(), "Acelerador particular", ""+1, comi1);
 		feria.agregartrabajo(""+feria.getCodtrabajo(), "Volcan", ""+0,comi2);
-		feria.agregartrabajo(""+feria.getCodtrabajo(), "Sistema nervioso", ""+1,comi1);
+		feria.agregartrabajo(""+feria.getCodtrabajo(), "Sistema nervioso", ""+2,comi1);
 		
-
+		feria.evaluartrabajo(""+0, 5);
+		feria.evaluartrabajo(""+0, 3);
+		feria.evaluartrabajo(""+0, 4);
 		
-		System.out.println(feria.mejorparticipante());
-		System.out.println(feria.mejortrabajadoarea(""+0));
+		feria.evaluartrabajo(""+1, 4);
+		feria.evaluartrabajo(""+1, 3);
+		
+		feria.evaluartrabajo(""+2, 1);
+		
+		
+		System.out.println(feria.mejorparticipante().getNombre());
+		System.out.println(feria.mejortrabajadoarea(""+0).gettitulo());
 		
 	}
 
