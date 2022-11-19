@@ -1,15 +1,17 @@
 package Logico;
 
-public class Miembro {
+public class Persona {
 	protected String Cedula;
 	protected String nombre;
 	protected String telefono;
-	public Miembro(String Cedula, String nombre, String telefono) {
+	
+	public Persona(String Cedula, String nombre, String telefono) {
 		super();
 		this.Cedula = Cedula;
 		this.nombre = nombre;
 		this.telefono = telefono;
 	}
+	
 	public String getCedula() {
 		return Cedula;
 	}

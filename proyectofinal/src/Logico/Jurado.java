@@ -2,7 +2,7 @@ package Logico;
 
 import java.util.ArrayList;
 
-public class Jurado extends Miembro{
+public class Jurado extends Persona{
 	
 	private String Codjurado;
 	private String areaespecializado;
