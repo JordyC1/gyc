@@ -28,9 +28,12 @@ public class Evento {
 	public void agregarcomision(Comision c) {
 		comisiones.add(c);
 	}
-	public void agregarecursos(Recurso r) {
-		recursos.add(r);
+	
+	public void agregarrecurso(Recurso cosa) {
+		recursos.add(cosa);
+		cosa.setUbicacion(ubicacion);
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -94,6 +97,5 @@ public class Evento {
 	public void setFechafinal(Date fechafinal) {
 		this.fechafinal = fechafinal;
 	}
-	
 	
 }

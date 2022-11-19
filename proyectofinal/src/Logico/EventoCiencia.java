@@ -272,5 +272,9 @@ public class EventoCiencia {
 		trab.agregarcalif(evaluacion);
 	}
 	
+	public void agregarrecursoevento(Recurso cosa, Evento event) {
+		event.agregarrecurso(cosa);
+	}
+	
 	
 }
