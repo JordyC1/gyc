@@ -24,8 +24,31 @@ public class EventoCiencia {
 		this.recursos = new ArrayList<>();
 		this.comisiones=new ArrayList<>();
 		this.eventos = new ArrayList<>();
+		
+		codjurado = 0;
+		codparticipante = 0;
+		codtrabajo = 0;
+		codrecurso = 0;
+		codevento = 0;
+		codcomision = 0;
 	}
 	
+	public int getCodtrabajo() {
+		return codtrabajo;
+	}
+
+	public void setCodtrabajo(int codtrabajo) {
+		this.codtrabajo = codtrabajo;
+	}
+
+	public int getCodcomision() {
+		return codcomision;
+	}
+
+	public void setCodcomision(int codcomision) {
+		this.codcomision = codcomision;
+	}
+
 	public int getCodjurado() {
 		return codjurado;
 	}
@@ -70,19 +93,13 @@ public class EventoCiencia {
 		return personas;
 	}
 
-
-
 	public void setMiembros(ArrayList<Persona> miembros) {
 		this.personas = miembros;
 	}
 
-
-
 	public ArrayList<Comision> getComisiones() {
 		return comisiones;
 	}
-
-
 
 	public void setComisiones(ArrayList<Comision> comisiones) {
 		this.comisiones = comisiones;
@@ -164,6 +181,24 @@ public class EventoCiencia {
 		return comi;
 	}
 	
+	public Trabajo buscatrabajo(String codigo) {
+		Trabajo trab = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < trabajos.size() && encontrado == false) {
+			if(trabajos.get(i).getCodigo().equals(codigo))
+			{
+				encontrado = true;
+				trab = trabajos.get(i);
+			}
+			
+			i++;
+		}
+		
+		return trab;
+	}
+	
 	public Participante buscaparticipante(String codigo) {
 		Participante parti = null;
 		boolean encontrado = false;
@@ -184,6 +219,8 @@ public class EventoCiencia {
 		
 		return parti;
 	}
+	
+	
 	
 /////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -220,13 +257,19 @@ public class EventoCiencia {
 		return mejorparticipante;
 	}
 	
-	public void agregartrabajo(String cod,String titulo, String codparticipante){
+	public void agregartrabajo(String cod,String titulo, String codparticipante, Comision comi){
 		Participante parti = buscaparticipante(codparticipante);
 		
 		Trabajo trabajo = new Trabajo(cod, parti, titulo);
 		
 		agregartrabajo(trabajo);
+		comi.agregartrabajos(trabajo);
 		parti.agregartrabajo(trabajo);
+	}
+	
+	public void evaluartrabajo(String codtrabajo, float evaluacion){
+		Trabajo trab = buscatrabajo(codtrabajo);
+		
 	}
 	
 	

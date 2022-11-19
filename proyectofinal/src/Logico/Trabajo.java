@@ -5,6 +5,7 @@ public class Trabajo {
 	private Participante propietario;
 	private float calificacion;
 	private String titulo;
+	private boolean primeracalificaion;
 	
 	public Trabajo(String codigo, Participante propietario, String titulo) {
 		super();
@@ -12,8 +13,10 @@ public class Trabajo {
 		this.propietario = propietario;
 		calificacion = 0;
 		this.titulo = titulo;
+		primeracalificaion = false;
 	}
 	
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -41,6 +44,17 @@ public class Trabajo {
 	
 	public void agregarcalif(float calif) {
 		this.calificacion=calif;
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void agregarcalificacion(float calif) {
+		if(primeracalificaion == false)
+		{
+			calificacion = (calif + calificacion);
+			primeracalificaion = true;
+		}
+		else
+			calificacion = (calif + calificacion) / 2;
 	}
 	
 }
