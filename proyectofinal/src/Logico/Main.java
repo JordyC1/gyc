@@ -8,7 +8,7 @@ public class Main {
 		EventoCiencia feria = new EventoCiencia();
 		
 		
-		Persona participante1 = new Participante("098","Javier","809-987",""+feria.getCodparticipante());
+		/*Persona participante1 = new Participante("098","Javier","809-987",""+feria.getCodparticipante());
 		feria.agregarpersonas(participante1);
 		Persona participante2 = new Participante("095","Julio","849-922",""+feria.getCodparticipante());
 		feria.agregarpersonas(participante2);
@@ -21,10 +21,6 @@ public class Main {
 		Persona jurado2 = new Jurado("095","lucas","829-922",""+feria.getCodjurado(),"matematic");
 		feria.agregarpersonas(jurado2); 
 		
-
-		
-		
-		
 		Comision comi1 = new Comision(""+feria.getCodcomision(),"fisica",(Jurado)jurado1);
 		feria.agregarcomisiones(comi1);
 		Comision comi2 = new Comision(""+feria.getCodcomision(),"matematic",(Jurado)jurado2);
@@ -32,10 +28,12 @@ public class Main {
 		
 		feria.agregartrabajo(""+feria.getCodtrabajo(), "Acelerador particular", ""+1, comi1);
 		feria.agregartrabajo(""+feria.getCodtrabajo(), "Volcan", ""+0,comi2);
-		feria.agregartrabajo(""+feria.getCodtrabajo(), "Sistema nervioso", ""+2,comi1);
+		feria.agregartrabajo(""+feria.getCodtrabajo(), "Sistema nervioso", ""+2,comi1);*/
 		
-		//feria.guardarpersona();
-		feria.cargarpersona();
+		
+		
+		//feria.guardartodo();
+		feria.cargartodo();
 		
 		/* 
 		feria.evaluartrabajo(""+0, 5);
@@ -56,6 +54,16 @@ public class Main {
 			
 		}
 		
+		System.out.println("\n");
+		for (Comision comi : feria.getComisiones()) {
+			System.out.println(comi.getArea() + " " + comi.getCodigo());
+			
+		}
+		
+		System.out.println("\n");
+		for (Trabajo trab : feria.getTrabajos()) {
+			System.out.println(trab.gettitulo() + " " + trab.getCodigo() + " " + trab.getPropietario().getNombre());
+		}	
 		
 		
 	}

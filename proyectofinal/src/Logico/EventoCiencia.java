@@ -283,7 +283,7 @@ public class EventoCiencia {
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//funciones para guardar y cargar
+	//funciones para guardar
 	
 	public void guardarpersona() throws IOException, ClassNotFoundException {
 		FileOutputStream f = new FileOutputStream ("Personas.dat");
@@ -299,6 +299,72 @@ public class EventoCiencia {
 		f.close();
 	}
 	
+	public void guardarcomision() throws IOException, ClassNotFoundException {
+		FileOutputStream f = new FileOutputStream ("comisiones.dat");
+		ObjectOutputStream guardador = new ObjectOutputStream(f);
+		
+		guardador.writeInt(comisiones.size());
+		
+		for(int i = 0; i < comisiones.size(); i ++) {
+			guardador.writeObject(comisiones.get(i));
+		}
+		
+		guardador.close();
+		f.close();
+	}
+	
+	public void guardarevento() throws IOException, ClassNotFoundException {
+		FileOutputStream f = new FileOutputStream ("eventos.dat");
+		ObjectOutputStream guardador = new ObjectOutputStream(f);
+		
+		guardador.writeInt(eventos.size());
+		
+		for(int i = 0; i < eventos.size(); i ++) {
+			guardador.writeObject(eventos.get(i));
+		}
+		
+		guardador.close();
+		f.close();
+	}
+	
+	public void guardarrecurso() throws IOException, ClassNotFoundException {
+		FileOutputStream f = new FileOutputStream ("recursos.dat");
+		ObjectOutputStream guardador = new ObjectOutputStream(f);
+		
+		guardador.writeInt(recursos.size());
+		
+		for(int i = 0; i < recursos.size(); i ++) {
+			guardador.writeObject(recursos.get(i));
+		}
+		
+		guardador.close();
+		f.close();
+	}
+	
+	public void guardartrabajo() throws IOException, ClassNotFoundException {
+		FileOutputStream f = new FileOutputStream ("trabajos.dat");
+		ObjectOutputStream guardador = new ObjectOutputStream(f);
+		
+		guardador.writeInt(trabajos.size());
+		
+		for(int i = 0; i < trabajos.size(); i ++) {
+			guardador.writeObject(trabajos.get(i));
+		}
+		
+		guardador.close();
+		f.close();
+	}
+	
+	public void guardartodo() throws IOException, ClassNotFoundException{
+		guardarcomision();
+		guardarevento();
+		guardarpersona();
+		guardarrecurso();
+		guardartrabajo();
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//funciones para cargar
+	
 	public void cargarpersona() throws IOException, ClassNotFoundException {
 		FileInputStream f = new FileInputStream ("Personas.dat");
 		ObjectInputStream cargador = new ObjectInputStream(f);
@@ -312,12 +378,64 @@ public class EventoCiencia {
 		f.close();
 	}
 	
-	public void guardartodo(){
+	public void cargarcomsision() throws IOException, ClassNotFoundException {
+		FileInputStream f = new FileInputStream ("comisiones.dat");
+		ObjectInputStream cargador = new ObjectInputStream(f);
+		int size = cargador.readInt();
 		
+		for (int i = 0; i < size; i++){	
+			Comision aux = (Comision)cargador.readObject();
+			comisiones.add(aux);
+		}
+		cargador.close();
+		f.close();
 	}
 	
-	public void cargartodo() {
+	public void cargarevento() throws IOException, ClassNotFoundException {
+		FileInputStream f = new FileInputStream ("eventos.dat");
+		ObjectInputStream cargador = new ObjectInputStream(f);
+		int size = cargador.readInt();
 		
+		for (int i = 0; i < size; i++){	
+			Evento aux = (Evento)cargador.readObject();
+			eventos.add(aux);
+		}
+		cargador.close();
+		f.close();
+	}
+	
+	public void cargarrecurso() throws IOException, ClassNotFoundException {
+		FileInputStream f = new FileInputStream ("recursos.dat");
+		ObjectInputStream cargador = new ObjectInputStream(f);
+		int size = cargador.readInt();
+		
+		for (int i = 0; i < size; i++){	
+			Recurso aux = (Recurso)cargador.readObject();
+			recursos.add(aux);
+		}
+		cargador.close();
+		f.close();
+	}
+	
+	public void cargartrabajo() throws IOException, ClassNotFoundException {
+		FileInputStream f = new FileInputStream ("trabajos.dat");
+		ObjectInputStream cargador = new ObjectInputStream(f);
+		int size = cargador.readInt();
+		
+		for (int i = 0; i < size; i++){	
+			Trabajo aux = (Trabajo)cargador.readObject();
+			trabajos.add(aux);
+		}
+		cargador.close();
+		f.close();
+	}
+	
+	public void cargartodo() throws IOException, ClassNotFoundException{
+		cargarcomsision();
+		cargarevento();
+		cargarpersona();
+		cargarrecurso();
+		cargartrabajo();
 	}
 	
 	

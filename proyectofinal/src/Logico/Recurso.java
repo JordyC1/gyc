@@ -1,6 +1,9 @@
 package Logico;
 
-public class Recurso {
+public class Recurso implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codigo;
 	private boolean disponible;
 	private String ubicacion;
