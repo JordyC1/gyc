@@ -1,12 +1,10 @@
 package Logico;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 
@@ -297,7 +295,7 @@ public class EventoCiencia {
 			guardador.writeObject(personas.get(i));
 		}
 		
-		//guardador.close();
+		guardador.close();
 		f.close();
 	}
 	
@@ -315,6 +313,7 @@ public class EventoCiencia {
 	}
 	
 	public void guardartodo(){
+		
 	}
 	
 	public void cargartodo() {

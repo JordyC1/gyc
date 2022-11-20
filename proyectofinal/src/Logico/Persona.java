@@ -1,8 +1,8 @@
 package Logico;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 
-public class Persona implements Serializable{
+public class Persona implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

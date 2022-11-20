@@ -3,6 +3,7 @@ package Logico;
 import java.util.ArrayList;
 
 public class Participante extends Persona{
+	
 	private ArrayList<Trabajo>trabajos;
 	private String codparticipante;
 	

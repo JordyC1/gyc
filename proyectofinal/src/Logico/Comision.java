@@ -2,7 +2,9 @@ package Logico;
 
 import java.util.ArrayList;
 
-public class Comision {
+public class Comision implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private String codigo;
 	private String area;

@@ -1,6 +1,9 @@
 package Logico;
 
-public class Trabajo {
+public class Trabajo implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codigo;
 	private Participante propietario;
 	private float calificacion;
