@@ -292,11 +292,12 @@ public class EventoCiencia {
 		ObjectOutputStream guardador = new ObjectOutputStream(f);
 		
 		guardador.writeInt(personas.size());
-		for (Persona person : personas) {
-			guardador.writeObject(person);
+		
+		for(int i = 0; i < personas.size(); i ++) {
+			guardador.writeObject(personas.get(i));
 		}
 		
-		guardador.close();
+		//guardador.close();
 		f.close();
 	}
 	
