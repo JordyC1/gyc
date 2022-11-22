@@ -177,7 +177,7 @@ public class RegEvento extends JDialog {
 		panel_2.add(lblNewLabel_9);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(69, 45, 184, 142);
+		scrollPane_2.setBounds(65, 29, 184, 158);
 		panel_2.add(scrollPane_2);
 		{
 			JPanel buttonPane = new JPanel();

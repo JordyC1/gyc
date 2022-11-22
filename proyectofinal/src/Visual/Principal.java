@@ -36,7 +36,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		setTitle("F\u00E9ria Cient\u00EDfica");
+		setTitle("Feria Cient\u00EDfica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 488, 323);
 		
