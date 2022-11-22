@@ -19,7 +19,6 @@ public class Recurso implements java.io.Serializable{
 		this.descripcion = descrip;
 	}
 	
-	
 	public String getDescripcion() {
 		return descripcion;
 	}

@@ -14,9 +14,13 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Logico.Comision;
+import Logico.Recurso;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -40,9 +44,16 @@ public class RegEvento extends JDialog {
 	private static DefaultTableModel model2;
 	private static DefaultTableModel model3;
 	private static DefaultTableModel model4;
+	
+	private ArrayList<Recurso> disponible;
+	private ArrayList<Recurso> agregados;
+	private ArrayList<Comision> comisionesagregadas;
+	
 	private JTable tableagregados;
 	private JButton btnAgregarComision;
 	private JTable tablaComisiones;
+	private JButton btnIsquierda;
+	private JButton btnDetecha;
 
 	/**
 	 * Launch the application.
@@ -167,6 +178,25 @@ public class RegEvento extends JDialog {
 		JLabel lblNewLabel_8 = new JLabel("Agregados:");
 		lblNewLabel_8.setBounds(382, 13, 84, 16);
 		panel_1.add(lblNewLabel_8);
+		
+		btnDetecha = new JButton(">>");
+		btnDetecha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		btnDetecha.setBounds(240, 63, 85, 25);
+		panel_1.add(btnDetecha);
+		
+		btnIsquierda = new JButton("<<");
+		btnIsquierda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnIsquierda.setBounds(240, 123, 85, 25);
+		panel_1.add(btnIsquierda);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
