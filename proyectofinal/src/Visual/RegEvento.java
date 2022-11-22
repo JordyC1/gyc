@@ -41,6 +41,8 @@ public class RegEvento extends JDialog {
 	private static DefaultTableModel model3;
 	private static DefaultTableModel model4;
 	private JTable tableagregados;
+	private JButton btnAgregarComision;
+	private JTable tablaComisiones;
 
 	/**
 	 * Launch the application.
@@ -108,7 +110,7 @@ public class RegEvento extends JDialog {
 		txtNombre.setColumns(10);
 		
 		spnCupo = new JSpinner();
-		spnCupo.setBounds(326, 10, 61, 22);
+		spnCupo.setBounds(353, 10, 61, 22);
 		panel.add(spnCupo);
 		
 		txtUbicacion = new JTextField();
@@ -159,11 +161,11 @@ public class RegEvento extends JDialog {
 		tableagregados.setModel(model2);
 		
 		JLabel lblNewLabel_7 = new JLabel("Disponibles:");
-		lblNewLabel_7.setBounds(61, 13, 84, 16);
+		lblNewLabel_7.setBounds(99, 13, 84, 16);
 		panel_1.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("Agregados:");
-		lblNewLabel_8.setBounds(344, 13, 84, 16);
+		lblNewLabel_8.setBounds(382, 13, 84, 16);
 		panel_1.add(lblNewLabel_8);
 		
 		JPanel panel_2 = new JPanel();
@@ -177,8 +179,27 @@ public class RegEvento extends JDialog {
 		panel_2.add(lblNewLabel_9);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(65, 29, 184, 158);
+		scrollPane_2.setBounds(247, 29, 334, 158);
 		panel_2.add(scrollPane_2);
+		
+		model3 = new DefaultTableModel();
+		String[] columnas1 = {"Código","Área","Presidente"};
+		model3.setColumnIdentifiers(columnas1);
+		tablaComisiones = new JTable();
+		scrollPane_2.setViewportView(tablaComisiones);
+		tablaComisiones.setModel(model3);
+		
+		btnAgregarComision = new JButton("Agregar");
+		btnAgregarComision.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAgregarComision.setBounds(80, 90, 97, 25);
+		panel_2.add(btnAgregarComision);
+		
+		JLabel lblNewLabel_10 = new JLabel("Seleccionados:");
+		lblNewLabel_10.setBounds(366, 10, 97, 16);
+		panel_2.add(lblNewLabel_10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

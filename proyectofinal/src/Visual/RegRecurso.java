@@ -24,6 +24,8 @@ import Logico.Recurso;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.JEditorPane;
 
 public class RegRecurso extends JDialog {
 
@@ -33,6 +35,8 @@ public class RegRecurso extends JDialog {
 	private JTextField txtCodigo;
 	private JTextField txtUbicacion;
 	private JComboBox BoxTipo;
+	private JLabel label4;
+	private JEditorPane ptxtDescripcion;
 
 	/**
 	 * Launch the application.
@@ -52,7 +56,7 @@ public class RegRecurso extends JDialog {
 	 */
 	public RegRecurso() {
 		setTitle("Agregar recurso");
-		setBounds(100, 100, 378, 212);
+		setBounds(100, 100, 334, 317);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,21 +77,34 @@ public class RegRecurso extends JDialog {
 		
 		txtCodigo = new JTextField();
 		txtCodigo.setEditable(false);
-		txtCodigo.setBounds(63, 17, 116, 22);
+		txtCodigo.setBounds(80, 17, 116, 22);
 		contentPanel.add(txtCodigo);
 		txtCodigo.setColumns(10);
 		txtCodigo.setText("Recur-"+EventoCiencia.getInstance().getCodrecurso());
 		
 		txtUbicacion = new JTextField();
-		txtUbicacion.setBounds(73, 51, 226, 22);
+		txtUbicacion.setBounds(80, 52, 226, 22);
 		contentPanel.add(txtUbicacion);
 		txtUbicacion.setColumns(10);
 		
 		BoxTipo = new JComboBox();
 		BoxTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Microfono", "Bocina", "Pantalla", "Cable HDMI a HDMI", "Cable tipo C a HDMI", "Cable VGA a HDMI"}));
 		BoxTipo.setToolTipText("");
-		BoxTipo.setBounds(50, 87, 141, 22);
+		BoxTipo.setBounds(80, 87, 141, 22);
 		contentPanel.add(BoxTipo);
+		
+		label4 = new JLabel("Descripci\u00F3n:");
+		label4.setBounds(12, 125, 99, 16);
+		contentPanel.add(label4);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(12, 146, 292, 72);
+		contentPanel.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		ptxtDescripcion = new JEditorPane();
+		panel.add(ptxtDescripcion, BorderLayout.CENTER);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -118,7 +135,7 @@ public class RegRecurso extends JDialog {
 	}
 	
 	public void registrarrecurso() {
-		Recurso rec = new Recurso(txtCodigo.getText(),true, txtUbicacion.getText(), BoxTipo.getSelectedItem().toString());
+		Recurso rec = new Recurso(txtCodigo.getText(),true, txtUbicacion.getText(), BoxTipo.getSelectedItem().toString(),ptxtDescripcion.getText());
 		EventoCiencia.getInstance().agregarrecurso(rec);
 		
 		JOptionPane.showMessageDialog(null, "Recurso agregado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);

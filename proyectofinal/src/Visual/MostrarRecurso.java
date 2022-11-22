@@ -33,6 +33,7 @@ public class MostrarRecurso extends JDialog {
 	
 	private static Object[] rows;
 	private static DefaultTableModel model;
+	private JButton btnDescrip;
 
 	/**
 	 * Launch the application.
@@ -78,6 +79,7 @@ public class MostrarRecurso extends JDialog {
 							rowSelected = table.getSelectedRow();
 							if(rowSelected>=0){
 							   btnEliminar.setEnabled(true);
+							   btnDescrip.setEnabled(true);
 							   recur = EventoCiencia.getInstance().buscarrecurso(table.getValueAt(rowSelected, 0).toString());
 							}
 						}
@@ -102,6 +104,7 @@ public class MostrarRecurso extends JDialog {
 						JOptionPane.showMessageDialog(null, "Recurso eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 						cargardatos();
 						btnEliminar.setEnabled(false);
+
 					}
 				});
 				btnEliminar.setActionCommand("OK");
@@ -115,6 +118,17 @@ public class MostrarRecurso extends JDialog {
 						dispose();
 					}
 				});
+				{
+					btnDescrip = new JButton("Descripci\u00F3n");
+					btnDescrip.setEnabled(false);
+					btnDescrip.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							JOptionPane.showMessageDialog(null, recur.getDescripcion(), "Descripción", JOptionPane.INFORMATION_MESSAGE);
+							  btnDescrip.setEnabled(false);
+						}
+					});
+					buttonPane.add(btnDescrip);
+				}
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}

@@ -8,14 +8,25 @@ public class Recurso implements java.io.Serializable{
 	private boolean disponible;
 	private String ubicacion;
 	private String tipo;
+	private String descripcion;
 
-	public Recurso(String codigo, boolean disponible, String ubicacion, String tipo) {
+	public Recurso(String codigo, boolean disponible, String ubicacion, String tipo, String descrip) {
 		super();
 		this.codigo = codigo;
 		this.disponible = disponible;
 		this.ubicacion = ubicacion;
 		this.tipo = tipo;
+		this.descripcion = descrip;
 	}
+	
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
