@@ -32,12 +32,12 @@ public class EventoCiencia {
 		this.comisiones=new ArrayList<>();
 		this.eventos = new ArrayList<>();
 		
-		codjurado = 0;
-		codparticipante = 0;
-		codtrabajo = 0;
-		codrecurso = 0;
-		codevento = 0;
-		codcomision = 0;
+		codjurado = 1;
+		codparticipante = 1;
+		codtrabajo = 1;
+		codrecurso = 1;
+		codevento = 1;
+		codcomision = 1;
 	}
 	
 	public static EventoCiencia getInstance(){
@@ -234,6 +234,24 @@ public class EventoCiencia {
 		return parti;
 	}
 	
+	
+	public Recurso buscarrecurso(String codigo) {
+		Recurso recu = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < recursos.size() && encontrado == false) {
+			if(recursos.get(i).getCodigo().equals(codigo))
+			{
+				encontrado = true;
+				recu = recursos.get(i);
+			}
+			
+			i++;
+		}
+		
+		return recu;
+	}
 	
 	
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,6 +462,34 @@ public class EventoCiencia {
 		cargarpersona();
 		cargarrecurso();
 		cargartrabajo();
+	}
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Funciones de eliminacion
+	
+	public void eliminarRecurso(String codigo) {
+		int ind = indRecurso(codigo);
+		
+		if(ind != -1)
+			recursos.remove(ind);
+	}
+	
+	public int indRecurso(String codigo) {
+		int posi = -1;
+		int i = 0;
+		boolean seguir = true;
+		
+		while(i < recursos.size() && seguir == true)
+		{
+			if(recursos.get(i).getCodigo().equals(codigo))
+			{
+				posi = i;
+				seguir = false;
+			}	
+			i++;
+		}
+		
+		return posi;
 	}
 	
 	
