@@ -14,6 +14,7 @@ public class EventoCiencia {
 	private ArrayList<Evento>eventos;
 	private ArrayList<Recurso>recursos;
 	private ArrayList<Comision>comisiones;
+	private static EventoCiencia event = null;
 	
 	private int codjurado;
 	private int codparticipante;
@@ -37,6 +38,13 @@ public class EventoCiencia {
 		codrecurso = 0;
 		codevento = 0;
 		codcomision = 0;
+	}
+	
+	public static EventoCiencia getInstance(){
+		   if(event == null){
+			 event = new EventoCiencia();  
+		   } 	   
+		   return event;
 	}
 	
 	public int getCodtrabajo() {
