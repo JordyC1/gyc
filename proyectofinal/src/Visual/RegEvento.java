@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -20,6 +21,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Comision;
+import Logico.Evento;
 import Logico.EventoCiencia;
 import Logico.Recurso;
 
@@ -121,9 +123,11 @@ public class RegEvento extends JDialog {
 		panel.add(lblNewLabel_5);
 		
 		txtCodigo = new JTextField();
+		txtCodigo.setEnabled(false);
 		txtCodigo.setBounds(71, 10, 116, 22);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
+		txtCodigo.setText("Event-"+EventoCiencia.getInstance().getCodevento());
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(71, 55, 187, 22);
@@ -280,6 +284,11 @@ public class RegEvento extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnAgregar = new JButton("Agregar");
+				btnAgregar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						agregarevento();
+					}
+				});
 				btnAgregar.setActionCommand("OK");
 				buttonPane.add(btnAgregar);
 				getRootPane().setDefaultButton(btnAgregar);
@@ -297,6 +306,8 @@ public class RegEvento extends JDialog {
 		}
 		cargardatos();
 	}
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void cargardatos() {
 		model.setRowCount(0);
@@ -323,6 +334,31 @@ public class RegEvento extends JDialog {
 		
 	}
 	
+	public void agregarevento(){
+		
+		Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
+				, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
+				Integer.parseInt(spnCupo.getValue().toString()));
+		
+		//aux.setComisiones(comisiones);
+		aux.setRecursos(agregados);
+		EventoCiencia.getInstance().agregarevento(aux);
+		
+		JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		clear();
+	}
+	
+	
+	public void clear(){
+		txtCodigo.setText("Event-"+EventoCiencia.getInstance().getCodevento());
+		txtNombre.setText("");
+		txtUbicacion.setText("");
+		
+		spnCupo.setValue(Integer.valueOf(0));
+		//spnFechaInicio.setValue(value);
+		//spnFechaFin.setValue(value);
+	}
+	
 	public int inddisponible(Recurso rec) {
 		int i = 0;
 		boolean encontrado = false;
@@ -340,7 +376,6 @@ public class RegEvento extends JDialog {
 	
 	public void eliminardisponible(Recurso rec) {
 		int ind = inddisponible(rec);
-		System.out.println(ind);
 		disponible.remove(ind);
 	}
 	

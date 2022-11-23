@@ -146,5 +146,6 @@ public class RegRecurso extends JDialog {
 		txtCodigo.setText("Recur-"+EventoCiencia.getInstance().getCodrecurso());
 		txtUbicacion.setText("");
 		BoxTipo.setSelectedIndex(0);
+		ptxtDescripcion.setText("");
 	}
 }

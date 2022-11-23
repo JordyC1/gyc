@@ -103,6 +103,13 @@ public class MostrarEvento extends JDialog {
 			}
 			{
 				btnRecursos = new JButton("Recursos");
+				btnRecursos.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						MostrarRecurso aux = new MostrarRecurso(event.getRecursos());
+						aux.setModal(true);
+						aux.setVisible(true);
+					}
+				});
 				btnRecursos.setEnabled(false);
 				buttonPane.add(btnRecursos);
 			}

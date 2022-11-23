@@ -10,13 +10,13 @@ public class Evento implements java.io.Serializable{
 	private String nombre;
 	private String codigo;
 	private String ubicacion;
-	private Date fechainicio;
-	private Date fechafinal;
+	private String fechainicio;
+	private String fechafinal;
 	private int cupo;
 	private ArrayList<Recurso>recursos;
 	private ArrayList<Comision>comisiones;
 	
-	public Evento(String nombre, String codigo,String ubicacion, Date fechainicio,Date fechafinal,int cupo) {
+	public Evento(String nombre, String codigo,String ubicacion, String fechainicio,String fechafinal,int cupo) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
@@ -36,6 +36,7 @@ public class Evento implements java.io.Serializable{
 	public void agregarrecurso(Recurso cosa) {
 		recursos.add(cosa);
 		cosa.setUbicacion(ubicacion);
+		cosa.setdisponible(false);
 	}
 	
 	public String getNombre() {
@@ -70,8 +71,10 @@ public class Evento implements java.io.Serializable{
 		return recursos;
 	}
 
-	public void setRecursos(ArrayList<Recurso> recursos) {
-		this.recursos = recursos;
+	public void setRecursos(ArrayList<Recurso> recursoss) {
+		for (Recurso recurso : recursoss) {
+			agregarrecurso(recurso);
+		}
 	}
 
 	public ArrayList<Comision> getComisiones() {
@@ -86,19 +89,19 @@ public class Evento implements java.io.Serializable{
 		this.codigo = codigo;
 	}
 
-	public Date getFechainicio() {
+	public String getFechainicio() {
 		return fechainicio;
 	}
 
-	public void setFechainicio(Date fechainicio) {
+	public void setFechainicio(String fechainicio) {
 		this.fechainicio = fechainicio;
 	}
 
-	public Date getFechafinal() {
+	public String getFechafinal() {
 		return fechafinal;
 	}
 
-	public void setFechafinal(Date fechafinal) {
+	public void setFechafinal(String fechafinal) {
 		this.fechafinal = fechafinal;
 	}
 	
