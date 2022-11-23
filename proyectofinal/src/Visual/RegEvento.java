@@ -20,11 +20,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Comision;
+import Logico.EventoCiencia;
 import Logico.Recurso;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.BevelBorder;
 
 public class RegEvento extends JDialog {
 
@@ -43,7 +47,6 @@ public class RegEvento extends JDialog {
 	private static DefaultTableModel model;
 	private static DefaultTableModel model2;
 	private static DefaultTableModel model3;
-	private static DefaultTableModel model4;
 	
 	private ArrayList<Recurso> disponible;
 	private ArrayList<Recurso> agregados;
@@ -53,7 +56,10 @@ public class RegEvento extends JDialog {
 	private JButton btnAgregarComision;
 	private JTable tablaComisiones;
 	private JButton btnIsquierda;
-	private JButton btnDetecha;
+	private JButton btnDerecha;
+	
+	private Recurso rec1;
+	private Recurso rec2;
 
 	/**
 	 * Launch the application.
@@ -72,6 +78,10 @@ public class RegEvento extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegEvento() {
+		disponible = new ArrayList<>();
+		agregados = new ArrayList<>();
+		disponible.addAll(EventoCiencia.getInstance().getRecursos());
+		
 		setTitle("Agregar evento");
 		setBounds(100, 100, 651, 671);
 		getContentPane().setLayout(new BorderLayout());
@@ -150,52 +160,82 @@ public class RegEvento extends JDialog {
 		panel_1.add(lblNewLabel_6);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(61, 30, 161, 162);
+		scrollPane.setBounds(41, 29, 210, 162);
 		panel_1.add(scrollPane);
 		
 		model = new DefaultTableModel();
 		String[] columnas = {"Código","Tipo"};
 		model.setColumnIdentifiers(columnas);
 		tabledisponible = new JTable();
+		tabledisponible.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int rowSelected = -1;
+				rowSelected = tabledisponible.getSelectedRow();
+				if(rowSelected>=0){
+					btnDerecha.setEnabled(true);
+					rec1 = EventoCiencia.getInstance().buscarrecurso(tabledisponible.getValueAt(rowSelected, 0).toString());
+				}
+			}
+		});
 		scrollPane.setViewportView(tabledisponible);
 		tabledisponible.setModel(model);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(344, 30, 161, 162);
+		scrollPane_1.setBounds(372, 29, 210, 162);
 		panel_1.add(scrollPane_1);
 		
 		model2 = new DefaultTableModel();
 		//String[] columnas1 = {"Código","Tipo"};
 		model2.setColumnIdentifiers(columnas);
 		tableagregados = new JTable();
+		tableagregados.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int rowSelected = -1;
+				rowSelected = tableagregados.getSelectedRow();
+				if(rowSelected>=0){
+					btnIsquierda.setEnabled(true);
+					rec2 = EventoCiencia.getInstance().buscarrecurso(tableagregados.getValueAt(rowSelected, 0).toString());
+				}
+			}
+		});
 		scrollPane_1.setViewportView(tableagregados);
 		tableagregados.setModel(model2);
 		
 		JLabel lblNewLabel_7 = new JLabel("Disponibles:");
-		lblNewLabel_7.setBounds(99, 13, 84, 16);
+		lblNewLabel_7.setBounds(104, 13, 84, 16);
 		panel_1.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("Agregados:");
-		lblNewLabel_8.setBounds(382, 13, 84, 16);
+		lblNewLabel_8.setBounds(435, 13, 84, 16);
 		panel_1.add(lblNewLabel_8);
 		
-		btnDetecha = new JButton(">>");
-		btnDetecha.addActionListener(new ActionListener() {
+		btnDerecha = new JButton(">>");
+		btnDerecha.setEnabled(false);
+		btnDerecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				agregados.add(rec1);
+				eliminardisponible(rec1);
+				btnDerecha.setEnabled(false);
+				cargardatos();
 				
 			}
 		});
-		btnDetecha.setBounds(240, 63, 85, 25);
-		panel_1.add(btnDetecha);
+		btnDerecha.setBounds(268, 62, 85, 25);
+		panel_1.add(btnDerecha);
 		
 		btnIsquierda = new JButton("<<");
+		btnIsquierda.setEnabled(false);
 		btnIsquierda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				disponible.add(rec2);
+				eliminaragregado(rec2);
+				btnIsquierda.setEnabled(false);
+				cargardatos();		
 			}
 		});
-		btnIsquierda.setBounds(240, 123, 85, 25);
+		btnIsquierda.setBounds(268, 122, 85, 25);
 		panel_1.add(btnIsquierda);
 		
 		JPanel panel_2 = new JPanel();
@@ -222,6 +262,9 @@ public class RegEvento extends JDialog {
 		btnAgregarComision = new JButton("Agregar");
 		btnAgregarComision.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				RegComision aux = new RegComision();
+				aux.setModal(true);
+				aux.setVisible(true);
 			}
 		});
 		btnAgregarComision.setBounds(80, 90, 97, 25);
@@ -232,6 +275,7 @@ public class RegEvento extends JDialog {
 		panel_2.add(lblNewLabel_10);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -251,5 +295,74 @@ public class RegEvento extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		cargardatos();
 	}
+	
+	public void cargardatos() {
+		model.setRowCount(0);
+		model2.setRowCount(0);
+		rows = new Object[model.getColumnCount()];
+		
+		//Recurso disponibles
+		for (Recurso rec : disponible) {
+			if(rec.getdisponible() == true)
+			{
+				rows[0] = rec.getCodigo();
+				rows[1] = rec.getTipo();
+				model.addRow(rows);	
+			}
+			
+		}
+		
+		//Recurso seleccionado
+		for (Recurso rec : agregados) {
+			rows[0] = rec.getCodigo();
+			rows[1] = rec.getTipo();
+			model2.addRow(rows);	
+		}
+		
+	}
+	
+	public int inddisponible(Recurso rec) {
+		int i = 0;
+		boolean encontrado = false;
+		
+		while(i < disponible.size() && encontrado == false) {
+			if(disponible.get(i).getCodigo().equals(rec.getCodigo()))
+			{
+				encontrado = true;
+			}
+			i++;
+		}
+		
+		return i-1;
+	}
+	
+	public void eliminardisponible(Recurso rec) {
+		int ind = inddisponible(rec);
+		System.out.println(ind);
+		disponible.remove(ind);
+	}
+	
+	public int indagregado(Recurso rec) {
+		int i = 0;
+		boolean encontrado = false;
+		
+		while(i < agregados.size() && encontrado == false) {
+			if(agregados.get(i).getCodigo().equals(rec.getCodigo()))
+			{
+				encontrado = true;
+			}
+			i++;
+		}
+		
+		return i-1;
+	}
+	
+	public void eliminaragregado(Recurso rec) {
+		int ind = indagregado(rec);
+		
+		agregados.remove(ind);
+	}
+	
 }
