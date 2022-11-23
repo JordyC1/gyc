@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MostrarRecurso extends JDialog {
 
@@ -40,7 +41,7 @@ public class MostrarRecurso extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			MostrarRecurso dialog = new MostrarRecurso();
+			MostrarRecurso dialog = new MostrarRecurso(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -51,7 +52,7 @@ public class MostrarRecurso extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarRecurso() {
+	public MostrarRecurso(ArrayList<Recurso> recaux) {
 		setTitle("Recursos");
 		setBounds(100, 100, 544, 349);
 		getContentPane().setLayout(new BorderLayout());
@@ -102,7 +103,7 @@ public class MostrarRecurso extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						EventoCiencia.getInstance().eliminarRecurso(recur.getCodigo());
 						JOptionPane.showMessageDialog(null, "Recurso eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-						cargardatos();
+						cargardatos(recaux);
 						btnEliminar.setEnabled(false);
 
 					}
@@ -133,27 +134,44 @@ public class MostrarRecurso extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
-		cargardatos();
+		cargardatos(recaux);
 	}
 	
-	public void cargardatos() {
+	public void cargardatos(ArrayList<Recurso> recaux) {
 		model.setRowCount(0);
 		rows = new Object[model.getColumnCount()];
 		
-		for (int i = 0; i < EventoCiencia.getInstance().getRecursos().size(); i++) {
-		  
-			rows[0] = EventoCiencia.getInstance().getRecursos().get(i).getCodigo();
-			rows[1] = EventoCiencia.getInstance().getRecursos().get(i).getTipo();
-			
-			if(EventoCiencia.getInstance().getRecursos().get(i).getdisponible() == true)
-				rows[2] = "Disponible";
-			else
-				rows[2] = "No disponible";
-			
-			rows[3] = EventoCiencia.getInstance().getRecursos().get(i).getUbicacion();
-		   
-		   model.addRow(rows);
+		if(recaux == null)
+		{
+			for (int i = 0; i < EventoCiencia.getInstance().getRecursos().size(); i++) {
+				  
+				rows[0] = EventoCiencia.getInstance().getRecursos().get(i).getCodigo();
+				rows[1] = EventoCiencia.getInstance().getRecursos().get(i).getTipo();
+				
+				if(EventoCiencia.getInstance().getRecursos().get(i).getdisponible() == true)
+					rows[2] = "Disponible";
+				else
+					rows[2] = "No disponible";
+				
+				rows[3] = EventoCiencia.getInstance().getRecursos().get(i).getUbicacion();
+			   
+			   model.addRow(rows);
+			}
 		}
+			
+		else
+		{
+			for (int i = 0; i < recaux.size(); i++) {
+				  
+				rows[0] = recaux.get(i).getCodigo();
+				rows[1] = recaux.get(i).getTipo();
+				rows[2] = "No disponible";
+				rows[3] = recaux.get(i).getUbicacion();
+			   
+			   model.addRow(rows);
+			}
+		}
+			
 	}
 
 }

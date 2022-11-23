@@ -253,6 +253,24 @@ public class EventoCiencia {
 		return recu;
 	}
 	
+	public Evento buscarevento(String codigo) {
+		Evento event = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < eventos.size() && encontrado == false) {
+			if(eventos.get(i).getCodigo().equals(codigo))
+			{
+				encontrado = true;
+				event = eventos.get(i);
+			}
+			
+			i++;
+		}
+		
+		return event;
+	}
+	
 	
 /////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -308,6 +326,7 @@ public class EventoCiencia {
 		event.agregarrecurso(cosa);
 	}
 
+	/*
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//funciones para guardar
 	
@@ -464,6 +483,7 @@ public class EventoCiencia {
 		cargartrabajo();
 	}
 	
+	*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Funciones de eliminacion
 	

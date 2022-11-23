@@ -33,7 +33,7 @@ public class Main {
 		
 		
 		//feria.guardartodo();
-		feria.cargartodo();
+		//feria.cargartodo();
 		
 		/* 
 		feria.evaluartrabajo(""+0, 5);

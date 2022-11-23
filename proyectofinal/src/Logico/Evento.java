@@ -27,7 +27,8 @@ public class Evento implements java.io.Serializable{
 		this.comisiones = new ArrayList<>();
 		this.recursos = new ArrayList<>();
 	}
-
+	
+	
 	public void agregarcomision(Comision c) {
 		comisiones.add(c);
 	}
