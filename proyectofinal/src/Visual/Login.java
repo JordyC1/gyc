@@ -51,7 +51,6 @@ public class Login extends JFrame {
 					EventoCiencia.setCiencia(aux);
 					feria.close();
 					ferialeer.close();
-					
 				} catch (FileNotFoundException e) {
 					try {
 						feria2 = new  FileOutputStream("feria.dat");
