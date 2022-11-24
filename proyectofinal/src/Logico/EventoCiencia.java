@@ -5,10 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class EventoCiencia {
+public class EventoCiencia implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<Usuario> usuarios;
+	private Usuario nowuser;
+	
 	private ArrayList<Persona>personas;
 	private ArrayList<Trabajo>trabajos;
 	private ArrayList<Evento>eventos;
@@ -26,6 +33,7 @@ public class EventoCiencia {
 	
 	public EventoCiencia() {
 		super();
+		this.usuarios = new ArrayList<>();
 		this.personas= new ArrayList<>();
 		this.trabajos = new ArrayList<>();
 		this.recursos = new ArrayList<>();
@@ -47,6 +55,27 @@ public class EventoCiencia {
 		   return event;
 	}
 	
+	public static void setCiencia(EventoCiencia aux) {
+		EventoCiencia.event = aux;
+	}
+	
+	
+	public Usuario getUser() {
+		return nowuser;
+	}
+
+	public void setUser(Usuario user) {
+		this.nowuser = user;
+	}
+
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(ArrayList<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
 	public int getCodtrabajo() {
 		return codtrabajo;
 	}
@@ -107,7 +136,7 @@ public class EventoCiencia {
 		return personas;
 	}
 
-	public void serPersonas(ArrayList<Persona> persona) {
+	public void setPersonas(ArrayList<Persona> persona) {
 		this.personas = persona;
 	}
 
@@ -172,6 +201,10 @@ public class EventoCiencia {
 	public void agregarcomisiones(Comision comicion) {
 		comisiones.add(comicion);
 		codcomision++;
+	}
+	
+	public void reguser(Usuario aux) {
+		usuarios.add(aux);
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -326,7 +359,7 @@ public class EventoCiencia {
 		event.agregarrecurso(cosa);
 	}
 
-	
+	/*
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//funciones para guardar
 	
@@ -481,7 +514,7 @@ public class EventoCiencia {
 		cargarpersona();
 		cargarrecurso();
 		cargartrabajo();
-	}
+	}*/
 	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -510,6 +543,17 @@ public class EventoCiencia {
 		}
 		
 		return posi;
+	}
+	
+	public boolean confirmLogin(String usuar, String contra) {
+		boolean login = false;
+		for (Usuario user : usuarios) {
+			if(user.getUser().equals(usuar) && user.getContrasena().equals(contra)){
+				nowuser = user;
+				login = true;
+			}
+		}
+		return login;
 	}
 	
 	

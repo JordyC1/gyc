@@ -353,7 +353,7 @@ public class RegEvento extends JDialog {
 				JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Debe colocar un título!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe colocar un nombre!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 	

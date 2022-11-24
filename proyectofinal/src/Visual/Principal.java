@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	private Dimension dim = null;
 
 	/**
 	 * Launch the application.
@@ -39,6 +41,8 @@ public class Principal extends JFrame {
 		setTitle("Feria Cient\u00EDfica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 488, 323);
+		dim = getToolkit().getScreenSize();
+		//setSize(dim.width, dim.height-40);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
