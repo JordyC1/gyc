@@ -135,11 +135,22 @@ public class RegRecurso extends JDialog {
 	}
 	
 	public void registrarrecurso() {
-		Recurso rec = new Recurso(txtCodigo.getText(),true, txtUbicacion.getText(), BoxTipo.getSelectedItem().toString(),ptxtDescripcion.getText());
-		EventoCiencia.getInstance().agregarrecurso(rec);
 		
-		JOptionPane.showMessageDialog(null, "Recurso agregado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-		clear();
+		if(!(txtUbicacion.getText().equals("")))
+		{
+			if(BoxTipo.getSelectedIndex() != 0) 
+			{
+				Recurso rec = new Recurso(txtCodigo.getText(),true, txtUbicacion.getText(), BoxTipo.getSelectedItem().toString(),ptxtDescripcion.getText());
+				EventoCiencia.getInstance().agregarrecurso(rec);
+				JOptionPane.showMessageDialog(null, "Recurso agregado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				clear();
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else
+			JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		
 	}
 	
 	public void clear() {

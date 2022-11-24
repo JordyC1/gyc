@@ -336,16 +336,25 @@ public class RegEvento extends JDialog {
 	
 	public void agregarevento(){
 		
-		Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
-				, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
-				Integer.parseInt(spnCupo.getValue().toString()));
+		if(!(txtNombre.getText().equals("")))
+		{
+			if(!(txtUbicacion.getText().equals("")))
+			{
+				Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
+						, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
+						Integer.parseInt(spnCupo.getValue().toString()));
+				//aux.setComisiones(comisiones);
+				aux.setRecursos(agregados);
+				EventoCiencia.getInstance().agregarevento(aux);
+				JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				clear();
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else
+			JOptionPane.showMessageDialog(null, "Debe colocar un título!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		
-		//aux.setComisiones(comisiones);
-		aux.setRecursos(agregados);
-		EventoCiencia.getInstance().agregarevento(aux);
-		
-		JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-		clear();
 	}
 	
 	
@@ -354,7 +363,9 @@ public class RegEvento extends JDialog {
 		txtNombre.setText("");
 		txtUbicacion.setText("");
 		
+		agregados.clear();
 		spnCupo.setValue(Integer.valueOf(0));
+		cargardatos();
 		//spnFechaInicio.setValue(value);
 		//spnFechaFin.setValue(value);
 	}
