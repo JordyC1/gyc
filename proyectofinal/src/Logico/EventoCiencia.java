@@ -60,6 +60,10 @@ public class EventoCiencia implements Serializable{
 		comisionesaux.add(com);
 	}
 	
+	public ArrayList<Comision> getcomisionesaux() {
+		return comisionesaux;
+	}
+	
 	public static void setCiencia(EventoCiencia aux) {
 		EventoCiencia.event = aux;
 	}

@@ -62,6 +62,7 @@ public class RegEvento extends JDialog {
 	
 	private Recurso rec1;
 	private Recurso rec2;
+	private JButton btnEliminar;
 
 	/**
 	 * Launch the application.
@@ -271,12 +272,16 @@ public class RegEvento extends JDialog {
 				aux.setVisible(true);
 			}
 		});
-		btnAgregarComision.setBounds(80, 90, 97, 25);
+		btnAgregarComision.setBounds(68, 55, 97, 25);
 		panel_2.add(btnAgregarComision);
 		
 		JLabel lblNewLabel_10 = new JLabel("Seleccionados:");
 		lblNewLabel_10.setBounds(366, 10, 97, 16);
 		panel_2.add(lblNewLabel_10);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(68, 125, 97, 25);
+		panel_2.add(btnEliminar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -287,6 +292,7 @@ public class RegEvento extends JDialog {
 				btnAgregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						agregarevento();
+						cargardatos();
 					}
 				});
 				btnAgregar.setActionCommand("OK");
@@ -312,6 +318,8 @@ public class RegEvento extends JDialog {
 	public void cargardatos() {
 		model.setRowCount(0);
 		model2.setRowCount(0);
+		model3.setRowCount(0);
+		
 		rows = new Object[model.getColumnCount()];
 		
 		//Recurso disponibles
@@ -332,6 +340,18 @@ public class RegEvento extends JDialog {
 			model2.addRow(rows);	
 		}
 		
+		//Comisiones seleccionadas
+		System.out.println(EventoCiencia.getInstance().getcomisionesaux().size());
+		for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+		{
+			rows[0] = com.getCodigo();
+			rows[1] = com.getArea();
+			rows[2] = com.getPresidente().getNombre();
+			
+			model3.addRow(rows);	
+
+		}
+		
 	}
 	
 	public void agregarevento(){
@@ -340,14 +360,27 @@ public class RegEvento extends JDialog {
 		{
 			if(!(txtUbicacion.getText().equals("")))
 			{
-				Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
-						, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
-						Integer.parseInt(spnCupo.getValue().toString()));
-				//aux.setComisiones(comisiones);
-				aux.setRecursos(agregados);
-				EventoCiencia.getInstance().agregarevento(aux);
-				JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-				clear();
+				if(EventoCiencia.getInstance().getcomisionesaux().size() != 0)
+				{
+					Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
+							, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
+							Integer.parseInt(spnCupo.getValue().toString()));
+					aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
+					aux.setRecursos(agregados);
+					EventoCiencia.getInstance().agregarevento(aux);
+					JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+					clear();
+					
+					//guardar las comisiones en la comision genral
+					for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+					{
+						EventoCiencia.getInstance().agregarcomisiones(com);
+					}
+					
+					EventoCiencia.getInstance().getcomisionesaux().clear();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 				JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -410,5 +443,4 @@ public class RegEvento extends JDialog {
 		
 		agregados.remove(ind);
 	}
-	
 }
