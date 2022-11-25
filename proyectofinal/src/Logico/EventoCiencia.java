@@ -588,7 +588,7 @@ public class EventoCiencia implements Serializable{
 	
 	public boolean confirmLogin(String usuar, String contra) {
 		boolean login = false;
-		System.out.println(usuarios.size());
+		//System.out.println(usuarios.size());
 		for (Usuario user : usuarios) {
 			if(user.getUser().equals(usuar) && user.getContrasena().equals(contra)){
 				nowuser = user;
