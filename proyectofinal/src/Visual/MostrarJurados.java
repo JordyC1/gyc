@@ -98,6 +98,7 @@ public class MostrarJurados extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					RegPersona regjur= new RegPersona(juradoselect);
 					regjur.setVisible(true);
+					regjur.setModal(true);
 					btneliminar.setEnabled(false);
 					btnmodificar.setEnabled(false);
 					btncomisiones.setEnabled(false);

@@ -15,6 +15,7 @@ import Logico.Participante;
 import Logico.Persona;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
@@ -124,7 +125,10 @@ public class RegPersona extends JDialog {
 			{
 				txtcodigo = new JTextField();
 				txtcodigo.setEditable(false);
-				txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
+				if(modpersona==null) {
+					txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
+					System.out.println(txtcodigo.getText());
+				}
 				txtcodigo.setBounds(266, 56, 96, 20);
 				panel.add(txtcodigo);
 				txtcodigo.setColumns(10);
@@ -236,6 +240,7 @@ public class RegPersona extends JDialog {
 								persona=new Jurado(txtcedula.getText(),txtnombre.getText() , txttelefono.getText(), txtcodigo.getText(),
 										cmbarea.getSelectedItem().toString());
 								EventoCiencia.getInstance().agregarpersonas(persona);
+								JOptionPane.showMessageDialog(null, "Jurado registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							}else if (rdbtnparticipante.isSelected()) {
 								
 							}
@@ -283,7 +288,9 @@ public class RegPersona extends JDialog {
 		panel_1.setVisible(false);
 		btnagregartrabajo.setVisible(false);
 		btneliminar.setVisible(false);
-		txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
+		if(modpersona==null) {
+			txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
+		}
 	}
 	private void loadparticipante() {
 		txtcedula.setText(modpersona.getCedula());
@@ -295,11 +302,10 @@ public class RegPersona extends JDialog {
 
 	private void clean() {
 		txtcedula.setText("");
-		txtcodigo.setText("");
 		txtnombre.setText("");
 		txttelefono.setText("");
 		cmbarea.setSelectedItem("<Seleccione>");
-		if(rdbtnjurado.isSelected()) {
+		if(rdbtnjurado.isSelected() && modpersona==null) {
 			txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
 		}else if(rdbtnparticipante.isSelected()) {
 			txtcodigo.setText("Part-"+EventoCiencia.getInstance().getCodparticipante());

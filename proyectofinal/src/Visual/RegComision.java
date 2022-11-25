@@ -247,7 +247,9 @@ public class RegComision extends JDialog {
 								}
 							}
 							EventoCiencia.getInstance().agregarcomisionesaux(comision);
+							JOptionPane.showMessageDialog(null, "Comision registrada correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							clean();
+							presidenteJurado=null;
 						}else {
 							JOptionPane.showMessageDialog(null, "No se puede crear una comision sin almenos un presidente", "Error", JOptionPane.INFORMATION_MESSAGE);
 						}
