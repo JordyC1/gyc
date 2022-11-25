@@ -238,7 +238,7 @@ public class RegComision extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						Comision comision=null;
 						if(presidenteJurado!=null) {
-							comision=new Comision(txtcodigo.getText(), cmbarea.getSelectedItem().toString(), presidenteJurado);
+							comision = new Comision(txtcodigo.getText(), cmbarea.getSelectedItem().toString(), presidenteJurado);
 							for (int i = 0; i < modeltableadd.getRowCount(); i++) {
 								Jurado juradoaux=null;
 								juradoaux=EventoCiencia.getInstance().buscarJurado(modeltableadd.getValueAt(i, 0).toString());
@@ -247,15 +247,16 @@ public class RegComision extends JDialog {
 								}
 							}
 							EventoCiencia.getInstance().agregarcomisionesaux(comision);
+							//System.out.println(EventoCiencia.getInstance().getcomisionesaux().get(0).getPresidente().getNombre());
 							JOptionPane.showMessageDialog(null, "Comision registrada correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							clean();
 							presidenteJurado=null;
 						}else {
 							JOptionPane.showMessageDialog(null, "No se puede crear una comision sin almenos un presidente", "Error", JOptionPane.INFORMATION_MESSAGE);
 						}
-						for (int i = 0; i < comision.getJurados().size(); i++) {
+						/*for (int i = 0; i < comision.getJurados().size(); i++) {
 							System.out.println(comision.getJurados().get(i).getNombre());
-						}
+						}*/
 					}
 				});
 				btnagregar.setActionCommand("OK");

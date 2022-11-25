@@ -63,6 +63,7 @@ public class RegEvento extends JDialog {
 	private Recurso rec1;
 	private Recurso rec2;
 	private JButton btnEliminar;
+	private JButton btnActualizar;
 
 	/**
 	 * Launch the application.
@@ -270,6 +271,7 @@ public class RegEvento extends JDialog {
 				RegComision aux = new RegComision();
 				aux.setModal(true);
 				aux.setVisible(true);
+				cargardatos();
 			}
 		});
 		btnAgregarComision.setBounds(68, 55, 97, 25);
@@ -282,6 +284,15 @@ public class RegEvento extends JDialog {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(68, 125, 97, 25);
 		panel_2.add(btnEliminar);
+		
+		btnActualizar = new JButton("Actua");
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cargardatos();
+			}
+		});
+		btnActualizar.setBounds(12, 162, 97, 25);
+		panel_2.add(btnActualizar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -292,7 +303,6 @@ public class RegEvento extends JDialog {
 				btnAgregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						agregarevento();
-						cargardatos();
 					}
 				});
 				btnAgregar.setActionCommand("OK");
@@ -340,8 +350,8 @@ public class RegEvento extends JDialog {
 			model2.addRow(rows);	
 		}
 		
+		rows = new Object[model3.getColumnCount()];
 		//Comisiones seleccionadas
-		System.out.println(EventoCiencia.getInstance().getcomisionesaux().size());
 		for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
 		{
 			rows[0] = com.getCodigo();
