@@ -7,10 +7,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.EventoCiencia;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
@@ -38,6 +47,26 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream feria;
+				ObjectOutputStream feriaescribir;
+				try {
+					feria = new  FileOutputStream("feria.dat");
+					feriaescribir = new ObjectOutputStream(feria);
+					feriaescribir.writeObject(EventoCiencia.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
 		setTitle("Feria Cient\u00EDfica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 488, 323);
