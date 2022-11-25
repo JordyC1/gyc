@@ -21,6 +21,7 @@ public class EventoCiencia implements Serializable{
 	private ArrayList<Evento>eventos;
 	private ArrayList<Recurso>recursos;
 	private ArrayList<Comision>comisiones;
+	private ArrayList<Comision>comisionesaux;
 	private static EventoCiencia event = null;
 	
 	private int codjurado;
@@ -39,7 +40,7 @@ public class EventoCiencia implements Serializable{
 		this.recursos = new ArrayList<>();
 		this.comisiones=new ArrayList<>();
 		this.eventos = new ArrayList<>();
-		
+		this.comisionesaux=new ArrayList<>();
 		codjurado = 1;
 		codparticipante = 1;
 		codtrabajo = 1;
@@ -53,6 +54,10 @@ public class EventoCiencia implements Serializable{
 			 event = new EventoCiencia();  
 		   } 	   
 		   return event;
+	}
+	
+	public void agregarcomisionesaux(Comision com) {
+		comisionesaux.add(com);
 	}
 	
 	public static void setCiencia(EventoCiencia aux) {
@@ -267,6 +272,26 @@ public class EventoCiencia implements Serializable{
 		return parti;
 	}
 	
+	public Jurado buscarJurado(String codigo) {
+		Jurado parti = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < personas.size() && encontrado == false) {
+			if(personas.get(i) instanceof Jurado)
+			{
+				if(((Jurado)personas.get(i)).getCodjurado().equals(codigo))
+				{
+					encontrado = true;
+					parti = (Jurado)personas.get(i);
+				}
+			}
+			
+			i++;
+		}
+		
+		return parti;
+	}
 	
 	public Recurso buscarrecurso(String codigo) {
 		Recurso recu = null;
@@ -357,6 +382,18 @@ public class EventoCiencia implements Serializable{
 	
 	public void agregarrecursoevento(Recurso cosa, Evento event) {
 		event.agregarrecurso(cosa);
+	}
+	
+	public boolean buscarPresidentesrepetidos(Jurado presidente) {
+		boolean presidenterepetido=false;
+		int i=0;
+		while (i< comisiones.size() && presidenterepetido==false) {
+			if(comisiones.get(i).getPresidente().getCodjurado().equalsIgnoreCase(presidente.getCodjurado())) {
+				presidenterepetido=true;
+			}
+			i++;
+		}
+		return presidenterepetido;
 	}
 
 	/*
@@ -560,6 +597,58 @@ public class EventoCiencia implements Serializable{
 	public void algo() {
 		
 	}
+	public void eliminarjurado(String codigo) {
+		int ind=indjurado(codigo);
+		if(ind != -1)
+			personas.remove(ind);
+	}
 	
+	public void eliminarparticipante(String codigo) {
+		int ind=indparticipante(codigo);
+		if(ind != -1)
+			personas.remove(ind);
+	}
+	
+	public void modifJurado(Jurado jurado) {
+		int ind=indjurado(jurado.getCodjurado());
+		if(ind != -1)
+			personas.set(ind, jurado);
+	}
+	
+	public int indjurado(String codigo) {
+		int posi = -1;
+		int i = 0;
+		boolean seguir = true;
+		
+		while(i < personas.size() && seguir == true)
+		{
+			if(personas.get(i) instanceof Jurado && ((Jurado)personas.get(i)).getCodjurado().equals(codigo))
+			{
+				posi = i;
+				seguir = false;
+			}	
+			i++;
+		}
+		
+		return posi;
+	}
+	
+	public int indparticipante(String codigo) {
+		int posi = -1;
+		int i = 0;
+		boolean seguir = true;
+		
+		while(i < personas.size() && seguir == true)
+		{
+			if(personas.get(i) instanceof Participante && ((Participante)personas.get(i)).getCodparticipante().equals(codigo))
+			{
+				posi = i;
+				seguir = false;
+			}	
+			i++;
+		}
+		
+		return posi;
+	}
 	
 }

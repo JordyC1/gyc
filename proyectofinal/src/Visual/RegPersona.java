@@ -8,6 +8,12 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import Logico.EventoCiencia;
+import Logico.Jurado;
+import Logico.Participante;
+import Logico.Persona;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -34,27 +40,37 @@ public class RegPersona extends JDialog {
 	private JLabel lblarea;
 	private JComboBox cmbarea;
 	private JPanel panel_1;
-	private JButton btnagregar;
+	private JButton btnagregartrabajo;
 	private JButton btneliminar;
+	private Persona modpersona;
+	private JButton btnagregar;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			RegPersona dialog = new RegPersona();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegPersona() {
-		setTitle("Registro Personas");
+	public RegPersona(Persona tipospersona) {
+		modpersona=tipospersona;
+		rdbtnjurado = new JRadioButton("Jurado");
+		rdbtnparticipante = new JRadioButton("Participante");
+		if(modpersona!=null && modpersona instanceof Jurado) {
+			setTitle("Modificar jurado: "+((Jurado)tipospersona).getNombre()+" codigo: " +((Jurado)tipospersona).getCodjurado());
+			rdbtnjurado.setSelected(true);
+			rdbtnjurado.setEnabled(false);
+			rdbtnparticipante.setEnabled(false);
+		}else if (modpersona!=null && modpersona instanceof Participante) {
+			setTitle("Modificar participante: "+((Participante)tipospersona).getNombre()+" codigo: " +((Participante)tipospersona).getCodparticipante());
+			rdbtnparticipante.setSelected(true);
+			rdbtnparticipante.setEnabled(false);
+			rdbtnjurado.setEnabled(false);
+		}else {
+			setTitle("Registro Personas");
+			rdbtnjurado.setSelected(true);
+		}
 		setBounds(100, 100, 452, 459);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,6 +123,8 @@ public class RegPersona extends JDialog {
 			}
 			{
 				txtcodigo = new JTextField();
+				txtcodigo.setEditable(false);
+				txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
 				txtcodigo.setBounds(266, 56, 96, 20);
 				panel.add(txtcodigo);
 				txtcodigo.setColumns(10);
@@ -119,31 +137,20 @@ public class RegPersona extends JDialog {
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			
-			rdbtnjurado = new JRadioButton("Jurado");
-			rdbtnjurado.setSelected(true);
+			
 			rdbtnjurado.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					rdbtnparticipante.setSelected(false);
-					lblarea.setVisible(true);
-					cmbarea.setVisible(true);
-					panel_1.setVisible(false);
-					btnagregar.setVisible(false);
-					btneliminar.setVisible(false);
+					pullrdbtnjurado();
 					
 				}
 			});
 			rdbtnjurado.setBounds(68, 25, 109, 23);
 			panel.add(rdbtnjurado);
 			
-			rdbtnparticipante = new JRadioButton("Participante");
+			
 			rdbtnparticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					rdbtnjurado.setSelected(false);
-					lblarea.setVisible(false);
-					cmbarea.setVisible(false);
-					panel_1.setVisible(true);
-					btnagregar.setVisible(true);
-					btneliminar.setVisible(true);
+					pullrdtbparticipante();
 				}
 			});
 			rdbtnparticipante.setBounds(249, 25, 109, 23);
@@ -183,10 +190,10 @@ public class RegPersona extends JDialog {
 				panel.add(cmbarea);
 			}
 			{
-				btnagregar = new JButton("Agregar trabajo");
-				btnagregar.setVisible(false);
-				btnagregar.setBounds(137, 164, 144, 23);
-				panel.add(btnagregar);
+				btnagregartrabajo = new JButton("Agregar trabajo");
+				btnagregartrabajo.setVisible(false);
+				btnagregartrabajo.setBounds(137, 164, 144, 23);
+				panel.add(btnagregartrabajo);
 			}
 			{
 				btneliminar = new JButton("Eliminar");
@@ -200,7 +207,42 @@ public class RegPersona extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnagregar = new JButton("Agregar");
+				btnagregar = new JButton("Agregar");
+				if(modpersona!=null) {
+					btnagregar.setText("Modificar");
+				}
+				btnagregar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Persona persona=null;
+						if(modpersona!=null ) {
+							if(modpersona instanceof Jurado) {
+								modpersona.setCedula(txtcedula.getText());
+								modpersona.setNombre(txtnombre.getText());
+								modpersona.setTelefono(txttelefono.getText());
+								((Jurado) modpersona).setCodjurado(txtcodigo.getText());
+								((Jurado) modpersona).setAreaespecializado(cmbarea.getSelectedItem().toString());
+								EventoCiencia.getInstance().modifJurado((Jurado)modpersona);
+								MostrarJurados.loadjurados();
+								dispose();
+							}else if( modpersona instanceof Participante) {
+								modpersona.setCedula(txtcedula.getText());
+								modpersona.setNombre(txtnombre.getText());
+								modpersona.setTelefono(txttelefono.getText());
+								((Participante) modpersona).setCodparticipante(txtcodigo.getText());
+								//((Participante) modpersona).setTrabajos(trabajos);(cmbarea.getSelectedItem().toString());
+							}
+						}else {
+							if(rdbtnjurado.isSelected()) {
+								persona=new Jurado(txtcedula.getText(),txtnombre.getText() , txttelefono.getText(), txtcodigo.getText(),
+										cmbarea.getSelectedItem().toString());
+								EventoCiencia.getInstance().agregarpersonas(persona);
+							}else if (rdbtnparticipante.isSelected()) {
+								
+							}
+							clean();
+						}
+					}
+				});
 				btnagregar.setActionCommand("OK");
 				buttonPane.add(btnagregar);
 				getRootPane().setDefaultButton(btnagregar);
@@ -216,5 +258,60 @@ public class RegPersona extends JDialog {
 				buttonPane.add(btncancelar);
 			}
 		}
+		if(modpersona!=null && modpersona instanceof Jurado) {
+			loadjurado();
+			pullrdbtnjurado();
+		}else if (modpersona!=null && modpersona instanceof Participante) {
+			loadparticipante();
+			pullrdtbparticipante();
+		}
 	}
+
+	private void pullrdtbparticipante() {
+		txtcodigo.setText("Part-"+EventoCiencia.getInstance().getCodparticipante());
+		rdbtnjurado.setSelected(false);
+		lblarea.setVisible(false);
+		cmbarea.setVisible(false);
+		panel_1.setVisible(true);
+		btnagregartrabajo.setVisible(true);
+		btneliminar.setVisible(true);
+	}
+	private void pullrdbtnjurado() {
+		rdbtnparticipante.setSelected(false);
+		lblarea.setVisible(true);
+		cmbarea.setVisible(true);
+		panel_1.setVisible(false);
+		btnagregartrabajo.setVisible(false);
+		btneliminar.setVisible(false);
+		txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
+	}
+	private void loadparticipante() {
+		txtcedula.setText(modpersona.getCedula());
+		txtcodigo.setText(((Participante)modpersona).getCodparticipante());
+		txtnombre.setText(modpersona.getNombre());
+		txttelefono.setText(modpersona.getTelefono());
+		//cmbarea.setSelectedItem(((Participante)modpersona).getAreaespecializado());
+	}
+
+	private void clean() {
+		txtcedula.setText("");
+		txtcodigo.setText("");
+		txtnombre.setText("");
+		txttelefono.setText("");
+		cmbarea.setSelectedItem("<Seleccione>");
+		if(rdbtnjurado.isSelected()) {
+			txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
+		}else if(rdbtnparticipante.isSelected()) {
+			txtcodigo.setText("Part-"+EventoCiencia.getInstance().getCodparticipante());
+		}
+	}
+	private void loadjurado() {
+		txtcedula.setText(modpersona.getCedula());
+		txtcodigo.setText(((Jurado)modpersona).getCodjurado());
+		txtnombre.setText(modpersona.getNombre());
+		txttelefono.setText(modpersona.getTelefono());
+		cmbarea.setSelectedItem(((Jurado)modpersona).getAreaespecializado());
+		
+	}
+	
 }
