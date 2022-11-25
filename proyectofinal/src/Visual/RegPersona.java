@@ -127,7 +127,6 @@ public class RegPersona extends JDialog {
 				txtcodigo.setEditable(false);
 				if(modpersona==null) {
 					txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
-					System.out.println(txtcodigo.getText());
 				}
 				txtcodigo.setBounds(266, 56, 96, 20);
 				panel.add(txtcodigo);
@@ -189,7 +188,7 @@ public class RegPersona extends JDialog {
 			}
 			{
 				cmbarea = new JComboBox();
-				cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informatica", "Matematicas", "Ciencias", "Lenguas", "Arte"}));
+				cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informática", "Matemáticas", "Ciencias", "Lenguas", "Artes"}));
 				cmbarea.setBounds(10, 75, 117, 20);
 				panel.add(cmbarea);
 			}
