@@ -8,14 +8,17 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logico.Comision;
 import Logico.EventoCiencia;
 import Logico.Jurado;
+import Logico.Participante;
 import Logico.Persona;
 
 import javax.swing.JTable;
@@ -41,6 +44,7 @@ public class RegComision extends JDialog {
 	private JComboBox cmbarea;
 	private JButton btnenviar;
 	private JButton btneliminar;
+	private Jurado presidenteJurado=null;
 	/**
 	 * Launch the application.
 	 */
@@ -58,12 +62,12 @@ public class RegComision extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegComision() {
-		Jurado jurado=new Jurado("qweqe", "Carmen clara", "52345234", "Jud-232", "Ingenieria");
-		Jurado jurado2=new Jurado("qweqe", "CArlo hern", "52345234", "Jud-232", "Ingenieria");
-		EventoCiencia.getInstance().agregarpersonas(jurado);
-		EventoCiencia.getInstance().agregarpersonas(jurado2);
+		/*Jurado p1=new Jurado("qweqe", "Carmen clara", "52345234", "Jud-2","Informatica");
+		Jurado p2=new Jurado("qweqe", "CArlo hern", "52345234", "Jud-232","Informatica");
+		EventoCiencia.getInstance().agregarpersonas(p1);
+		EventoCiencia.getInstance().agregarpersonas(p2);*/
 		setTitle("Agregar Comision");
-		setBounds(100, 100, 541, 490);
+		setBounds(100, 100, 544, 458);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
@@ -78,11 +82,9 @@ public class RegComision extends JDialog {
 		lblNewLabel_1.setBounds(19, 75, 97, 14);
 		contentPanel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Area de trabajo:");
-		lblNewLabel_2.setBounds(19, 118, 97, 14);
-		contentPanel.add(lblNewLabel_2);
-		
 		txtcodigo = new JTextField();
+		txtcodigo.setText("Com-"+EventoCiencia.getInstance().getCodcomision());
+		txtcodigo.setEditable(false);
 		txtcodigo.setBounds(116, 27, 125, 20);
 		contentPanel.add(txtcodigo);
 		txtcodigo.setColumns(10);
@@ -91,6 +93,8 @@ public class RegComision extends JDialog {
 		cmbarea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadtable();
+				modeltableadd.setRowCount(0);
+				txtpresidente.setText("");
 			}
 		});
 		cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informatica", "Matematica", "Ciencias", "Lenguas", "Artes"}));
@@ -99,7 +103,7 @@ public class RegComision extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Jurados:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 155, 505, 252);
+		panel.setBounds(10, 126, 505, 252);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -150,10 +154,11 @@ public class RegComision extends JDialog {
 		tableadd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int rowselected=-1;
-				rowselected=tableadd.getSelectedRow();
-				if(rowselected>=0) {
-					btnagregarp.setEnabled(true);	
+				seleccionado=tableadd.getSelectedRow();
+				if(seleccionado>=0) {
+					btneliminar.setEnabled(true);
+					btnenviar.setEnabled(false);	
+					btnagregarp.setEnabled(true);
 				}
 			}
 		});
@@ -174,6 +179,20 @@ public class RegComision extends JDialog {
 		txtpresidente.setColumns(10);
 		
 		btnagregarp = new JButton("Agregar presidente");
+		btnagregarp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(seleccionado>=0) {
+					presidenteJurado=EventoCiencia.getInstance().buscarJurado(modeltableadd.getValueAt(seleccionado, 0).toString());
+					if(presidenteJurado!=null && !EventoCiencia.getInstance().buscarPresidentesrepetidos(presidenteJurado)) {
+						txtpresidente.setText(presidenteJurado.getNombre());
+					}else {
+						JOptionPane.showMessageDialog(null, "Presidente anteriormente asignado a la misma comision", "Error", JOptionPane.OK_OPTION);
+					}
+				}
+				btnagregarp.setEnabled(false);
+			}
+		});
+		btnagregarp.setEnabled(false);
 		btnagregarp.setBounds(340, 218, 155, 23);
 		panel.add(btnagregarp);
 		
@@ -181,8 +200,12 @@ public class RegComision extends JDialog {
 		btnenviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(seleccionado>=0) {
-					
+					rowsadd=new Object[modeltableadd.getColumnCount()];
+					rowsadd[0]=modeltable.getValueAt(seleccionado, 0).toString();
+					rowsadd[1]=modeltable.getValueAt(seleccionado, 1).toString();
+					modeltableadd.addRow(rowsadd);
 					modeltable.removeRow(seleccionado);
+					btnenviar.setEnabled(false);
 				}
 			}
 		});
@@ -191,6 +214,17 @@ public class RegComision extends JDialog {
 		panel.add(btnenviar);
 		
 		btneliminar = new JButton("<<");
+		btneliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(seleccionado>=0) {
+					rowsselect[0]=modeltableadd.getValueAt(seleccionado, 0).toString();
+					rowsselect[1]=modeltableadd.getValueAt(seleccionado, 1).toString();
+					modeltable.addRow(rowsselect);
+					modeltableadd.removeRow(seleccionado);
+					btneliminar.setEnabled(false);
+				}
+			}
+		});
 		btneliminar.setEnabled(false);
 		btneliminar.setBounds(224, 131, 55, 23);
 		panel.add(btneliminar);
@@ -200,12 +234,39 @@ public class RegComision extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnagregar = new JButton("Agregar");
+				btnagregar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Comision comision=null;
+						if(presidenteJurado!=null) {
+							comision=new Comision(txtcodigo.getText(), cmbarea.getSelectedItem().toString(), presidenteJurado);
+							for (int i = 0; i < modeltableadd.getRowCount(); i++) {
+								Jurado juradoaux=null;
+								juradoaux=EventoCiencia.getInstance().buscarJurado(modeltableadd.getValueAt(i, 0).toString());
+								if(juradoaux!=null && juradoaux!=presidenteJurado) {
+									comision.agregarjurados(juradoaux);
+								}
+							}
+							EventoCiencia.getInstance().agregarcomisionesaux(comision);
+							clean();
+						}else {
+							JOptionPane.showMessageDialog(null, "No se puede crear una comision sin almenos un presidente", "Error", JOptionPane.INFORMATION_MESSAGE);
+						}
+						for (int i = 0; i < comision.getJurados().size(); i++) {
+							System.out.println(comision.getJurados().get(i).getNombre());
+						}
+					}
+				});
 				btnagregar.setActionCommand("OK");
 				buttonPane.add(btnagregar);
 				getRootPane().setDefaultButton(btnagregar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -220,9 +281,17 @@ public class RegComision extends JDialog {
 				if(((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getAreaespecializado().equalsIgnoreCase(String.valueOf(cmbarea.getSelectedItem()))) {
 					rowsselect[0]=((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getCodjurado();
 					rowsselect[1]=((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getNombre();
-					modeltable.addRow(rowsselect);	
+					modeltable.addRow(rowsselect);
 				}	
 			}	
 		}
 	}
+	private void clean() {
+		txtcodigo.setText("Com-"+EventoCiencia.getInstance().getCodcomision());
+		modeltableadd.setRowCount(0);
+		txtpresidente.setText("");
+		cmbarea.setSelectedItem("<Seleccione>");
+	}
+	
+
 }
