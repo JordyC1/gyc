@@ -63,7 +63,6 @@ public class RegEvento extends JDialog {
 	private Recurso rec1;
 	private Recurso rec2;
 	private JButton btnEliminar;
-	private JButton btnActualizar;
 
 	/**
 	 * Launch the application.
@@ -284,15 +283,6 @@ public class RegEvento extends JDialog {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(68, 125, 97, 25);
 		panel_2.add(btnEliminar);
-		
-		btnActualizar = new JButton("Actua");
-		btnActualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cargardatos();
-			}
-		});
-		btnActualizar.setBounds(12, 162, 97, 25);
-		panel_2.add(btnActualizar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
