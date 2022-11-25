@@ -45,17 +45,14 @@ public class Login extends JFrame {
 				ObjectInputStream ferialeer;
 				ObjectOutputStream feriaescribir;
 				try {
-					//System.out.println("Leido");
 					feria = new FileInputStream("feria.dat");
 					ferialeer = new ObjectInputStream(feria);
 					EventoCiencia aux = (EventoCiencia)ferialeer.readObject();
 					EventoCiencia.setCiencia(aux);
 					feria.close();
 					ferialeer.close();
-					
 				} catch (FileNotFoundException e) {
 					try {
-						//System.out.println("Creado");
 						feria2 = new  FileOutputStream("feria.dat");
 						feriaescribir = new ObjectOutputStream(feria2);
 						Usuario aux = new Usuario("Administrador", "admin", "admin");
@@ -63,7 +60,6 @@ public class Login extends JFrame {
 						feriaescribir.writeObject(EventoCiencia.getInstance());
 						feria2.close();
 						feriaescribir.close();
-						
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
