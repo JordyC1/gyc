@@ -304,6 +304,7 @@ public class RegEvento extends JDialog {
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
+						EventoCiencia.getInstance().getcomisionesaux().clear();
 					}
 				});
 				btnCancelar.setActionCommand("Cancel");

@@ -69,7 +69,7 @@ public class Principal extends JFrame {
 		
 		setTitle("Feria Cient\u00EDfica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 488, 323);
+		setBounds(100, 100, 559, 323);
 		dim = getToolkit().getScreenSize();
 		//setSize(dim.width, dim.height-40);
 		
@@ -99,12 +99,6 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
-		JMenu mnNewMenu_3 = new JMenu("Comisiones");
-		menuBar.add(mnNewMenu_3);
-		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar");
-		mnNewMenu_3.add(mntmNewMenuItem_7);
-		
 		JMenu mnNewMenu = new JMenu("Recursos");
 		menuBar.add(mnNewMenu);
 		
@@ -128,6 +122,12 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
+		JMenu mnNewMenu_3 = new JMenu("Comisiones");
+		menuBar.add(mnNewMenu_3);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar");
+		mnNewMenu_3.add(mntmNewMenuItem_7);
+		
 		JMenu mnNewMenu_1 = new JMenu("Eventos");
 		menuBar.add(mnNewMenu_1);
 		
@@ -150,6 +150,26 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_3);
+		
+		JMenu mnNewMenu_4 = new JMenu("Proyectos");
+		menuBar.add(mnNewMenu_4);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar");
+		mnNewMenu_4.add(mntmNewMenuItem_6);
+		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Listar");
+		mnNewMenu_4.add(mntmNewMenuItem_8);
+		
+		JMenu mnNewMenu_6 = new JMenu("Funciones");
+		menuBar.add(mnNewMenu_6);
+		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
+			mnNewMenu_6.setEnabled(false);
+		
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Calificar trabajo");
+		mnNewMenu_6.add(mntmNewMenuItem_9);
+		
+		JMenu mnNewMenu_5 = new JMenu("Reportes");
+		menuBar.add(mnNewMenu_5);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

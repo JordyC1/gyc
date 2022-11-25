@@ -129,7 +129,7 @@ public class Login extends JFrame {
 		panel.add(btnNewButton);
 		
 		ftxtUsuario = new JFormattedTextField();
-		ftxtUsuario.setToolTipText("Usuario");
+		ftxtUsuario.setToolTipText("");
 		ftxtUsuario.setBounds(76, 100, 161, 19);
 		panel.add(ftxtUsuario);
 		
