@@ -47,6 +47,45 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		JMenu mnNewMenu_2 = new JMenu("Persona");
+		menuBar.add(mnNewMenu_2);
+		
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Registrar");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegPersona aux = new RegPersona(null);
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_4);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Mostrar jurados");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MostrarJurados aux = new MostrarJurados();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_5);
+		
+		JMenu mnNewMenu_3 = new JMenu("Comisiones");
+		menuBar.add(mnNewMenu_3);
+		
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegComision aux = new RegComision();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_6);
+		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar");
+		mnNewMenu_3.add(mntmNewMenuItem_7);
+		
 		JMenu mnNewMenu = new JMenu("Recursos");
 		menuBar.add(mnNewMenu);
 		
