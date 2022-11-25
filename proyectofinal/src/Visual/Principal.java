@@ -73,16 +73,6 @@ public class Principal extends JFrame {
 		JMenu mnNewMenu_3 = new JMenu("Comisiones");
 		menuBar.add(mnNewMenu_3);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar");
-		mntmNewMenuItem_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegComision aux = new RegComision();
-				aux.setModal(true);
-				aux.setVisible(true);
-			}
-		});
-		mnNewMenu_3.add(mntmNewMenuItem_6);
-		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Listar");
 		mnNewMenu_3.add(mntmNewMenuItem_7);
 		
