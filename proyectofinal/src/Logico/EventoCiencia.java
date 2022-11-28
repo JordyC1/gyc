@@ -58,6 +58,7 @@ public class EventoCiencia implements Serializable{
 	
 	public void agregarcomisionesaux(Comision com) {
 		comisionesaux.add(com);
+		codcomision++;
 	}
 	
 	public ArrayList<Comision> getcomisionesaux() {
@@ -209,7 +210,6 @@ public class EventoCiencia implements Serializable{
 	
 	public void agregarcomisiones(Comision comicion) {
 		comisiones.add(comicion);
-		codcomision++;
 	}
 	
 	public void reguser(Usuario aux) {
@@ -235,6 +235,24 @@ public class EventoCiencia implements Serializable{
 		}
 		
 		return comi;
+	}
+	
+	public Evento buscarEvento(String codigo) {
+		Evento event = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < eventos.size() && encontrado == false) {
+			if(eventos.get(i).getCodigo().equals(codigo))
+			{
+				encontrado = true;
+				event = eventos.get(i);
+			}
+			
+			i++;
+		}
+		
+		return event;
 	}
 	
 	public Trabajo buscatrabajo(String codigo) {
@@ -586,6 +604,30 @@ public class EventoCiencia implements Serializable{
 		return posi;
 	}
 	
+	public void eliminarTrabajo(Trabajo trabajo) {
+		int ind = indTrabajo(trabajo.getCodigo());
+		
+		if(ind != -1)
+			trabajos.remove(ind);
+	}
+	
+	public int indTrabajo(String codigo) {
+		int posi = -1;
+		int i = 0;
+		boolean seguir = true;
+		
+		while(i < trabajos.size() && seguir == true)
+		{
+			if(trabajos.get(i).getCodigo().equals(codigo))
+			{
+				posi = i;
+				seguir = false;
+			}	
+			i++;
+		}
+		
+		return posi;
+	}
 	public boolean confirmLogin(String usuar, String contra) {
 		boolean login = false;
 		//System.out.println(usuarios.size());
@@ -627,6 +669,55 @@ public class EventoCiencia implements Serializable{
 		while(i < personas.size() && seguir == true)
 		{
 			if(personas.get(i) instanceof Jurado && ((Jurado)personas.get(i)).getCodjurado().equals(codigo))
+			{
+				posi = i;
+				seguir = false;
+			}	
+			i++;
+		}
+		
+		return posi;
+	}
+	
+	
+	public void modifevento(Evento evento) {
+		int ind=indevento(evento.getCodigo());
+		if(ind != -1)
+			eventos.set(ind, evento);
+	}
+	
+	public int indevento(String codigo) {
+		int posi = -1;
+		int i = 0;
+		boolean seguir = true;
+		
+		while(i < eventos.size() && seguir == true)
+		{
+			if(eventos.get(i).getCodigo().equalsIgnoreCase(codigo))
+			{
+				posi = i;
+				seguir = false;
+			}	
+			i++;
+		}
+		
+		return posi;
+	}
+	
+	public void modicomision(Comision comision) {
+		int ind=indcomision(comision.getCodigo());
+		if(ind != -1)
+			comisiones.set(ind, comision);
+	}
+	
+	public int indcomision(String codigo) {
+		int posi = -1;
+		int i = 0;
+		boolean seguir = true;
+		
+		while(i < comisiones.size() && seguir == true)
+		{
+			if(comisiones.get(i).getCodigo().equalsIgnoreCase(codigo))
 			{
 				posi = i;
 				seguir = false;

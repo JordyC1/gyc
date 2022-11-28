@@ -41,4 +41,16 @@ public class Participante extends Persona{
 		return califtotal/trabajos.size();
 	}
 	
+	public void removertrabajo(Trabajo trabajo) {
+		int i=0;
+		boolean encontrado=false;
+		while (i<trabajos.size() && encontrado!=true) {
+			if(trabajos.get(i).getCodigo().equalsIgnoreCase(trabajo.getCodigo())) {
+				trabajos.remove(i);
+				encontrado=true;
+			}
+			i++;
+		}	
+	}
+	
 }

@@ -60,4 +60,5 @@ public class Trabajo implements java.io.Serializable{
 			calificacion = (calif + calificacion) / 2;
 	}
 	
+	
 }

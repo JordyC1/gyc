@@ -8,11 +8,14 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
+import Logico.Comision;
 import Logico.EventoCiencia;
 import Logico.Jurado;
 import Logico.Participante;
 import Logico.Persona;
+import Logico.Trabajo;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +30,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegPersona extends JDialog {
 
@@ -35,9 +40,14 @@ public class RegPersona extends JDialog {
 	private JTextField txtnombre;
 	private JTextField txttelefono;
 	private JTextField txtcodigo;
-	private JTable table;
+	
+	private JTable tableTrabajos;
+	private static DefaultTableModel modeltrabajo;
+	private static Object[] rowstrabajo;
+	
 	private JRadioButton rdbtnjurado;
 	private JRadioButton rdbtnparticipante;
+	
 	private JLabel lblarea;
 	private JComboBox cmbarea;
 	private JPanel panel_1;
@@ -45,6 +55,13 @@ public class RegPersona extends JDialog {
 	private JButton btneliminar;
 	private Persona modpersona;
 	private JButton btnagregar;
+	
+	private Trabajo trabajo;
+	private int seleccionado=-1;
+	
+	
+	private static Participante participante=null;
+	
 
 	/**
 	 * Launch the application.
@@ -176,8 +193,22 @@ public class RegPersona extends JDialog {
 					JScrollPane scrollPane = new JScrollPane();
 					panel_1.add(scrollPane, BorderLayout.CENTER);
 					{
-						table = new JTable();
-						scrollPane.setViewportView(table);
+						tableTrabajos = new JTable();
+						tableTrabajos.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								seleccionado=tableTrabajos.getSelectedRow();
+								if(seleccionado!=-1) {
+									trabajo=EventoCiencia.getInstance().buscatrabajo(modeltrabajo.getValueAt(seleccionado, 1).toString());
+									btneliminar.setEnabled(true);
+								}
+							}
+						});
+						modeltrabajo=new DefaultTableModel();
+						String [] columna= {"Titulo","Codigo"};
+						modeltrabajo.setColumnIdentifiers(columna);
+						tableTrabajos.setModel(modeltrabajo);
+						scrollPane.setViewportView(tableTrabajos);
 					}
 				}
 			}
@@ -194,12 +225,39 @@ public class RegPersona extends JDialog {
 			}
 			{
 				btnagregartrabajo = new JButton("Agregar trabajo");
+				btnagregartrabajo.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						participante=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
+						RegTrabajo trabajo=new RegTrabajo(participante);
+						trabajo.setVisible(true);
+						trabajo.setModal(true);
+						
+					}
+				});
 				btnagregartrabajo.setVisible(false);
 				btnagregartrabajo.setBounds(137, 164, 144, 23);
 				panel.add(btnagregartrabajo);
 			}
 			{
 				btneliminar = new JButton("Eliminar");
+				btneliminar.setEnabled(false);
+				btneliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int opcion;
+						if(trabajo!=null) {
+							opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar este trabajo?",
+									"Confirmacion", JOptionPane.YES_NO_OPTION);
+							if(opcion == JOptionPane.OK_OPTION) {
+								EventoCiencia.getInstance().eliminarTrabajo(trabajo);
+								participante.removertrabajo(trabajo);
+								eliminardelasclases(trabajo);
+								mostrartrabajos();
+								btneliminar.setEnabled(false);
+							}
+						}
+					}
+				});
 				btneliminar.setBounds(285, 164, 119, 23);
 				btneliminar.setVisible(false);
 				panel.add(btneliminar);
@@ -216,7 +274,6 @@ public class RegPersona extends JDialog {
 				}
 				btnagregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Persona persona=null;
 						if(modpersona!=null ) {
 							if(modpersona instanceof Jurado) {
 								modpersona.setCedula(txtcedula.getText());
@@ -236,12 +293,14 @@ public class RegPersona extends JDialog {
 							}
 						}else {
 							if(rdbtnjurado.isSelected()) {
-								persona=new Jurado(txtcedula.getText(),txtnombre.getText() , txttelefono.getText(), txtcodigo.getText(),
+								Jurado persona=new Jurado(txtcedula.getText(),txtnombre.getText() , txttelefono.getText(), txtcodigo.getText(),
 										cmbarea.getSelectedItem().toString());
 								EventoCiencia.getInstance().agregarpersonas(persona);
 								JOptionPane.showMessageDialog(null, "Jurado registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							}else if (rdbtnparticipante.isSelected()) {
-								
+								Participante persona=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
+								agregartrabajos(persona);
+								EventoCiencia.getInstance().agregarpersonas(persona);
 							}
 							clean();
 						}
@@ -271,6 +330,16 @@ public class RegPersona extends JDialog {
 		}
 	}
 
+	public static void mostrartrabajos() {
+		modeltrabajo.setRowCount(0);
+		rowstrabajo =new Object[modeltrabajo.getColumnCount()];
+		for (int i = 0; i<participante.getTrabajos().size(); i++) {
+			rowstrabajo[0]=participante.getTrabajos().get(i).gettitulo();
+			rowstrabajo[1]=participante.getTrabajos().get(i).getCodigo();
+			modeltrabajo.addRow(rowstrabajo);
+		}
+	}
+	
 	private void pullrdtbparticipante() {
 		txtcodigo.setText("Part-"+EventoCiencia.getInstance().getCodparticipante());
 		rdbtnjurado.setSelected(false);
@@ -291,6 +360,13 @@ public class RegPersona extends JDialog {
 			txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
 		}
 	}
+	
+	private void agregartrabajos(Participante persona) {
+		for (int i = 0; i<participante.getTrabajos().size(); i++) {
+			persona.agregartrabajo(participante.getTrabajos().get(i));
+		}
+	}
+	
 	private void loadparticipante() {
 		txtcedula.setText(modpersona.getCedula());
 		txtcodigo.setText(((Participante)modpersona).getCodparticipante());
@@ -299,6 +375,26 @@ public class RegPersona extends JDialog {
 		//cmbarea.setSelectedItem(((Participante)modpersona).getAreaespecializado());
 	}
 
+	private void eliminardelasclases(Trabajo trabajo) {
+		Comision comisionaux=null;
+		for (int i = 0; i < EventoCiencia.getInstance().getComisiones().size(); i++) {
+			for (int j = 0; j < EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size(); j++) {
+				if(EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().get(j).equals(trabajo)) {
+					comisionaux=EventoCiencia.getInstance().getComisiones().get(i);
+					EventoCiencia.getInstance().getComisiones().get(i).removertrabajo(trabajo);
+				}
+			}
+		}
+		for (int k = 0; k < EventoCiencia.getInstance().getEventos().size(); k++) {
+			for (int l = 0; l < EventoCiencia.getInstance().getEventos().get(k).getComisiones().size(); l++) {
+				if(EventoCiencia.getInstance().getEventos().get(k).getComisiones().get(l).equals(comisionaux)) {
+					EventoCiencia.getInstance().getEventos().get(k).getComisiones().get(l).removertrabajo(trabajo);
+				}
+			}
+			
+		}
+	}
+	
 	private void clean() {
 		txtcedula.setText("");
 		txtnombre.setText("");

@@ -67,5 +67,17 @@ public class Comision implements java.io.Serializable{
 		this.trabajos = trabajos;
 	}
 	
+	public void removertrabajo(Trabajo trabajo) {
+		int i=0;
+		boolean encontrado=false;
+		while (i<trabajos.size() && encontrado!=true) {
+			if(trabajos.get(i).getCodigo().equalsIgnoreCase(trabajo.getCodigo())) {
+				trabajos.remove(i);
+				encontrado=true;
+			}
+			i++;
+		}
+		
+	}
 
 }
