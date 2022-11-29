@@ -398,6 +398,7 @@ public class RegEvento extends JDialog {
 		txtUbicacion.setText("");
 		
 		agregados.clear();
+		EventoCiencia.getInstance().getcomisionesaux().clear();
 		spnCupo.setValue(Integer.valueOf(0));
 		cargardatos();
 		//spnFechaInicio.setValue(value);

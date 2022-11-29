@@ -82,7 +82,9 @@ public class Evento implements java.io.Serializable{
 	}
 
 	public void setComisiones(ArrayList<Comision> comisiones) {
-		this.comisiones = comisiones;
+		for (Comision comi : comisiones) {
+			agregarcomision(comi);
+		}
 	}
 
 	public void setCodigo(String codigo) {

@@ -98,6 +98,13 @@ public class MostrarEvento extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnComisiones = new JButton("Comisiones");
+				btnComisiones.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						MostrarComision aux = new MostrarComision(event.getComisiones());
+						aux.setModal(true);
+						aux.setVisible(true);
+					}
+				});
 				btnComisiones.setEnabled(false);
 				buttonPane.add(btnComisiones);
 			}
