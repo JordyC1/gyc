@@ -406,14 +406,21 @@ public class EventoCiencia implements Serializable{
 		event.agregarrecurso(cosa);
 	}
 	
-	public boolean buscarPresidentesrepetidos(Jurado presidente) {
+	public boolean buscarPresidentesrepetidos(Evento evento) {
 		boolean presidenterepetido=false;
-		int i=0;
-		while (i< comisiones.size() && presidenterepetido==false) {
-			if(comisiones.get(i).getPresidente().getCodjurado().equalsIgnoreCase(presidente.getCodjurado())) {
-				presidenterepetido=true;
+		Comision comiaux=null;
+		int i,j;
+		
+		for (i = 0; i < evento.getComisiones().size() && presidenterepetido==false; i++) {	
+			comiaux=evento.getComisiones().get(i);
+			for ( j = i+1; j < evento.getComisiones().size() && presidenterepetido==false; j++) {
+				if(comiaux.getPresidente().equals(evento.getComisiones().get(j).getPresidente())) {
+					presidenterepetido=true;
+				}else if(comiaux.getJurados().equals(evento.getComisiones().get(j).getJurados())){
+					presidenterepetido=true;
+				}
 			}
-			i++;
+			
 		}
 		return presidenterepetido;
 	}
