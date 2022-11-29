@@ -183,7 +183,7 @@ public class RegComision extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if(seleccionado>=0) {
 					presidenteJurado=EventoCiencia.getInstance().buscarJurado(modeltableadd.getValueAt(seleccionado, 0).toString());
-					if(presidenteJurado!=null && !EventoCiencia.getInstance().buscarPresidentesrepetidos(presidenteJurado)) {
+					if(presidenteJurado!=null /*&& !EventoCiencia.getInstance().buscarPresidentesrepetidos(presidenteJurado)*/) {
 						txtpresidente.setText(presidenteJurado.getNombre());
 					}else {
 						JOptionPane.showMessageDialog(null, "Presidente anteriormente asignado a la misma comision", "Error", JOptionPane.OK_OPTION);
