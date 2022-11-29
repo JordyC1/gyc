@@ -135,7 +135,7 @@ public class RegTrabajo extends JDialog {
 					modeltableevento.setRowCount(0);
 				}
 			});
-			cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informatica", "Matematicas", "Ciencias", "Artes", "Lenguas"}));
+			cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informática", "Matemáticas", "Ciencias", "Lenguas", "Artes"}));
 			cmbarea.setBounds(331, 65, 109, 20);
 			contentPanel.add(cmbarea);
 		}

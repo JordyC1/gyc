@@ -246,17 +246,18 @@ public class RegComision extends JDialog {
 									comision.agregarjurados(juradoaux);
 								}
 							}
-							EventoCiencia.getInstance().agregarcomisionesaux(comision);
+							if(comision.getJurados().size()!=0) {
+								EventoCiencia.getInstance().agregarcomisionesaux(comision);
+								JOptionPane.showMessageDialog(null, "Comision registrada correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								clean();
+								presidenteJurado=null;
+							}else {
+								JOptionPane.showMessageDialog(null, "Ingrese mas de un jurado para cada comision", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							}
 							//System.out.println(EventoCiencia.getInstance().getcomisionesaux().get(0).getPresidente().getNombre());
-							JOptionPane.showMessageDialog(null, "Comision registrada correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-							clean();
-							presidenteJurado=null;
 						}else {
 							JOptionPane.showMessageDialog(null, "No se puede crear una comision sin almenos un presidente", "Error", JOptionPane.INFORMATION_MESSAGE);
 						}
-						/*for (int i = 0; i < comision.getJurados().size(); i++) {
-							System.out.println(comision.getJurados().get(i).getNombre());
-						}*/
 					}
 				});
 				btnagregar.setActionCommand("OK");
