@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MostrarJurados extends JDialog {
 
@@ -37,7 +38,7 @@ public class MostrarJurados extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			MostrarJurados dialog = new MostrarJurados();
+			MostrarJurados dialog = new MostrarJurados(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -48,7 +49,7 @@ public class MostrarJurados extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarJurados() {
+	public MostrarJurados(ArrayList<Jurado> prioridad) {
 		/*Jurado jurado=new Jurado("qweqe", "Carmen clara", "52345234", "Jud-2", "Informatica");
 		Jurado jurado2=new Jurado("qweqe", "CArlo hern", "52345234", "Jud-232", "Informatica");
 		EventoCiencia.getInstance().agregarpersonas(jurado);
@@ -120,7 +121,7 @@ public class MostrarJurados extends JDialog {
 									"Confirmacion", JOptionPane.YES_NO_OPTION);
 							if(opcion == JOptionPane.OK_OPTION) {
 								EventoCiencia.getInstance().eliminarjurado(juradoselect.getCodjurado());;
-								loadjurados();
+								loadjurados(prioridad);
 							}
 						}
 						btneliminar.setEnabled(false);
@@ -145,21 +146,38 @@ public class MostrarJurados extends JDialog {
 				
 			}
 		}
-		loadjurados();
+		loadjurados(prioridad);
 	}
 
-	public static void loadjurados() {
+	public static void loadjurados(ArrayList<Jurado> prioridad) {
 		modeltable.setRowCount(0);
 		rows = new Object[modeltable.getColumnCount()];
-		for (int i = 0; i < EventoCiencia.getInstance().getPersonas().size(); i++) {
-			if(EventoCiencia.getInstance().getPersonas().get(i) instanceof Jurado) {
-				rows[0] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getCodjurado();
-				rows[1] = EventoCiencia.getInstance().getPersonas().get(i).getCedula();
-				rows[2] = EventoCiencia.getInstance().getPersonas().get(i).getNombre();
-				rows[3] = EventoCiencia.getInstance().getPersonas().get(i).getTelefono();
-				rows[4] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getAreaespecializado();
-				modeltable.addRow(rows);
+		
+		if(prioridad == null)
+		{
+			for (int i = 0; i < EventoCiencia.getInstance().getPersonas().size(); i++) {
+				if(EventoCiencia.getInstance().getPersonas().get(i) instanceof Jurado) {
+					rows[0] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getCodjurado();
+					rows[1] = EventoCiencia.getInstance().getPersonas().get(i).getCedula();
+					rows[2] = EventoCiencia.getInstance().getPersonas().get(i).getNombre();
+					rows[3] = EventoCiencia.getInstance().getPersonas().get(i).getTelefono();
+					rows[4] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getAreaespecializado();
+					modeltable.addRow(rows);
+				}
 			}
 		}
+		
+		else
+		{
+			for (Jurado jurado : prioridad) {
+						rows[0] = jurado.getCodjurado();
+						rows[1] = jurado.getCedula();
+						rows[2] = jurado.getNombre();
+						rows[3] = jurado.getTelefono();
+						rows[4] = jurado.getAreaespecializado();
+						modeltable.addRow(rows);
+			}
+		}
+		
 	}
 }

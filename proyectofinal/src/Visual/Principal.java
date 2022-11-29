@@ -92,7 +92,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Mostrar jurados");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MostrarJurados aux = new MostrarJurados();
+				MostrarJurados aux = new MostrarJurados(null);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}

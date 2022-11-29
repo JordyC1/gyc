@@ -282,7 +282,7 @@ public class RegPersona extends JDialog {
 								((Jurado) modpersona).setCodjurado(txtcodigo.getText());
 								((Jurado) modpersona).setAreaespecializado(cmbarea.getSelectedItem().toString());
 								EventoCiencia.getInstance().modifJurado((Jurado)modpersona);
-								MostrarJurados.loadjurados();
+								MostrarJurados.loadjurados(null);
 								dispose();
 							}else if( modpersona instanceof Participante) {
 								modpersona.setCedula(txtcedula.getText());

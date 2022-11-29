@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MostrarComision extends JDialog {
 
@@ -67,6 +69,19 @@ public class MostrarComision extends JDialog {
 					model.setColumnIdentifiers(columnas);
 					
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int rowSelected = -1;
+							rowSelected = table.getSelectedRow();
+							if(rowSelected>=0){
+							   btnEliminar.setEnabled(true);
+							   btnJurados.setEnabled(true);
+							   btnTrabajos.setEnabled(true);
+							   comi = EventoCiencia.getInstance().buscacomision(table.getValueAt(rowSelected, 0).toString());
+							}
+						}
+					});
 					scrollPane.setViewportView(table);
 					
 					table.setModel(model);
@@ -79,21 +94,33 @@ public class MostrarComision extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnJurados = new JButton("Jurados");
+				btnJurados.setEnabled(false);
 				btnJurados.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						MostrarJurados aux = new MostrarJurados();
+						MostrarJurados aux = new MostrarJurados(comi.getJurados());
 						aux.setModal(true);
 						aux.setVisible(true);
+						btnJurados.setEnabled(false);
 					}
 				});
 				buttonPane.add(btnJurados);
 			}
 			{
 				btnTrabajos = new JButton("Trabajos");
+				btnTrabajos.setEnabled(false);
+				btnTrabajos.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						MostrarTrabajo aux = new MostrarTrabajo();
+						aux.setModal(true);
+						aux.setVisible(true);
+						btnTrabajos.setEnabled(false);
+					}
+				});
 				buttonPane.add(btnTrabajos);
 			}
 			{
 				btnEliminar = new JButton("Eliminar");
+				btnEliminar.setEnabled(false);
 				btnEliminar.setActionCommand("OK");
 				buttonPane.add(btnEliminar);
 				getRootPane().setDefaultButton(btnEliminar);
