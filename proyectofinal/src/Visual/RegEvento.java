@@ -370,15 +370,13 @@ public class RegEvento extends JDialog {
 					aux.setRecursos(agregados);
 					EventoCiencia.getInstance().agregarevento(aux);
 					JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-					clear();
 					
 					//guardar las comisiones en la comision genral
 					for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
 					{
 						EventoCiencia.getInstance().agregarcomisiones(com);
 					}
-					
-					EventoCiencia.getInstance().getcomisionesaux().clear();
+					clear();
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);

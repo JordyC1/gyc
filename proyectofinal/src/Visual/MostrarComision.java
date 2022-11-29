@@ -112,6 +112,7 @@ public class MostrarComision extends JDialog {
 		
 		if(prioridad == null)
 		{	
+			System.out.println(EventoCiencia.getInstance().getComisiones().size());
 			for (int i = 0; i < EventoCiencia.getInstance().getComisiones().size(); i++) {
 			  
 				rows[0] = EventoCiencia.getInstance().getComisiones().get(i).getCodigo();
