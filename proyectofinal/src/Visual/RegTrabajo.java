@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Comision;
 import Logico.Evento;
@@ -31,12 +32,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JFormattedTextField;
 
 public class RegTrabajo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	
-	private JTextField txtcedula;
 	private JTextField txtcodigo;
 	private JTextField txttitulo;
 	private JTable tablcomision;
@@ -55,6 +55,7 @@ public class RegTrabajo extends JDialog {
 	private int seleccionado=-1;
 	
 	private Participante participantetrabajo;
+	private JFormattedTextField txtcedula;
 	
 	/**
 	 * Launch the application.
@@ -98,33 +99,25 @@ public class RegTrabajo extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Cedula propietario:");
-			lblNewLabel.setBounds(10, 25, 117, 14);
+			lblNewLabel.setBounds(10, 20, 117, 14);
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			txtcedula = new JTextField();
-			txtcedula.setEditable(false);
-			txtcedula.setBounds(125, 22, 128, 20);
-			contentPanel.add(txtcedula);
-			txtcedula.setColumns(10);
-
-		}
-		{
-			JLabel lblNewLabel_1 = new JLabel("Codigo:");
-			lblNewLabel_1.setBounds(68, 68, 46, 14);
+			JLabel lblNewLabel_1 = new JLabel("Codigo del trabajo:");
+			lblNewLabel_1.setBounds(10, 98, 117, 14);
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
 			txtcodigo = new JTextField();
 			txtcodigo.setEditable(false);
 			txtcodigo.setText("w-"+EventoCiencia.getInstance().getCodtrabajo());
-			txtcodigo.setBounds(124, 65, 86, 20);
+			txtcodigo.setBounds(124, 96, 108, 20);
 			contentPanel.add(txtcodigo);
 			txtcodigo.setColumns(10);
 		}
 		{
 			JLabel lblNewLabel_2 = new JLabel("Area Trabajo:");
-			lblNewLabel_2.setBounds(243, 68, 86, 14);
+			lblNewLabel_2.setBounds(244, 101, 86, 14);
 			contentPanel.add(lblNewLabel_2);
 		}
 		{
@@ -136,17 +129,17 @@ public class RegTrabajo extends JDialog {
 				}
 			});
 			cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informática", "Matemáticas", "Ciencias", "Lenguas", "Artes"}));
-			cmbarea.setBounds(331, 65, 109, 20);
+			cmbarea.setBounds(332, 98, 109, 20);
 			contentPanel.add(cmbarea);
 		}
 		{
-			JLabel lblNewLabel_3 = new JLabel("Titulo:");
-			lblNewLabel_3.setBounds(81, 108, 46, 14);
+			JLabel lblNewLabel_3 = new JLabel("Titulo del proyecto:");
+			lblNewLabel_3.setBounds(10, 60, 117, 14);
 			contentPanel.add(lblNewLabel_3);
 		}
 		{
 			txttitulo = new JTextField();
-			txttitulo.setBounds(125, 105, 158, 20);
+			txttitulo.setBounds(124, 57, 317, 20);
 			contentPanel.add(txttitulo);
 			txttitulo.setColumns(10);
 		}
@@ -228,6 +221,23 @@ public class RegTrabajo extends JDialog {
 				btnaddcomision.setBounds(10, 196, 157, 23);
 				panel.add(btnaddcomision);
 			}
+		}
+		{
+/////////////////////////////////////////////////////////////////////////////////////////////////////	
+//Diseño de la cedula
+MaskFormatter mask1 = null;
+try {
+mask1 = new MaskFormatter("###-#######-#");
+mask1.setPlaceholderCharacter('_');
+} catch (Exception e) {
+e.printStackTrace();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+			txtcedula = new JFormattedTextField(mask1);
+			txtcedula.setBounds(124, 18, 117, 20);
+			contentPanel.add(txtcedula);
 		}
 		{
 			JPanel buttonPane = new JPanel();

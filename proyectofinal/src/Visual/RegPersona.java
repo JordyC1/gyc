@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Comision;
 import Logico.EventoCiencia;
@@ -32,13 +33,12 @@ import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JFormattedTextField;
 
 public class RegPersona extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtcedula;
 	private JTextField txtnombre;
-	private JTextField txttelefono;
 	private JTextField txtcodigo;
 	
 	private JTable tableTrabajos;
@@ -61,6 +61,8 @@ public class RegPersona extends JDialog {
 	
 	
 	private static Participante participante=null;
+	private JFormattedTextField txttelefono;
+	private JFormattedTextField txtcedula;
 	
 
 	/**
@@ -107,12 +109,6 @@ public class RegPersona extends JDialog {
 				panel.add(lblNewLabel);
 			}
 			{
-				txtcedula = new JTextField();
-				txtcedula.setBounds(61, 19, 109, 20);
-				panel.add(txtcedula);
-				txtcedula.setColumns(10);
-			}
-			{
 				JLabel lblNewLabel_1 = new JLabel("Nombre:");
 				lblNewLabel_1.setBounds(10, 59, 51, 14);
 				panel.add(lblNewLabel_1);
@@ -125,14 +121,8 @@ public class RegPersona extends JDialog {
 			}
 			{
 				JLabel lblNewLabel_2 = new JLabel("Telefono:");
-				lblNewLabel_2.setBounds(197, 22, 59, 14);
+				lblNewLabel_2.setBounds(209, 22, 59, 14);
 				panel.add(lblNewLabel_2);
-			}
-			{
-				txttelefono = new JTextField();
-				txttelefono.setBounds(266, 19, 138, 20);
-				panel.add(txttelefono);
-				txttelefono.setColumns(10);
 			}
 			{
 				JLabel lblNewLabel_3 = new JLabel("Codigo:");
@@ -145,10 +135,38 @@ public class RegPersona extends JDialog {
 				if(modpersona==null) {
 					txtcodigo.setText("JUD-"+EventoCiencia.getInstance().getCodjurado());
 				}
-				txtcodigo.setBounds(266, 56, 96, 20);
+				txtcodigo.setBounds(266, 56, 136, 20);
 				panel.add(txtcodigo);
 				txtcodigo.setColumns(10);
 			}
+			
+/////////////////////////////////////////////////////////////////////////////////////////////////////	
+//Diseño de la cedula
+MaskFormatter mask1 = null;
+try {
+mask1 = new MaskFormatter("###-#######-#");
+mask1.setPlaceholderCharacter('_');
+} catch (Exception e) {
+e.printStackTrace();
+}
+
+//Diseño del telefono
+MaskFormatter mask2 = null;
+try {
+mask2 = new MaskFormatter("(###)-###-####");
+mask2.setPlaceholderCharacter('_');
+} catch (Exception e) {
+e.printStackTrace();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			txtcedula = new JFormattedTextField(mask1);
+			txtcedula.setBounds(61, 18, 123, 18);
+			panel.add(txtcedula);
+			
+			txttelefono = new JFormattedTextField(mask2);
+			txttelefono.setBounds(266, 19, 136, 20);
+			panel.add(txttelefono);
 		}
 		{
 			JPanel panel = new JPanel();
@@ -230,8 +248,9 @@ public class RegPersona extends JDialog {
 					public void mouseClicked(MouseEvent e) {
 						participante=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
 						RegTrabajo trabajo=new RegTrabajo(participante);
-						trabajo.setVisible(true);
 						trabajo.setModal(true);
+						trabajo.setVisible(true);
+						
 						
 					}
 				});
@@ -414,5 +433,4 @@ public class RegPersona extends JDialog {
 		cmbarea.setSelectedItem(((Jurado)modpersona).getAreaespecializado());
 		
 	}
-	
 }

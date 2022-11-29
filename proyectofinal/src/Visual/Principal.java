@@ -99,6 +99,16 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
+		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Mostrar participantes");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MostrarParticipante aux = new MostrarParticipante();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_10);
+		
 		JMenu mnNewMenu = new JMenu("Recursos");
 		menuBar.add(mnNewMenu);
 		
@@ -162,9 +172,23 @@ public class Principal extends JFrame {
 		menuBar.add(mnNewMenu_4);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Agregar");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegTrabajo aux = new RegTrabajo(null);
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		mnNewMenu_4.add(mntmNewMenuItem_6);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Listar");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MostrarTrabajo aux = new MostrarTrabajo();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		mnNewMenu_4.add(mntmNewMenuItem_8);
 		
 		JMenu mnNewMenu_6 = new JMenu("Funciones");
