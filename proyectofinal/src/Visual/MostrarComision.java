@@ -79,6 +79,13 @@ public class MostrarComision extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnJurados = new JButton("Jurados");
+				btnJurados.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						MostrarJurados aux = new MostrarJurados();
+						aux.setModal(true);
+						aux.setVisible(true);
+					}
+				});
 				buttonPane.add(btnJurados);
 			}
 			{
