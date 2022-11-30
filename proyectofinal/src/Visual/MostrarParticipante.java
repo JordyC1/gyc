@@ -51,15 +51,14 @@ public class MostrarParticipante extends JDialog {
 	 */
 	public MostrarParticipante() {
 		setTitle("Mostrar Participantes");
-		setBounds(100, 100, 583, 335);
+		setBounds(100, 100, 709, 335);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 547, 241);
 		contentPanel.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -104,6 +103,10 @@ public class MostrarParticipante extends JDialog {
 			buttonPane.add(btnmodificar);
 			
 			btnproyecto = new JButton("Proyectos");
+			btnproyecto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
 			btnproyecto.setEnabled(false);
 			buttonPane.add(btnproyecto);
 			{
