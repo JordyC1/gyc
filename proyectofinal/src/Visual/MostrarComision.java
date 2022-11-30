@@ -110,7 +110,7 @@ public class MostrarComision extends JDialog {
 				btnTrabajos.setEnabled(false);
 				btnTrabajos.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						MostrarTrabajo aux = new MostrarTrabajo();
+						MostrarTrabajo aux = new MostrarTrabajo(comi.getTrabajos());
 						aux.setModal(true);
 						aux.setVisible(true);
 						btnTrabajos.setEnabled(false);

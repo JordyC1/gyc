@@ -16,6 +16,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class MostrarTrabajo extends JDialog {
@@ -33,7 +34,7 @@ public class MostrarTrabajo extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			MostrarTrabajo dialog = new MostrarTrabajo();
+			MostrarTrabajo dialog = new MostrarTrabajo(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -44,7 +45,7 @@ public class MostrarTrabajo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarTrabajo() {
+	public MostrarTrabajo(ArrayList<Trabajo> prioridad) {
 		setTitle("Trabajos");
 		setBounds(100, 100, 705, 341);
 		getContentPane().setLayout(new BorderLayout());
@@ -93,21 +94,37 @@ public class MostrarTrabajo extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
-		cargardatos();
+		cargardatos(prioridad);
 	}
 	
-	public void cargardatos() {
+	public void cargardatos(ArrayList<Trabajo> prioridad) {
 		model.setRowCount(0);
 		rows = new Object[model.getColumnCount()];
 		
-		for (Trabajo trab : EventoCiencia.getInstance().getTrabajos()) {
-			rows[0] = trab.getCodigo();
-			rows[1] = trab.gettitulo();
-			rows[2] = trab.getPropietario().getNombre();
-			rows[3] = trab.getCalificacion();
-			model.addRow(rows);
-			
+		if(prioridad == null)
+		{
+			for (Trabajo trab : EventoCiencia.getInstance().getTrabajos()) {
+				rows[0] = trab.getCodigo();
+				rows[1] = trab.gettitulo();
+				rows[2] = trab.getPropietario().getNombre();
+				rows[3] = trab.getCalificacion();
+				model.addRow(rows);
+				
+			}
 		}
+		
+		else
+		{
+			for (Trabajo trab : prioridad) {
+				rows[0] = trab.getCodigo();
+				rows[1] = trab.gettitulo();
+				rows[2] = trab.getPropietario().getNombre();
+				rows[3] = trab.getCalificacion();
+				model.addRow(rows);
+				
+			}
+		}
+		
 	}
 
 }
