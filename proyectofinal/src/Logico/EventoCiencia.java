@@ -294,6 +294,27 @@ public class EventoCiencia implements Serializable{
 		return parti;
 	}
 	
+	public Participante buscaparticipantebycedula(String cedula) {
+		Participante parti = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < personas.size() && encontrado == false) {
+			if(personas.get(i) instanceof Participante)
+			{
+				if(((Participante)personas.get(i)).getCedula().equals(cedula))
+				{
+					encontrado = true;
+					parti = (Participante)personas.get(i);
+				}
+			}
+			
+			i++;
+		}
+		
+		return parti;
+	}
+	
 	public Jurado buscarJurado(String codigo) {
 		Jurado parti = null;
 		boolean encontrado = false;

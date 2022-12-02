@@ -93,6 +93,7 @@ public class MostrarParticipante extends JDialog {
 			btnmodificar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					RegPersona regjur= new RegPersona(participanteselect);
+					regjur.setModal(true);
 					regjur.setVisible(true);
 					btneliminar.setEnabled(false);
 					btnmodificar.setEnabled(false);

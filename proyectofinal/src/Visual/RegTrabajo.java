@@ -37,7 +37,7 @@ import javax.swing.JFormattedTextField;
 public class RegTrabajo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtcodigo;
+	private  JTextField txtcodigo;
 	private JTextField txttitulo;
 	private JTable tablcomision;
 	private JTable tablevento;
@@ -54,8 +54,11 @@ public class RegTrabajo extends JDialog {
 
 	private int seleccionado=-1;
 	
-	private Participante participantetrabajo;
-	private JFormattedTextField txtcedula;
+	public static Participante participantebuscar=null;
+	
+	//private Participante participantetrabajo;
+	private static JFormattedTextField txtcedula;
+	private static JButton btnBuscar;
 	
 	/**
 	 * Launch the application.
@@ -65,7 +68,9 @@ public class RegTrabajo extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegTrabajo(Participante participante) {
-		participantetrabajo=participante;
+		if(participante!=null) {
+			participantebuscar=participante;
+		}
 		//Persona participantePersona=new Participante("555", "Fabio", "3123123", "1323123");
 		/*Jurado p1=new Jurado("qweqe", "Carmen clara", "52345234", "Jud-2","Informatica");
 		Jurado p2=new Jurado("qweqe", "CArlo hern", "52345234", "Jud-232","Informatica");
@@ -236,10 +241,38 @@ e.printStackTrace();
 
 
 			txtcedula = new JFormattedTextField(mask1);
-			txtcedula.setEditable(false);
+			if(participante!=null) {
+				txtcedula.setEditable(false);
+			}
 			txtcedula.setBounds(124, 18, 117, 20);
 			contentPanel.add(txtcedula);
 		}
+		
+		btnBuscar = new JButton("Buscar Participante");
+		if(participante!=null) {
+			btnBuscar.setEnabled(false);
+		}
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Participante BuscarP=null;
+				BuscarP=EventoCiencia.getInstance().buscaparticipantebycedula(txtcedula.getText());
+				if(BuscarP!=null) {
+					txtcedula.setText(BuscarP.getCedula());
+					JOptionPane.showMessageDialog(null, "Participante encontrado", "Aviso", JOptionPane.INFORMATION_MESSAGE);	
+				}else {
+					int opcion= JOptionPane.showConfirmDialog(null, "Participante no contenido ¿Desea Agregarlo?",
+							"Confirmacion", JOptionPane.YES_NO_OPTION);
+					if(opcion == JOptionPane.OK_OPTION) {
+						BuscarP=new Participante(txtcedula.getText(), "", "", "buscar");
+						RegPersona regPersona=new RegPersona(BuscarP);
+						regPersona.setModal(true);
+						regPersona.setVisible(true);
+					}
+				}
+			}
+		});
+		btnBuscar.setBounds(267, 16, 152, 23);
+		contentPanel.add(btnBuscar);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -248,21 +281,35 @@ e.printStackTrace();
 				btnregistrar = new JButton("Registrar");
 				btnregistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Trabajo trabajo=new Trabajo(txtcodigo.getText(), participante, txttitulo.getText());
-						if(!(txttitulo.getText().equalsIgnoreCase(""))) {
-							if(eventoselected!=null) {
-								participante.agregartrabajo(trabajo);
-								comiselected.agregartrabajos(trabajo);
-								EventoCiencia.getInstance().modicomision(comiselected);
-								EventoCiencia.getInstance().modifevento(eventoselected);
-								EventoCiencia.getInstance().agregartrabajo(trabajo);
-								RegPersona.mostrartrabajos();
-								JOptionPane.showMessageDialog(null, "Trabajo Agregado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-								clean();
-								btnregistrar.setEnabled(false);
+						Participante participanteaux=null;
+						if(!txtcedula.getText().equalsIgnoreCase("")) {
+							participanteaux=EventoCiencia.getInstance().buscaparticipantebycedula(txtcedula.getText());
+							Trabajo trabajo=null;
+							if(!(txttitulo.getText().equalsIgnoreCase(""))) {
+								if(eventoselected!=null) {
+									if(participante!=null) {
+										trabajo=new Trabajo(txtcodigo.getText(), participante, txttitulo.getText());
+										participante.agregartrabajo(trabajo);
+									}else {
+										trabajo=new Trabajo(txtcodigo.getText(), participanteaux, txttitulo.getText());
+										participanteaux.agregartrabajo(trabajo);
+									}
+									comiselected.agregartrabajos(trabajo);
+									EventoCiencia.getInstance().modicomision(comiselected);
+									EventoCiencia.getInstance().modifevento(eventoselected);
+									EventoCiencia.getInstance().agregartrabajo(trabajo);
+									if(participante!=null) {
+										RegPersona.mostrartrabajos();
+									}
+									JOptionPane.showMessageDialog(null, "Trabajo Agregado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+									clean();
+									btnregistrar.setEnabled(false);
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Ingrese un titulo al trabajo", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Ingrese un titulo al trabajo", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Cedula inexistente", "Error", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
@@ -282,7 +329,7 @@ e.printStackTrace();
 				buttonPane.add(btncancelar);
 			}
 		}
-		if(participantetrabajo!=null) {
+		if(participante!=null) {
 			loadparticipante();
 		}
 	}
@@ -300,7 +347,7 @@ e.printStackTrace();
 	}
 	
 	private void loadparticipante() {
-		txtcedula.setText(participantetrabajo.getCedula());
+		txtcedula.setText(participantebuscar.getCedula());
 		txtcodigo.setText("W-"+EventoCiencia.getInstance().getCodtrabajo());
 	}
 	private void loadtableevent() {
@@ -318,11 +365,18 @@ e.printStackTrace();
 			}
 		}
 	}
+	public static void buscarparticipantecedula() {
+		txtcedula.setText(participantebuscar.getCedula());
+		txtcedula.setEditable(false);
+		btnBuscar.setEnabled(false);
+	}
 	
+
 	private void clean(){
 		cmbarea.setSelectedItem("<Seleccione>");
 		txttitulo.setText("");
 		txtcodigo.setText("W-"+EventoCiencia.getInstance().getCodtrabajo());
 		loadtablecomis();
 	}
+	
 }

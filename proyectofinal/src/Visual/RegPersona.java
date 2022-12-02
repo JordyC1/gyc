@@ -74,6 +74,7 @@ public class RegPersona extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegPersona(Persona tipospersona) {
+		setTitle("Agregar Participante");
 		modpersona=tipospersona;
 		rdbtnjurado = new JRadioButton("Jurado");
 		rdbtnparticipante = new JRadioButton("Participante");
@@ -83,10 +84,14 @@ public class RegPersona extends JDialog {
 			rdbtnjurado.setEnabled(false);
 			rdbtnparticipante.setEnabled(false);
 		}else if (modpersona!=null && modpersona instanceof Participante) {
-			setTitle("Modificar participante: "+((Participante)tipospersona).getNombre()+" codigo: " +((Participante)tipospersona).getCodparticipante());
-			rdbtnparticipante.setSelected(true);
-			rdbtnparticipante.setEnabled(false);
-			rdbtnjurado.setEnabled(false);
+			{
+				if(!(((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar") ) {
+					setTitle("Modificar participante: "+((Participante)tipospersona).getNombre()+" codigo: " +((Participante)tipospersona).getCodparticipante());	
+				}
+				rdbtnparticipante.setSelected(true);
+				rdbtnparticipante.setEnabled(false);
+				rdbtnjurado.setEnabled(false);
+			}
 		}else {
 			setTitle("Registro Personas");
 			rdbtnjurado.setSelected(true);
@@ -163,6 +168,9 @@ e.printStackTrace();
 			txtcedula = new JFormattedTextField(mask1);
 			txtcedula.setBounds(61, 18, 123, 18);
 			panel.add(txtcedula);
+			if(modpersona!=null && modpersona instanceof Participante && (((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar")) {
+				txtcedula.setText(modpersona.getCedula());
+			}
 			
 			txttelefono = new JFormattedTextField(mask2);
 			txttelefono.setBounds(266, 19, 136, 20);
@@ -288,7 +296,7 @@ e.printStackTrace();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnagregar = new JButton("Agregar");
-				if(modpersona!=null) {
+				if(modpersona!=null && !(modpersona instanceof Participante && (((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar") ) ) {
 					btnagregar.setText("Modificar");
 				}
 				btnagregar.addActionListener(new ActionListener() {
@@ -303,25 +311,34 @@ e.printStackTrace();
 								EventoCiencia.getInstance().modifJurado((Jurado)modpersona);
 								MostrarJurados.loadjurados(null);
 								dispose();
-							}else if( modpersona instanceof Participante) {
+							}else if( modpersona instanceof Participante && (((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar")) {
 								modpersona.setCedula(txtcedula.getText());
 								modpersona.setNombre(txtnombre.getText());
 								modpersona.setTelefono(txttelefono.getText());
 								((Participante) modpersona).setCodparticipante(txtcodigo.getText());
 								//((Participante) modpersona).setTrabajos(trabajos);(cmbarea.getSelectedItem().toString());
+							}else {
+								RegTrabajo.participantebuscar=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
+								EventoCiencia.getInstance().agregarpersonas(RegTrabajo.participantebuscar);
+								RegTrabajo.buscarparticipantecedula();
+								dispose();
 							}
-						}else {
+						}else{
 							if(rdbtnjurado.isSelected()) {
 								Jurado persona=new Jurado(txtcedula.getText(),txtnombre.getText() , txttelefono.getText(), txtcodigo.getText(),
 										cmbarea.getSelectedItem().toString());
 								EventoCiencia.getInstance().agregarpersonas(persona);
 								JOptionPane.showMessageDialog(null, "Jurado registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-							}else if (rdbtnparticipante.isSelected()) {
+								clean();
+							}else if (rdbtnparticipante.isSelected() && participante!=null) {
 								Participante persona=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
 								agregartrabajos(persona);
 								EventoCiencia.getInstance().agregarpersonas(persona);
+								JOptionPane.showMessageDialog(null, "Participante registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								clean();
+							}else {
+								JOptionPane.showMessageDialog(null, "Ingrese almenos 1 trabajo al participante", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							}
-							clean();
 						}
 					}
 				});
@@ -344,8 +361,12 @@ e.printStackTrace();
 			loadjurado();
 			pullrdbtnjurado();
 		}else if (modpersona!=null && modpersona instanceof Participante) {
-			loadparticipante();
-			pullrdtbparticipante();
+			if((((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar")) {
+				pullbuscarP();
+			}else {
+				pullbuscarP();
+				loadparticipante();
+			}
 		}
 	}
 
@@ -412,6 +433,16 @@ e.printStackTrace();
 			}
 			
 		}
+	}
+	
+	private void pullbuscarP() {
+		txtcodigo.setText("Part-"+EventoCiencia.getInstance().getCodparticipante());
+		rdbtnjurado.setSelected(false);
+		lblarea.setVisible(false);
+		cmbarea.setVisible(false);
+		panel_1.setVisible(false);
+		btnagregartrabajo.setVisible(false);
+		btneliminar.setVisible(false);
 	}
 	
 	private void clean() {
