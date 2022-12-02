@@ -237,7 +237,7 @@ e.printStackTrace();
 			}
 			{
 				cmbarea = new JComboBox();
-				cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informática", "Matemáticas", "Ciencias", "Lenguas", "Artes"}));
+				cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática"}));
 				cmbarea.setBounds(10, 75, 117, 20);
 				panel.add(cmbarea);
 			}

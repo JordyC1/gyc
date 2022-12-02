@@ -128,7 +128,7 @@ public class RegTrabajo extends JDialog {
 					modeltableevento.setRowCount(0);
 				}
 			});
-			cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informática", "Matemáticas", "Ciencias", "Lenguas", "Artes"}));
+			cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática"}));
 			cmbarea.setBounds(332, 98, 109, 20);
 			contentPanel.add(cmbarea);
 		}
@@ -236,6 +236,7 @@ e.printStackTrace();
 
 
 			txtcedula = new JFormattedTextField(mask1);
+			txtcedula.setEditable(false);
 			txtcedula.setBounds(124, 18, 117, 20);
 			contentPanel.add(txtcedula);
 		}

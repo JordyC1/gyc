@@ -97,7 +97,7 @@ public class RegComision extends JDialog {
 				txtpresidente.setText("");
 			}
 		});
-		cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Informática", "Matemáticas", "Ciencias", "Lenguas", "Artes"}));
+		cmbarea.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática"}));
 		cmbarea.setBounds(116, 72, 125, 20);
 		contentPanel.add(cmbarea);
 		
