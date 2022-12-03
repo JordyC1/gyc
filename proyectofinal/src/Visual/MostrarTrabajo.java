@@ -27,7 +27,7 @@ public class MostrarTrabajo extends JDialog {
 	
 	private static Object[] rows;
 	private static DefaultTableModel model;
-	private JButton btnCancelar;
+	private JButton btnOK;
 
 	/**
 	 * Launch the application.
@@ -78,20 +78,15 @@ public class MostrarTrabajo extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				btnCancelar = new JButton("Cancelar");
-				btnCancelar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btnOK = new JButton("Okay");
+				btnOK.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
 						dispose();
 					}
 				});
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
+				btnOK.setActionCommand("OK");
+				buttonPane.add(btnOK);
+				getRootPane().setDefaultButton(btnOK);
 			}
 		}
 		cargardatos(prioridad);

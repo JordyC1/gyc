@@ -106,6 +106,9 @@ public class MostrarParticipante extends JDialog {
 			btnproyecto = new JButton("Proyectos");
 			btnproyecto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					MostrarTrabajo aux = new MostrarTrabajo(participanteselect.getTrabajos());
+					aux.setModal(true);
+					aux.setVisible(true);
 				}
 			});
 			btnproyecto.setEnabled(false);
