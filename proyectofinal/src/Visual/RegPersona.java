@@ -254,7 +254,9 @@ e.printStackTrace();
 				btnagregartrabajo.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						participante=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
+						if(participante==null) {
+							participante=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
+						}
 						RegTrabajo trabajo=new RegTrabajo(participante);
 						trabajo.setModal(true);
 						trabajo.setVisible(true);
