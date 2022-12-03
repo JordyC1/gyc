@@ -109,6 +109,11 @@ public class MostrarJurados extends JDialog {
 			buttonPane.add(btnmodificar);
 			
 			btncomisiones = new JButton("Comisiones");
+			btncomisiones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//MostrarComision aux = new MostrarComision(prioridad);
+				}
+			});
 			btncomisiones.setEnabled(false);
 			buttonPane.add(btncomisiones);
 			{
