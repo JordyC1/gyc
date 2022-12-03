@@ -23,6 +23,7 @@ import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.Window.Type;
+import javax.swing.JButton;
 
 public class Principal extends JFrame {
 
@@ -202,8 +203,27 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Calificar trabajo");
 		mnNewMenu_6.add(mntmNewMenuItem_9);
 		
-		JMenu mnNewMenu_5 = new JMenu("Reportes");
+		JMenu mnNewMenu_5 = new JMenu("Registrar");
+		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
+			mnNewMenu_5.setEnabled(false);
+		mnNewMenu_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		menuBar.add(mnNewMenu_5);
+		
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Nurvo usuario");
+		mntmNewMenuItem_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistroUsuario aux = new RegistroUsuario();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_5.add(mntmNewMenuItem_11);
+		
+		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Mostrar usuarios");
+		mnNewMenu_5.add(mntmNewMenuItem_12);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
