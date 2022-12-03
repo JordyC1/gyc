@@ -311,12 +311,14 @@ e.printStackTrace();
 								EventoCiencia.getInstance().modifJurado((Jurado)modpersona);
 								MostrarJurados.loadjurados(null);
 								dispose();
-							}else if( modpersona instanceof Participante && (((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar")) {
+							}else if( modpersona instanceof Participante && !(((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar")) {
 								modpersona.setCedula(txtcedula.getText());
 								modpersona.setNombre(txtnombre.getText());
 								modpersona.setTelefono(txttelefono.getText());
 								((Participante) modpersona).setCodparticipante(txtcodigo.getText());
-								//((Participante) modpersona).setTrabajos(trabajos);(cmbarea.getSelectedItem().toString());
+								EventoCiencia.getInstance().modifparticipante((Participante)modpersona);
+								MostrarParticipante.loadparticipantes(null);
+								dispose();
 							}else {
 								RegTrabajo.participantebuscar=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
 								EventoCiencia.getInstance().agregarpersonas(RegTrabajo.participantebuscar);
@@ -446,6 +448,7 @@ e.printStackTrace();
 	}
 	
 	private void clean() {
+		modeltrabajo.setRowCount(0);
 		txtcedula.setText("");
 		txtnombre.setText("");
 		txttelefono.setText("");

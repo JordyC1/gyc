@@ -106,7 +106,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Mostrar participantes");
 		mntmNewMenuItem_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MostrarParticipante aux = new MostrarParticipante();
+				MostrarParticipante aux = new MostrarParticipante(null);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -36,20 +37,11 @@ public class MostrarParticipante extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			MostrarParticipante dialog = new MostrarParticipante();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarParticipante() {
+	public MostrarParticipante(ArrayList<Participante> prioridad) {
 		setTitle("Mostrar Participantes");
 		setBounds(100, 100, 709, 335);
 		setLocationRelativeTo(null);
@@ -106,9 +98,12 @@ public class MostrarParticipante extends JDialog {
 			btnproyecto = new JButton("Proyectos");
 			btnproyecto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					MostrarTrabajo aux = new MostrarTrabajo(participanteselect.getTrabajos());
-					aux.setModal(true);
-					aux.setVisible(true);
+					MostrarTrabajo mostrarTrabajo= new MostrarTrabajo(participanteselect.getTrabajos());
+					mostrarTrabajo.setModal(true);
+					mostrarTrabajo.setVisible(true);
+					btneliminar.setEnabled(false);
+					btnmodificar.setEnabled(false);
+					btnproyecto.setEnabled(false);
 				}
 			});
 			btnproyecto.setEnabled(false);
@@ -123,7 +118,7 @@ public class MostrarParticipante extends JDialog {
 									"Confirmacion", JOptionPane.YES_NO_OPTION);
 							if(opcion == JOptionPane.OK_OPTION) {
 								EventoCiencia.getInstance().eliminarparticipante(participanteselect.getCodparticipante());
-								loadparticipantes();
+								loadparticipantes(null);
 							}
 						}
 						btneliminar.setEnabled(false);
@@ -148,19 +143,31 @@ public class MostrarParticipante extends JDialog {
 				
 			}
 		}
-		loadparticipantes();
+		loadparticipantes(prioridad);
 	}
 
-	public static void loadparticipantes() {
+	public static void loadparticipantes(ArrayList<Participante> prioridad) {
 		modeltable.setRowCount(0);
 		rows = new Object[modeltable.getColumnCount()];
-		for (int i = 0; i < EventoCiencia.getInstance().getPersonas().size(); i++) {
-			if(EventoCiencia.getInstance().getPersonas().get(i) instanceof Participante) {
-				rows[0] = ((Participante)EventoCiencia.getInstance().getPersonas().get(i)).getCodparticipante();
-				rows[1] = EventoCiencia.getInstance().getPersonas().get(i).getCedula();
-				rows[2] = EventoCiencia.getInstance().getPersonas().get(i).getNombre();
-				rows[3] = EventoCiencia.getInstance().getPersonas().get(i).getTelefono();
-				rows[4] = ((Participante)EventoCiencia.getInstance().getPersonas().get(i)).getTrabajos().size();
+		if(prioridad == null) {
+			for (int i = 0; i < EventoCiencia.getInstance().getPersonas().size(); i++) {
+				if(EventoCiencia.getInstance().getPersonas().get(i) instanceof Participante) {
+					rows[0] = ((Participante)EventoCiencia.getInstance().getPersonas().get(i)).getCodparticipante();
+					rows[1] = EventoCiencia.getInstance().getPersonas().get(i).getCedula();
+					rows[2] = EventoCiencia.getInstance().getPersonas().get(i).getNombre();
+					rows[3] = EventoCiencia.getInstance().getPersonas().get(i).getTelefono();
+					rows[4] = ((Participante)EventoCiencia.getInstance().getPersonas().get(i)).getTrabajos().size();
+					modeltable.addRow(rows);
+				}
+			}
+		}else 
+		{
+			for (Participante participante : prioridad) {
+				rows[0] = participante.getCodparticipante();
+				rows[1] = participante.getCedula();
+				rows[2] = participante.getNombre();
+				rows[3] = participante.getTelefono();
+				rows[4] = participante.getTrabajos().size();
 				modeltable.addRow(rows);
 			}
 		}

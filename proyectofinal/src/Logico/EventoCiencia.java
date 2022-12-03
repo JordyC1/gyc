@@ -714,6 +714,12 @@ public class EventoCiencia implements Serializable{
 			eventos.set(ind, evento);
 	}
 	
+	public void modifparticipante(Participante participante) {
+		int ind=indparticipante(participante.getCodparticipante());
+		if(ind != -1)
+			personas.set(ind, participante);
+	}
+	
 	public int indevento(String codigo) {
 		int posi = -1;
 		int i = 0;

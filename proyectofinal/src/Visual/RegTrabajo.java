@@ -304,6 +304,7 @@ e.printStackTrace();
 									JOptionPane.showMessageDialog(null, "Trabajo Agregado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 									clean();
 									btnregistrar.setEnabled(false);
+									btnaddcomision.setEnabled(false);
 								}
 							}else {
 								JOptionPane.showMessageDialog(null, "Ingrese un titulo al trabajo", "Aviso", JOptionPane.INFORMATION_MESSAGE);
