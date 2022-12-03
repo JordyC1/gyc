@@ -363,20 +363,25 @@ public class RegEvento extends JDialog {
 			{
 				if(EventoCiencia.getInstance().getcomisionesaux().size() != 0)
 				{
-					Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
-							, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
-							Integer.parseInt(spnCupo.getValue().toString()));
-					aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
-					aux.setRecursos(agregados);
-					EventoCiencia.getInstance().agregarevento(aux);
-					JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-					
-					//guardar las comisiones en la comision genral
-					for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+					if(Integer.parseInt(spnCupo.getValue().toString()) > 0)
 					{
-						EventoCiencia.getInstance().agregarcomisiones(com);
+						Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
+								, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
+								Integer.parseInt(spnCupo.getValue().toString()));
+						aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
+						aux.setRecursos(agregados);
+						EventoCiencia.getInstance().agregarevento(aux);
+						JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						
+						//guardar las comisiones en la comision genral
+						for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+						{
+							EventoCiencia.getInstance().agregarcomisiones(com);
+						}
+						clear();
 					}
-					clear();
+					else
+						JOptionPane.showMessageDialog(null, "El cupo debe ser mayor que 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);	
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -442,5 +447,48 @@ public class RegEvento extends JDialog {
 		int ind = indagregado(rec);
 		
 		agregados.remove(ind);
+	}
+	
+	public boolean validarfechas(Date inicio, Date fin) {
+		boolean	validar = false;
+		
+		
+		if(fin.getDate() > inicio.getDate())
+		{
+			validar = true;
+		}
+		else
+			validar = false;
+		
+		/*
+		if(fin.getYear() < inicio.getYear())
+		{
+			if(fin.getMonth() < inicio.getMonth())
+			{
+				if(fin.getDate() < inicio.getDate())
+				{
+					if(fin.getHours() < inicio.getHours())
+					{
+						if(fin.getMinutes() < inicio.getMinutes())
+						{
+							
+						}
+						else
+							validar 
+					}
+					else
+						validar = false;
+				}
+				else
+					validar = false;
+			}
+			else
+				validar = false;
+		}
+		else
+			validar = false;
+		*/
+		
+		return validar;
 	}
 }
