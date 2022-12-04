@@ -72,9 +72,9 @@ public class Principal extends JFrame {
 		
 		setTitle("Feria Cient\u00EDfica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 559, 323);
+		setBounds(100, 100, 701, 323);
 		dim = getToolkit().getScreenSize();
-		setSize(dim.width, dim.height-40);
+		//setSize(dim.width, dim.height-40);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -211,10 +211,10 @@ public class Principal extends JFrame {
 		});
 		menuBar.add(mnNewMenu_5);
 		
-		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Nurvo usuario");
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Nuevo usuario");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistroUsuario aux = new RegistroUsuario();
+				RegistroUsuario aux = new RegistroUsuario(0);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}
@@ -230,6 +230,29 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu_5.add(mntmNewMenuItem_12);
+		
+		JMenu mnNewMenu_8 = new JMenu("Cuenta");
+		menuBar.add(mnNewMenu_8);
+		
+		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Cambiar contrase\u00F1a");
+		mntmNewMenuItem_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegistroUsuario aux = new RegistroUsuario(1);
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_8.add(mntmNewMenuItem_13);
+		
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Cerrar sesi\u00F3n");
+		mntmNewMenuItem_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login aux = new Login();
+				aux.setVisible(true);
+				dispose();
+			}
+		});
+		mnNewMenu_8.add(mntmNewMenuItem_14);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

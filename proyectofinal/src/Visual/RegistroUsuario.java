@@ -17,6 +17,7 @@ import Logico.Usuario;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -46,7 +47,7 @@ public class RegistroUsuario extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistroUsuario() {
+	public RegistroUsuario(int opcion) {
 		setTitle("Registrar Usuario");
 		setBounds(100, 100, 338, 284);
 		getContentPane().setLayout(new BorderLayout());
@@ -60,10 +61,16 @@ public class RegistroUsuario extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			
-			btnRegistrar = new JButton("Registrar");
+			if(opcion == 0)
+				btnRegistrar = new JButton("Registrar");
+			else
+				btnRegistrar = new JButton("Modificar");
 			btnRegistrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					registrar();
+					if(opcion == 0)
+						registrar();
+					else
+						modificar();
 				}
 			});
 			btnRegistrar.setBounds(41, 172, 97, 25);
@@ -94,6 +101,12 @@ public class RegistroUsuario extends JDialog {
 			txtUsuario.setBounds(122, 24, 157, 22);
 			panel.add(txtUsuario);
 			txtUsuario.setColumns(10);
+			if(opcion == 1)
+			{
+				txtUsuario.setEnabled(false);
+				txtUsuario.setText(EventoCiencia.getInstance().getUser().getUser());
+			}
+				
 			
 			txtContrasena = new JTextField();
 			txtContrasena.setBounds(122, 68, 157, 22);
@@ -110,7 +123,15 @@ public class RegistroUsuario extends JDialog {
 	public void registrar() {
 		Usuario aux = new Usuario(boxTipo.getSelectedItem().toString(), txtUsuario.getText(), txtContrasena.getText());
 		EventoCiencia.getInstance().reguser(aux);
+		JOptionPane.showMessageDialog(null, "Usuario registrado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		clear();
+	}
+	
+	public void modificar() {
+		Usuario aux = EventoCiencia.getInstance().buscarusuario(txtUsuario.getText());
+		aux.setContrasena(txtContrasena.getText());
+		JOptionPane.showMessageDialog(null, "Contraseña modificada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		dispose();
 	}
 	
 	public void clear() {

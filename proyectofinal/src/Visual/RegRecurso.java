@@ -88,7 +88,7 @@ public class RegRecurso extends JDialog {
 		txtUbicacion.setColumns(10);
 		
 		BoxTipo = new JComboBox();
-		BoxTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Microfono", "Bocina", "Pantalla", "Cable HDMI a HDMI", "Cable tipo C a HDMI", "Cable VGA a HDMI"}));
+		BoxTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Micr\u00F3fono", "Bocina", "Pantalla", "Cable HDMI a HDMI", "Cable tipo C a HDMI", "Cable VGA a HDMI", "Mesa", "Silla", "Soporte de micr\u00F3fono", "Luces"}));
 		BoxTipo.setToolTipText("");
 		BoxTipo.setBounds(80, 87, 141, 22);
 		contentPanel.add(BoxTipo);
