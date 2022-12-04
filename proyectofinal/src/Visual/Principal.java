@@ -45,7 +45,6 @@ public class Principal extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -223,6 +222,13 @@ public class Principal extends JFrame {
 		mnNewMenu_5.add(mntmNewMenuItem_11);
 		
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Mostrar usuarios");
+		mntmNewMenuItem_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MostrarUsuarios aux = new MostrarUsuarios();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		mnNewMenu_5.add(mntmNewMenuItem_12);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
