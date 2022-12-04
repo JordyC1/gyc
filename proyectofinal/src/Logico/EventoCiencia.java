@@ -219,6 +219,24 @@ public class EventoCiencia implements Serializable{
 //////////////////////////////////////////////////////////////////////////////////////////////
 	//Buscadores
 	
+	public Usuario buscarusuario(String usuario) {
+		Usuario usu = null;
+		boolean encontrado = false;
+		int i = 0;
+		
+		while(i < usuarios.size() && encontrado == false) {
+			if(usuarios.get(i).getUser().equals(usuario))
+			{
+				encontrado = true;
+				usu = usuarios.get(i);
+			}
+			
+			i++;
+		}
+		
+		return usu;
+	}
+	
 	public Comision buscacomision(String codigo) {
 		Comision comi = null;
 		boolean encontrado = false;

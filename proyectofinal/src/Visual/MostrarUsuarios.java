@@ -19,6 +19,8 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MostrarUsuarios extends JDialog {
 
@@ -33,7 +35,7 @@ public class MostrarUsuarios extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			MostrarUsuarios dialog = new MostrarUsuarios();
@@ -68,6 +70,17 @@ public class MostrarUsuarios extends JDialog {
 					model.setColumnIdentifiers(columnas);
 					
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int rowSelected = -1;
+							rowSelected = table.getSelectedRow();
+							if(rowSelected>=0){
+							   btnEliminar.setEnabled(true);
+							   usuar = EventoCiencia.getInstance().buscarusuario(table.getValueAt(rowSelected, 0).toString());
+							}
+						}
+					});
 					scrollPane.setViewportView(table);
 					
 					table.setModel(model);
@@ -107,7 +120,8 @@ public class MostrarUsuarios extends JDialog {
 		
 		for (Usuario usua : EventoCiencia.getInstance().getUsuarios()) {
 			rows[0] = usua.getUser();
-			rows[1] = usua.getTipo();	
+			rows[1] = usua.getTipo();
+			model.addRow(rows);
 		}	
 	}
 

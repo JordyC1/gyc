@@ -202,7 +202,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Calificar trabajo");
 		mnNewMenu_6.add(mntmNewMenuItem_9);
 		
-		JMenu mnNewMenu_5 = new JMenu("Registrar");
+		JMenu mnNewMenu_5 = new JMenu("Administraci\u00F3n");
 		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
 			mnNewMenu_5.setEnabled(false);
 		mnNewMenu_5.addActionListener(new ActionListener() {
