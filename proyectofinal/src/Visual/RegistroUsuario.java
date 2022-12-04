@@ -32,7 +32,7 @@ public class RegistroUsuario extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			RegistroUsuario dialog = new RegistroUsuario();

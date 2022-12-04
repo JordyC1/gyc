@@ -31,7 +31,7 @@ public class MostrarTrabajo extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			MostrarTrabajo dialog = new MostrarTrabajo(null);

@@ -40,7 +40,7 @@ public class RegRecurso extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			RegRecurso dialog = new RegRecurso();

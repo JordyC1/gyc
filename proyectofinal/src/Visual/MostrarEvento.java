@@ -37,7 +37,7 @@ public class MostrarEvento extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			MostrarEvento dialog = new MostrarEvento();

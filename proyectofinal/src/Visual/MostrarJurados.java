@@ -35,7 +35,7 @@ public class MostrarJurados extends JDialog {
 	
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			MostrarJurados dialog = new MostrarJurados(null);

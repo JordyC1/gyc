@@ -35,7 +35,7 @@ public class MostrarComision extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			MostrarComision dialog = new MostrarComision(null);

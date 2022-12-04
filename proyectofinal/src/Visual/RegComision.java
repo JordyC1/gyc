@@ -47,7 +47,7 @@ public class RegComision extends JDialog {
 	private Jurado presidenteJurado=null;
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			RegComision dialog = new RegComision();

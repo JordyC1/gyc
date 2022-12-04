@@ -66,7 +66,7 @@ public class RegEvento extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		try {
 			RegEvento dialog = new RegEvento();
