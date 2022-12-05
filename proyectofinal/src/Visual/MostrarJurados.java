@@ -125,8 +125,13 @@ public class MostrarJurados extends JDialog {
 							opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar al jurado con codigo:"+juradoselect.getCodjurado(),
 									"Confirmacion", JOptionPane.YES_NO_OPTION);
 							if(opcion == JOptionPane.OK_OPTION) {
-								EventoCiencia.getInstance().eliminarjurado(juradoselect.getCodjurado());;
-								loadjurados(prioridad);
+								if(!juradocontenido(juradoselect)) {
+									EventoCiencia.getInstance().eliminarjurado(juradoselect.getCodjurado());;
+									loadjurados(prioridad);
+								}else {
+									JOptionPane.showMessageDialog(null, "No se puede eliminar un jurado contenido en una comision", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								}
+								
 							}
 						}
 						btneliminar.setEnabled(false);
@@ -184,5 +189,21 @@ public class MostrarJurados extends JDialog {
 			}
 		}
 		
+	}
+	
+	public boolean juradocontenido(Jurado judge) {
+		boolean contenido=false;
+		for (int i = 0; i < EventoCiencia.getInstance().getComisiones().size() && contenido!=true; i++)
+		{
+			for (int j = 0; j < EventoCiencia.getInstance().getComisiones().get(i).getJurados().size() && contenido!=true; j++)
+			{
+				if(judge.equals(EventoCiencia.getInstance().getComisiones().get(i).getJurados().get(j)) ||
+						judge.equals(EventoCiencia.getInstance().getComisiones().get(i).getPresidente() ))
+				{
+					contenido=true;
+				}
+			}
+		}
+		return contenido;
 	}
 }

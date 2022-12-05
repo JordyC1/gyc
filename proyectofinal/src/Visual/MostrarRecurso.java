@@ -106,11 +106,14 @@ public class MostrarRecurso extends JDialog {
 						opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar el recurso :"+recur.getCodigo(),
 								"Confirmacion", JOptionPane.YES_NO_OPTION);
 						if(opcion == JOptionPane.OK_OPTION) {
-							
-							EventoCiencia.getInstance().eliminarRecurso(recur.getCodigo());
-							JOptionPane.showMessageDialog(null, "Recurso eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-							cargardatos(recaux);
-							btnEliminar.setEnabled(false);
+							if(recur.getdisponible()) {
+								EventoCiencia.getInstance().eliminarRecurso(recur.getCodigo());
+								JOptionPane.showMessageDialog(null, "Recurso eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								cargardatos(recaux);
+								btnEliminar.setEnabled(false);
+							}else {
+								JOptionPane.showMessageDialog(null, "No se puede eliminar un recurso contenido en un evento", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							}	
 						}
 					}
 				});
