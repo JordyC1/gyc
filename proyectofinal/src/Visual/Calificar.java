@@ -105,7 +105,15 @@ public class Calificar extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				jurado = EventoCiencia.getInstance().buscarJurado(txtCodjurado.getText());
 				if(jurado == null)
+				{
 					JOptionPane.showMessageDialog(null, "Jurado no encontrado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+					comision = null;
+					evento = null;
+					trabajo = null;
+					clear();
+					cargardatos();
+				}
+					
 				else
 				{
 					JOptionPane.showMessageDialog(null, "Jurado encontrado con éxito!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -135,15 +143,15 @@ public class Calificar extends JDialog {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("Eventos permitidos");
-		lblNewLabel_2.setBounds(47, 13, 119, 16);
+		lblNewLabel_2.setBounds(49, 13, 119, 16);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Comisiones permitidas");
-		lblNewLabel_3.setBounds(258, 13, 138, 16);
+		lblNewLabel_3.setBounds(270, 13, 138, 16);
 		panel.add(lblNewLabel_3);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(36, 41, 140, 110);
+		panel_2.setBounds(12, 41, 192, 110);
 		panel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
@@ -169,7 +177,7 @@ public class Calificar extends JDialog {
 		table.setModel(model1);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(257, 42, 140, 110);
+		panel_3.setBounds(243, 42, 192, 110);
 		panel.add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
@@ -201,11 +209,11 @@ public class Calificar extends JDialog {
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel_4 = new JLabel("Trabajos");
-		lblNewLabel_4.setBounds(99, 13, 65, 16);
+		lblNewLabel_4.setBounds(96, 13, 65, 16);
 		panel_1.add(lblNewLabel_4);
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(35, 40, 193, 115);
+		panel_4.setBounds(12, 40, 232, 115);
 		panel_1.add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
@@ -231,8 +239,8 @@ public class Calificar extends JDialog {
 		table_2.setModel(model3);
 		
 		spnCalificacion = new JSpinner();
-		spnCalificacion.setModel(new SpinnerNumberModel(new Float(0), null, null, new Float(1)));
-		spnCalificacion.setBounds(270, 69, 112, 22);
+		spnCalificacion.setModel(new SpinnerNumberModel(new Float(0), null, new Float(10), new Float(1)));
+		spnCalificacion.setBounds(310, 69, 83, 22);
 		panel_1.add(spnCalificacion);
 		
 		btnCalificar = new JButton("Calificar");
@@ -240,10 +248,11 @@ public class Calificar extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				EventoCiencia.getInstance().evaluartrabajo(trabajo.getCodigo(), Float.parseFloat(spnCalificacion.getValue().toString()));
 				JOptionPane.showMessageDialog(null, "Calificación registrada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				spnCalificacion.setValue(Float.valueOf(0));
 			}
 		});
 		btnCalificar.setEnabled(false);
-		btnCalificar.setBounds(278, 106, 97, 25);
+		btnCalificar.setBounds(299, 104, 105, 25);
 		panel_1.add(btnCalificar);
 		{
 			JPanel buttonPane = new JPanel();
@@ -271,9 +280,7 @@ public class Calificar extends JDialog {
 		if(evento != null)
 			cargardatocomision();
 		if(comision != null)
-		{
 			cargardatotrabajo();
-		}
 			
 	}
 	
@@ -312,5 +319,18 @@ public class Calificar extends JDialog {
 			model3.addRow(rows);
 		}	
 	}
+	
+	public void clear() {
+		model3.setRowCount(0);
+		model2.setRowCount(0);
+		model1.setRowCount(0);
+		
+		rows = new Object[model3.getColumnCount()];
+		
+		model3.addRow(rows);
+		model2.addRow(rows);
+		model1.addRow(rows);
+	}
+	
 	
 }
