@@ -438,7 +438,7 @@ public class EventoCiencia implements Serializable{
 	
 	public void evaluartrabajo(String codtrabajo, float evaluacion){
 		Trabajo trab = buscatrabajo(codtrabajo);
-		trab.agregarcalif(evaluacion);
+		trab.agregarcalificacion(evaluacion);
 	}
 	
 	public void agregarrecursoevento(Recurso cosa, Evento event) {

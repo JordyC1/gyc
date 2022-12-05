@@ -53,11 +53,12 @@ public class Trabajo implements java.io.Serializable{
 	public void agregarcalificacion(float calif) {
 		if(primeracalificaion == false)
 		{
-			calificacion = (calif + calificacion);
+			calificacion = calif;
 			primeracalificaion = true;
 		}
 		else
 			calificacion = (calif + calificacion) / 2;
+			
 	}
 	
 	
