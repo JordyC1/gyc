@@ -53,6 +53,7 @@ public class MostrarComision extends JDialog {
 		setTitle("Comisiones");
 		setBounds(100, 100, 691, 373);
 		getContentPane().setLayout(new BorderLayout());
+		setLocationRelativeTo(null);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -146,7 +147,6 @@ public class MostrarComision extends JDialog {
 		
 		if(prioridad == null)
 		{	
-			System.out.println(EventoCiencia.getInstance().getComisiones().size());
 			for (int i = 0; i < EventoCiencia.getInstance().getComisiones().size(); i++) {
 			  
 				rows[0] = EventoCiencia.getInstance().getComisiones().get(i).getCodigo();

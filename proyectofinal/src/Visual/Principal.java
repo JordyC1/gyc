@@ -231,6 +231,19 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_5.add(mntmNewMenuItem_12);
 		
+		JMenu mnNewMenu_7 = new JMenu("Informes");
+		menuBar.add(mnNewMenu_7);
+		
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Informe Eventos");
+		mntmNewMenuItem_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MostrarInforme aux = new MostrarInforme();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_7.add(mntmNewMenuItem_15);
+		
 		JMenu mnNewMenu_8 = new JMenu("Cuenta");
 		menuBar.add(mnNewMenu_8);
 		

@@ -117,8 +117,12 @@ public class MostrarParticipante extends JDialog {
 							opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar al jurado con codigo:"+participanteselect.getCodparticipante(),
 									"Confirmacion", JOptionPane.YES_NO_OPTION);
 							if(opcion == JOptionPane.OK_OPTION) {
+								if(participanteselect.getTrabajos().size()==0) {
 								EventoCiencia.getInstance().eliminarparticipante(participanteselect.getCodparticipante());
 								loadparticipantes(null);
+								}else {
+									JOptionPane.showMessageDialog(null, "No se puede borrar un participante con un trabajo registrado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								}
 							}
 						}
 						btneliminar.setEnabled(false);
@@ -172,4 +176,5 @@ public class MostrarParticipante extends JDialog {
 			}
 		}
 	}
+	
 }
