@@ -273,7 +273,6 @@ public class Calificar extends JDialog {
 		if(comision != null)
 		{
 			cargardatotrabajo();
-			System.out.println("0");
 		}
 			
 	}
@@ -305,9 +304,7 @@ public class Calificar extends JDialog {
 	public void cargardatotrabajo() {
 		model3.setRowCount(0);
 		rows = new Object[model3.getColumnCount()];
-		System.out.println("1");
 		for (Trabajo trab : comision.getTrabajos()) {
-			System.out.println("2");
 			rows[0] = trab.getCodigo();
 			rows[1] = trab.gettitulo();
 			rows[2] = trab.getPropietario().getNombre();
