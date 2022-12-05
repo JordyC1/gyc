@@ -71,30 +71,6 @@ public class RegTrabajo extends JDialog {
 		if(participante!=null) {
 			participantebuscar=participante;
 		}
-		//Persona participantePersona=new Participante("555", "Fabio", "3123123", "1323123");
-		/*Jurado p1=new Jurado("qweqe", "Carmen clara", "52345234", "Jud-2","Informatica");
-		Jurado p2=new Jurado("qweqe", "CArlo hern", "52345234", "Jud-232","Informatica");
-		Jurado p3=new Jurado("qweqe", "CFernando", "52345234", "Jud-4","Informatica");
-		Jurado p4=new Jurado("qweqe", "Maria mag", "52345234", "Jud-5","Informatica");
-		Comision comision=new Comision("42332", "Informatica", p1);
-		Comision comision2=new Comision("34442", "Informatica", p4);
-		Recurso recurso=new Recurso("23423", true, "frente", "Microfono", "423423");
-		comision.agregarjurados(p2);
-		comision2.agregarjurados(p3);
-		Evento evento=new Evento("Feria 2019", "23323", "San pedro", "10/5/2010", "10/5/2010", 10);
-		Evento event1=new Evento("Feria 201956", "32323", "Alemania", "10/5/2010", "10/5/2010", 20);
-		evento.agregarcomision(comision);
-		event1.agregarcomision(comision2);
-		event1.agregarcomision(comision);
-		EventoCiencia.getInstance().agregarcomisiones(comision);
-		EventoCiencia.getInstance().agregarcomisiones(comision2);
-		EventoCiencia.getInstance().agregarpersonas(p1);
-		EventoCiencia.getInstance().agregarpersonas(p2);
-		EventoCiencia.getInstance().agregarpersonas(p3);
-		EventoCiencia.getInstance().agregarpersonas(p4);
-		EventoCiencia.getInstance().agregarevento(evento);
-		EventoCiencia.getInstance().agregarevento(event1);
-	    */
 		setTitle("Agregar trabajo");
 		setBounds(100, 100, 493, 458);
 		setLocationRelativeTo(null);

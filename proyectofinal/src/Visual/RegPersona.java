@@ -339,6 +339,7 @@ e.printStackTrace();
 								agregartrabajos(persona);
 								EventoCiencia.getInstance().agregarpersonas(persona);
 								JOptionPane.showMessageDialog(null, "Participante registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								participante=null;
 								clean();
 							}else {
 								JOptionPane.showMessageDialog(null, "Ingrese almenos 1 trabajo al participante", "Aviso", JOptionPane.INFORMATION_MESSAGE);

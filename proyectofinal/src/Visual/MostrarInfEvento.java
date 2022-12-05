@@ -104,15 +104,16 @@ public class MostrarInfEvento extends JDialog {
 		int cantparticipantes=0;
 		boolean repetido=false;
 		for (int i=0;i< auxEvento.getComisiones().size();i++) {
-			if(area.equalsIgnoreCase(EventoCiencia.getInstance().getEventos().get(i).getComisiones().get(i).getArea()))
+			if(area.equalsIgnoreCase(auxEvento.getComisiones().get(i).getArea()))
 			{
 				cantareacomision++;
 				cantareatrabajo+=auxEvento.getComisiones().get(i).getTrabajos().size();
-				cantjurados=auxEvento.getComisiones().get(i).getTrabajos().size()+1;
+				cantjurados+=auxEvento.getComisiones().get(i).getJurados().size()+1;
 				for (int j = 0; j < auxEvento.getComisiones().get(i).getTrabajos().size(); j++)
 				{
 					Participante partaux=auxEvento.getComisiones().get(i).getTrabajos().get(j).getPropietario();
 					cantparticipantes++;
+					repetido=false;
 					for (int k = j+1; k < auxEvento.getComisiones().get(i).getTrabajos().size() && repetido!=true; k++)
 					{
 						if(partaux.getCodparticipante().equalsIgnoreCase(auxEvento.getComisiones().get(i).getTrabajos().get(k).getPropietario().getCodparticipante()))
