@@ -464,163 +464,6 @@ public class EventoCiencia implements Serializable{
 		return presidenterepetido;
 	}
 
-	/*
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//funciones para guardar
-	
-	public void guardarpersona() throws IOException, ClassNotFoundException {
-		FileOutputStream f = new FileOutputStream ("Personas.dat");
-		ObjectOutputStream guardador = new ObjectOutputStream(f);
-		
-		guardador.writeInt(personas.size());
-		
-		for(int i = 0; i < personas.size(); i ++) {
-			guardador.writeObject(personas.get(i));
-		}
-		
-		guardador.close();
-		f.close();
-	}
-	
-	public void guardarcomision() throws IOException, ClassNotFoundException {
-		FileOutputStream f = new FileOutputStream ("comisiones.dat");
-		ObjectOutputStream guardador = new ObjectOutputStream(f);
-		
-		guardador.writeInt(comisiones.size());
-		
-		for(int i = 0; i < comisiones.size(); i ++) {
-			guardador.writeObject(comisiones.get(i));
-		}
-		
-		guardador.close();
-		f.close();
-	}
-	
-	public void guardarevento() throws IOException, ClassNotFoundException {
-		FileOutputStream f = new FileOutputStream ("eventos.dat");
-		ObjectOutputStream guardador = new ObjectOutputStream(f);
-		
-		guardador.writeInt(eventos.size());
-		
-		for(int i = 0; i < eventos.size(); i ++) {
-			guardador.writeObject(eventos.get(i));
-		}
-		
-		guardador.close();
-		f.close();
-	}
-	
-	public void guardarrecurso() throws IOException, ClassNotFoundException {
-		FileOutputStream f = new FileOutputStream ("recursos.dat");
-		ObjectOutputStream guardador = new ObjectOutputStream(f);
-		
-		guardador.writeInt(recursos.size());
-		
-		for(int i = 0; i < recursos.size(); i ++) {
-			guardador.writeObject(recursos.get(i));
-		}
-		
-		guardador.close();
-		f.close();
-	}
-	
-	public void guardartrabajo() throws IOException, ClassNotFoundException {
-		FileOutputStream f = new FileOutputStream ("trabajos.dat");
-		ObjectOutputStream guardador = new ObjectOutputStream(f);
-		
-		guardador.writeInt(trabajos.size());
-		
-		for(int i = 0; i < trabajos.size(); i ++) {
-			guardador.writeObject(trabajos.get(i));
-		}
-		
-		guardador.close();
-		f.close();
-	}
-	
-	public void guardartodo() throws IOException, ClassNotFoundException{
-		guardarcomision();
-		guardarevento();
-		guardarpersona();
-		guardarrecurso();
-		guardartrabajo();
-	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//funciones para cargar
-	
-	public void cargarpersona() throws IOException, ClassNotFoundException {
-		FileInputStream f = new FileInputStream ("Personas.dat");
-		ObjectInputStream cargador = new ObjectInputStream(f);
-		int size = cargador.readInt();
-		
-		for (int i = 0; i < size; i++){	
-			Persona aux = (Persona)cargador.readObject();
-			personas.add(aux);
-		}
-		cargador.close();
-		f.close();
-	}
-	
-	public void cargarcomsision() throws IOException, ClassNotFoundException {
-		FileInputStream f = new FileInputStream ("comisiones.dat");
-		ObjectInputStream cargador = new ObjectInputStream(f);
-		int size = cargador.readInt();
-		
-		for (int i = 0; i < size; i++){	
-			Comision aux = (Comision)cargador.readObject();
-			comisiones.add(aux);
-		}
-		cargador.close();
-		f.close();
-	}
-	
-	public void cargarevento() throws IOException, ClassNotFoundException {
-		FileInputStream f = new FileInputStream ("eventos.dat");
-		ObjectInputStream cargador = new ObjectInputStream(f);
-		int size = cargador.readInt();
-		
-		for (int i = 0; i < size; i++){	
-			Evento aux = (Evento)cargador.readObject();
-			eventos.add(aux);
-		}
-		cargador.close();
-		f.close();
-	}
-	
-	public void cargarrecurso() throws IOException, ClassNotFoundException {
-		FileInputStream f = new FileInputStream ("recursos.dat");
-		ObjectInputStream cargador = new ObjectInputStream(f);
-		int size = cargador.readInt();
-		
-		for (int i = 0; i < size; i++){	
-			Recurso aux = (Recurso)cargador.readObject();
-			recursos.add(aux);
-		}
-		cargador.close();
-		f.close();
-	}
-	
-	public void cargartrabajo() throws IOException, ClassNotFoundException {
-		FileInputStream f = new FileInputStream ("trabajos.dat");
-		ObjectInputStream cargador = new ObjectInputStream(f);
-		int size = cargador.readInt();
-		
-		for (int i = 0; i < size; i++){	
-			Trabajo aux = (Trabajo)cargador.readObject();
-			trabajos.add(aux);
-		}
-		cargador.close();
-		f.close();
-	}
-	
-	public void cargartodo() throws IOException, ClassNotFoundException{
-		cargarcomsision();
-		cargarevento();
-		cargarpersona();
-		cargarrecurso();
-		cargartrabajo();
-	}*/
-	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Funciones de eliminacion
@@ -674,21 +517,8 @@ public class EventoCiencia implements Serializable{
 		
 		return posi;
 	}
-	public boolean confirmLogin(String usuar, String contra) {
-		boolean login = false;
-		//System.out.println(usuarios.size());
-		for (Usuario user : usuarios) {
-			if(user.getUser().equals(usuar) && user.getContrasena().equals(contra)){
-				nowuser = user;
-				login = true;
-			}
-		}
-		return login;
-	}
 	
-	public void algo() {
-		
-	}
+	
 	public void eliminarjurado(String codigo) {
 		int ind=indjurado(codigo);
 		if(ind != -1)
@@ -797,5 +627,36 @@ public class EventoCiencia implements Serializable{
 		
 		return posi;
 	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public boolean confirmLogin(String usuar, String contra) {
+		boolean login = false;
+		//System.out.println(usuarios.size());
+		for (Usuario user : usuarios) {
+			if(user.getUser().equals(usuar) && user.getContrasena().equals(contra)){
+				nowuser = user;
+				login = true;
+			}
+		}
+		return login;
+	}
+	
+	public ArrayList<Evento> eventosdejurado(String codjurado){
+		ArrayList<Evento> event	= null;
+		
+		for (Evento evento : eventos) {
+			for (Comision comi : evento.getComisiones()) {
+				for (Jurado jurad : comi.getJurados()) {
+					if(jurad.getCodjurado().equals(codjurado))
+					{
+						event.add(evento);
+					}
+				}
+			}
+		}
+		
+		return event;
+	}
+	
 	
 }

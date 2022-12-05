@@ -196,11 +196,18 @@ public class Principal extends JFrame {
 		
 		JMenu mnNewMenu_6 = new JMenu("Funciones");
 		menuBar.add(mnNewMenu_6);
-		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
-			mnNewMenu_6.setEnabled(false);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Calificar trabajo");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Calificar aux = new Calificar();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
 		mnNewMenu_6.add(mntmNewMenuItem_9);
+		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
+			mnNewMenu_6.setEnabled(false);
 		
 		JMenu mnNewMenu_5 = new JMenu("Administraci\u00F3n");
 		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))

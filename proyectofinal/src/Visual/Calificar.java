@@ -72,6 +72,11 @@ public class Calificar extends JDialog {
 	 * Create the dialog.
 	 */
 	public Calificar() {
+		
+		jurado = null;
+		comision = null;
+		evento = null;
+		trabajo = null;
 		setTitle("Calificar trabajo");
 		setBounds(100, 100, 489, 507);
 		getContentPane().setLayout(new BorderLayout());
@@ -96,6 +101,20 @@ public class Calificar extends JDialog {
 		txtCodjurado.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jurado = EventoCiencia.getInstance().buscarJurado(txtCodjurado.getText());
+				if(jurado == null)
+					JOptionPane.showMessageDialog(null, "Jurado no encontrado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Jurado encontrado con éxito!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+					txtNombre.setText(jurado.getNombre());
+					cargardatos();
+				}
+					
+			}
+		});
 		btnBuscar.setBounds(301, 9, 97, 25);
 		paneljurado.add(btnBuscar);
 		
@@ -142,6 +161,7 @@ public class Calificar extends JDialog {
 				rowSelected = table.getSelectedRow();
 				if(rowSelected>=0){
 				   evento = EventoCiencia.getInstance().buscarevento(table.getValueAt(rowSelected, 0).toString());
+				   cargardatos();
 				}
 			}
 		});
@@ -167,6 +187,7 @@ public class Calificar extends JDialog {
 				rowSelected = table.getSelectedRow();
 				if(rowSelected>=0){
 				   comision = EventoCiencia.getInstance().buscacomision(table_1.getValueAt(rowSelected, 0).toString());
+				   cargardatos();
 				}
 			}
 		});
@@ -203,6 +224,7 @@ public class Calificar extends JDialog {
 				if(rowSelected>=0){
 				   btnCalificar.setEnabled(true);
 				   trabajo = EventoCiencia.getInstance().buscatrabajo(table_2.getValueAt(rowSelected, 0).toString());
+				   cargardatos();
 				}
 			}
 		});
@@ -240,17 +262,29 @@ public class Calificar extends JDialog {
 				buttonPane.add(btnCancelar);
 			}
 		}
+		cargardatos();
 	}
 	
-	public void cargardatos(ArrayList<Recurso> recaux) {
-		cargardatocomision();
-		cargardatoevento();
-		cargardatotrabajo();
+	public void cargardatos() {
+		
+		if(jurado != null)
+			cargardatoevento();
+		if(evento != null)
+			cargardatocomision();
+		if(comision != null)
+			cargardatotrabajo();
 	}
 	
 	public void cargardatoevento() {
 		model1.setRowCount(0);
 		rows = new Object[model1.getColumnCount()];
+		
+		for (Evento event : EventoCiencia.getInstance().eventosdejurado(jurado.getCodjurado())) {
+			rows[0] = event.getCodigo();
+			rows[1] = event.getNombre();
+			
+			model1.addRow(rows);
+		}
 	}
 	
 	public void cargardatocomision() {
