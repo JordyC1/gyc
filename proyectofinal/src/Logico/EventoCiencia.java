@@ -489,7 +489,6 @@ public class EventoCiencia implements Serializable{
 			}	
 			i++;
 		}
-		
 		return posi;
 	}
 	
@@ -627,6 +626,23 @@ public class EventoCiencia implements Serializable{
 		
 		return posi;
 	}
+	
+	
+	public void eliminarcomision(String codigo) {
+		int ind = indcomision(codigo);
+		
+		if(ind != -1)
+			comisiones.remove(ind);
+	}
+	
+	public void eliminarevento(String codigo) {
+		int ind = indevento(codigo);
+		
+		if(ind != -1)
+			eventos.remove(ind);
+	}
+	
+	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public boolean confirmLogin(String usuar, String contra) {

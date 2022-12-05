@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -121,6 +122,20 @@ public class MostrarComision extends JDialog {
 			}
 			{
 				btnEliminar = new JButton("Eliminar");
+				btnEliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int opcion;
+						opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar la comisión :"+comi.getCodigo(),
+								"Confirmacion", JOptionPane.YES_NO_OPTION);
+						if(opcion == JOptionPane.OK_OPTION) {
+							
+							EventoCiencia.getInstance().eliminarcomision(comi.getCodigo());
+							JOptionPane.showMessageDialog(null, "Comisión eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							cargardatos(prioridad);
+							btnEliminar.setEnabled(false);
+						}
+					}
+				});
 				btnEliminar.setEnabled(false);
 				btnEliminar.setActionCommand("OK");
 				buttonPane.add(btnEliminar);

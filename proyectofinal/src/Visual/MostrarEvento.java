@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -122,6 +123,20 @@ public class MostrarEvento extends JDialog {
 			}
 			{
 				btnEliminar = new JButton("Eliminar");
+				btnEliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int opcion;
+						opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar el evento :"+event.getCodigo(),
+								"Confirmacion", JOptionPane.YES_NO_OPTION);
+						if(opcion == JOptionPane.OK_OPTION) {
+							
+							EventoCiencia.getInstance().eliminarevento(event.getCodigo());
+							JOptionPane.showMessageDialog(null, "Evento eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							cargardatos();
+							btnEliminar.setEnabled(false);
+						}
+					}
+				});
 				btnEliminar.setEnabled(false);
 				btnEliminar.setActionCommand("OK");
 				buttonPane.add(btnEliminar);
