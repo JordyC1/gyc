@@ -642,7 +642,7 @@ public class EventoCiencia implements Serializable{
 	}
 	
 	public ArrayList<Evento> eventosdejurado(String codjurado){
-		ArrayList<Evento> event	= null;
+		ArrayList<Evento> event	= new ArrayList<>();
 		
 		for (Evento evento : eventos) {
 			for (Comision comi : evento.getComisiones()) {

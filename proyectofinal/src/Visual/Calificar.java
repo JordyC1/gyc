@@ -184,7 +184,7 @@ public class Calificar extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int rowSelected = -1;
-				rowSelected = table.getSelectedRow();
+				rowSelected = table_1.getSelectedRow();
 				if(rowSelected>=0){
 				   comision = EventoCiencia.getInstance().buscacomision(table_1.getValueAt(rowSelected, 0).toString());
 				   cargardatos();
@@ -220,11 +220,10 @@ public class Calificar extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int rowSelected = -1;
-				rowSelected = table.getSelectedRow();
+				rowSelected = table_2.getSelectedRow();
 				if(rowSelected>=0){
 				   btnCalificar.setEnabled(true);
 				   trabajo = EventoCiencia.getInstance().buscatrabajo(table_2.getValueAt(rowSelected, 0).toString());
-				   cargardatos();
 				}
 			}
 		});
@@ -272,7 +271,11 @@ public class Calificar extends JDialog {
 		if(evento != null)
 			cargardatocomision();
 		if(comision != null)
+		{
 			cargardatotrabajo();
+			System.out.println("0");
+		}
+			
 	}
 	
 	public void cargardatoevento() {
@@ -302,8 +305,9 @@ public class Calificar extends JDialog {
 	public void cargardatotrabajo() {
 		model3.setRowCount(0);
 		rows = new Object[model3.getColumnCount()];
-		
+		System.out.println("1");
 		for (Trabajo trab : comision.getTrabajos()) {
+			System.out.println("2");
 			rows[0] = trab.getCodigo();
 			rows[1] = trab.gettitulo();
 			rows[2] = trab.getPropietario().getNombre();
