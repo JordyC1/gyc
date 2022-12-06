@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class MostrarInfEvento extends JDialog {
+public class Mostrarinfgeneral extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -43,6 +43,8 @@ public class MostrarInfEvento extends JDialog {
 	private Evento auxEvento=null;
 	private JTextField txtrecursos;
 	private JTextField txtparticipante;
+	private JTextField textField;
+	private JTextField textField_1;
 	/**
 	 * Launch the application.
 	 */
@@ -50,10 +52,8 @@ public class MostrarInfEvento extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarInfEvento(Evento event) {
-		auxEvento=event;
-		setTitle("Mostrar Informe Evento codigo:"+event.getCodigo()+" Nombre:"+event.getNombre());
-		setBounds(100, 100, 844, 271);
+	public Mostrarinfgeneral() {
+		setBounds(100, 100, 844, 341);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,7 +62,7 @@ public class MostrarInfEvento extends JDialog {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 69, 808, 119);
+		scrollPane.setBounds(10, 139, 808, 119);
 		contentPanel.add(scrollPane);
 		
 		table = new JTable();
@@ -92,6 +92,26 @@ public class MostrarInfEvento extends JDialog {
 		contentPanel.add(txtparticipante);
 		txtparticipante.setColumns(10);
 		txtparticipante.setText(""+EventoCiencia.getInstance().cantparticipanteevento(auxEvento.getCodigo()));
+		
+		JLabel lblNewLabel_2 = new JLabel("Cantidad de Eventos:");
+		lblNewLabel_2.setBounds(32, 79, 129, 14);
+		contentPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Cantidad de usuarios:");
+		lblNewLabel_3.setBounds(29, 114, 115, 14);
+		contentPanel.add(lblNewLabel_3);
+		
+		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(160, 76, 73, 20);
+		contentPanel.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setEditable(false);
+		textField_1.setBounds(160, 108, 73, 20);
+		contentPanel.add(textField_1);
+		textField_1.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -140,6 +160,4 @@ public class MostrarInfEvento extends JDialog {
 		row[2]=cantareacomision;
 		row[3]=cantjurados;
 	}
-	
-	
 }
