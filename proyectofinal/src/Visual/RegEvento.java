@@ -312,6 +312,7 @@ public class RegEvento extends JDialog {
 			}
 		}
 		cargardatos();
+		
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,35 +357,39 @@ public class RegEvento extends JDialog {
 	}
 	
 	public void agregarevento(){
-		
 		if(!(txtNombre.getText().equals("")))
 		{
 			if(!(txtUbicacion.getText().equals("")))
 			{
-				if(EventoCiencia.getInstance().getcomisionesaux().size() != 0)
+				if(!(spnFechaFin.getValue().toString().equals(spnFechaInicio.getValue().toString())))
 				{
-					if(Integer.parseInt(spnCupo.getValue().toString()) > 0)
+					if(EventoCiencia.getInstance().getcomisionesaux().size() != 0)
 					{
-						Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
-								, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
-								Integer.parseInt(spnCupo.getValue().toString()));
-						aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
-						aux.setRecursos(agregados);
-						EventoCiencia.getInstance().agregarevento(aux);
-						JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-						
-						//guardar las comisiones en la comision genral
-						for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+						if(Integer.parseInt(spnCupo.getValue().toString()) > 0)
 						{
-							EventoCiencia.getInstance().agregarcomisiones(com);
+							Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
+									, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
+									Integer.parseInt(spnCupo.getValue().toString()));
+							aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
+							aux.setRecursos(agregados);
+							EventoCiencia.getInstance().agregarevento(aux);
+							JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+							
+							//guardar las comisiones en la comision genral
+							for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+							{
+								EventoCiencia.getInstance().agregarcomisiones(com);
+							}
+							clear();
 						}
-						clear();
+						else
+							JOptionPane.showMessageDialog(null, "El cupo debe ser mayor que 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);	
 					}
 					else
-						JOptionPane.showMessageDialog(null, "El cupo debe ser mayor que 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);	
+						JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 				}
-				else
-					JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				else	
+					JOptionPane.showMessageDialog(null, "Las fechas no pueden ser iguales", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 				JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
