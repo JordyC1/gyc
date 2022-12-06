@@ -118,6 +118,10 @@ public class Calificar extends JDialog {
 				{
 					JOptionPane.showMessageDialog(null, "Jurado encontrado con éxito!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 					txtNombre.setText(jurado.getNombre());
+					comision = null;
+					evento = null;
+					trabajo = null;
+					clear();
 					cargardatos();
 				}
 					
@@ -325,17 +329,8 @@ public class Calificar extends JDialog {
 		}	
 	}
 	
-	public void clear() {
+	public void clear() {	
 		model3.setRowCount(0);
 		model2.setRowCount(0);
-		model1.setRowCount(0);
-		
-		rows = new Object[model3.getColumnCount()];
-		
-		model3.addRow(rows);
-		model2.addRow(rows);
-		model1.addRow(rows);
 	}
-	
-	
 }
