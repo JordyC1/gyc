@@ -91,6 +91,7 @@ public class MostrarInfEvento extends JDialog {
 		txtparticipante.setBounds(160, 38, 73, 20);
 		contentPanel.add(txtparticipante);
 		txtparticipante.setColumns(10);
+		txtparticipante.setText(""+EventoCiencia.getInstance().cantparticipanteevento(auxEvento.getCodigo()));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

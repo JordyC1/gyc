@@ -688,5 +688,37 @@ public class EventoCiencia implements Serializable{
 		return comis;
 	}
 	
+	public int cantparticipanteevento(String codevento) {
+		Evento event = buscarevento(codevento);
+		ArrayList<Participante> partis = new ArrayList<>();
+		int cant = 0;
+		
+		for (Comision comi : event.getComisiones()) {
+			for (Trabajo trab : comi.getTrabajos()) {
+				if(!(estaparticipante(trab.getPropietario().getCodparticipante(), partis)))
+					partis.add(trab.getPropietario());
+			}	
+		}
+		
+		cant = partis.size();
+		
+		return cant;
+	}
+	
+	public boolean estaparticipante(String cod,ArrayList<Participante> parti) {
+		boolean veredict = false;
+		int i = 0;
+		
+		while(veredict == false && i < parti.size())
+		{
+			if(parti.get(i).getCodparticipante().equals(cod))
+				veredict = true;
+			
+			i++;
+		}
+		
+		return veredict;
+	}
+	
 	
 }
