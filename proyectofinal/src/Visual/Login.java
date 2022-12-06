@@ -27,12 +27,13 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JFormattedTextField ftxtUsuario;
-	private JFormattedTextField ftxtContrasena;
+	private JPasswordField ftxtContrasena;
 
 	/**
 	 * Launch the application.
@@ -102,7 +103,7 @@ public class Login extends JFrame {
 		JLabel lblNewLabel = new JLabel("Feria de Ciencias");
 		lblNewLabel.setFont(new Font("Gloucester MT Extra Condensed", Font.BOLD, 25));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 5, 297, 51);
+		lblNewLabel.setBounds(8, 5, 297, 51);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
@@ -130,11 +131,11 @@ public class Login extends JFrame {
 		
 		ftxtUsuario = new JFormattedTextField();
 		ftxtUsuario.setToolTipText("");
-		ftxtUsuario.setBounds(76, 100, 161, 19);
+		ftxtUsuario.setBounds(76, 100, 161, 20);
 		panel.add(ftxtUsuario);
 		
-		ftxtContrasena = new JFormattedTextField();
-		ftxtContrasena.setBounds(76, 159, 161, 19);
+		ftxtContrasena = new JPasswordField();
+		ftxtContrasena.setBounds(76, 159, 161, 20);
 		panel.add(ftxtContrasena);
 		setLocationRelativeTo(null);
 	}

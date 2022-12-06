@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPasswordField;
 
 public class RegistroUsuario extends JDialog {
 
@@ -33,6 +34,7 @@ public class RegistroUsuario extends JDialog {
 	private JTextField txtValidarcontra;
 	private JLabel Contraanterior;
 	private JTextField txtContraseñaant;
+	private JPasswordField contanenia;
 
 	/**
 	 * Launch the application.
@@ -123,7 +125,7 @@ public class RegistroUsuario extends JDialog {
 				txtUsuario.setText(EventoCiencia.getInstance().getUser().getUser());
 			}
 				
-			txtContrasena = new JTextField();
+			txtContrasena = new JPasswordField();
 			if(opcion == 0)
 				txtContrasena.setBounds(165, 67, 167, 22);
 			else
@@ -138,7 +140,7 @@ public class RegistroUsuario extends JDialog {
 				lblNewLabel_3.setBounds(22, 156, 134, 16);
 			panel.add(lblNewLabel_3);
 			
-			txtValidarcontra = new JTextField();
+			txtValidarcontra = new JPasswordField();
 			if(opcion == 0)
 				txtValidarcontra.setBounds(165, 110, 167, 22);
 			else
@@ -152,7 +154,7 @@ public class RegistroUsuario extends JDialog {
 				Contraanterior.setBounds(22, 70, 134, 16);
 				panel.add(Contraanterior);
 				
-				txtContraseñaant = new JTextField();
+				txtContraseñaant = new JPasswordField();
 				txtContraseñaant.setBounds(165, 67, 167, 22);
 				panel.add(txtContraseñaant);
 				txtContraseñaant.setColumns(10);
@@ -176,7 +178,7 @@ public class RegistroUsuario extends JDialog {
 	public void modificar() {
 		if(EventoCiencia.getInstance().confirmLogin(txtUsuario.getText(), txtContraseñaant.getText()))
 		{
-			if(txtContrasena.getText().equals(txtValidarcontra))
+			if(txtContrasena.getText().equals(txtValidarcontra.getText()))
 			{
 				Usuario aux = EventoCiencia.getInstance().buscarusuario(txtUsuario.getText());
 				aux.setContrasena(txtContrasena.getText());
