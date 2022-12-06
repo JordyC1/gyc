@@ -43,8 +43,8 @@ public class Mostrarinfgeneral extends JDialog {
 	private Evento auxEvento=null;
 	private JTextField txtrecursos;
 	private JTextField txtparticipante;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtevento;
+	private JTextField txtusuario;
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +53,7 @@ public class Mostrarinfgeneral extends JDialog {
 	 * Create the dialog.
 	 */
 	public Mostrarinfgeneral() {
+		setTitle("Informe Feria Cientifica");
 		setBounds(100, 100, 844, 341);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -91,27 +92,26 @@ public class Mostrarinfgeneral extends JDialog {
 		txtparticipante.setBounds(160, 38, 73, 20);
 		contentPanel.add(txtparticipante);
 		txtparticipante.setColumns(10);
-		txtparticipante.setText(""+EventoCiencia.getInstance().cantparticipanteevento(auxEvento.getCodigo()));
 		
 		JLabel lblNewLabel_2 = new JLabel("Cantidad de Eventos:");
-		lblNewLabel_2.setBounds(32, 79, 129, 14);
+		lblNewLabel_2.setBounds(39, 79, 129, 14);
 		contentPanel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Cantidad de usuarios:");
-		lblNewLabel_3.setBounds(29, 114, 115, 14);
+		lblNewLabel_3.setBounds(29, 114, 132, 14);
 		contentPanel.add(lblNewLabel_3);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(160, 76, 73, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		txtevento = new JTextField();
+		txtevento.setEditable(false);
+		txtevento.setBounds(160, 76, 73, 20);
+		contentPanel.add(txtevento);
+		txtevento.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setBounds(160, 108, 73, 20);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
+		txtusuario = new JTextField();
+		txtusuario.setEditable(false);
+		txtusuario.setBounds(160, 108, 73, 20);
+		contentPanel.add(txtusuario);
+		txtusuario.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -133,7 +133,9 @@ public class Mostrarinfgeneral extends JDialog {
 	public void cargardatos() {
 		model.setRowCount(0);
 		rows = new Object[model.getColumnCount()];	
-
+		txtevento.setText(String.valueOf(EventoCiencia.getInstance().getEventos().size()));
+		txtrecursos.setText(String.valueOf(EventoCiencia.getInstance().getRecursos().size()));
+		txtusuario.setText(String.valueOf(EventoCiencia.getInstance().getUsuarios().size()));
 		for (int i=0;i< Areas.length;i++) {
 			rows[0]=Areas[i];
 			contarareacomision(rows, Areas[i]);
@@ -145,17 +147,28 @@ public class Mostrarinfgeneral extends JDialog {
 		int cantareacomision=0;
 		int cantareatrabajo=0;
 		int cantjurados=0;
-		int cantrecursos=0;
-		for (int i=0;i< auxEvento.getComisiones().size();i++) {
-			
-			if(area.equalsIgnoreCase(auxEvento.getComisiones().get(i).getArea()))
+		int cantparticipante=0;
+		for (int i = 0; i < EventoCiencia.getInstance().getComisiones().size(); i++)
+		{
+			if(area.equalsIgnoreCase(EventoCiencia.getInstance().getComisiones().get(i).getArea()))
 			{
 				cantareacomision++;
-				cantareatrabajo+=auxEvento.getComisiones().get(i).getTrabajos().size();
-				cantjurados+=auxEvento.getComisiones().get(i).getJurados().size()+1;
+				cantareatrabajo+=EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size();
 			}
 		}
-		txtrecursos.setText(String.valueOf(auxEvento.getRecursos().size()));
+		for (int j = 0; j < EventoCiencia.getInstance().getPersonas().size(); j++) 
+		{
+			if( EventoCiencia.getInstance().getPersonas().get(j) instanceof Jurado)
+			{
+				if(((Jurado)EventoCiencia.getInstance().getPersonas().get(j)).getAreaespecializado().equals(area))
+				{
+				cantjurados++;
+				}
+			}else {
+				cantparticipante++;
+			}
+		}
+		txtparticipante.setText(String.valueOf(cantparticipante));
 		row[1]=cantareatrabajo;
 		row[2]=cantareacomision;
 		row[3]=cantjurados;
