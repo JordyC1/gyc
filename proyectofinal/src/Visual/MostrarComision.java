@@ -128,11 +128,14 @@ public class MostrarComision extends JDialog {
 						opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar la comisión :"+comi.getCodigo(),
 								"Confirmacion", JOptionPane.YES_NO_OPTION);
 						if(opcion == JOptionPane.OK_OPTION) {
-							
-							EventoCiencia.getInstance().eliminarcomision(comi.getCodigo());
-							JOptionPane.showMessageDialog(null, "Comisión eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-							cargardatos(prioridad);
-							btnEliminar.setEnabled(false);
+							if(verificareventencomision(comi)) {
+								JOptionPane.showMessageDialog(null, "No se puede eliminar una comision contenida en un evento", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+							}else {
+								EventoCiencia.getInstance().eliminarcomision(comi.getCodigo());
+								JOptionPane.showMessageDialog(null, "Comisión eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								cargardatos(prioridad);
+								btnEliminar.setEnabled(false);
+							}
 						}
 					}
 				});
@@ -186,6 +189,19 @@ public class MostrarComision extends JDialog {
 			}
 		}
 		
+	}
+	public boolean verificareventencomision(Comision comi) {
+		boolean encontrado=false;
+		for (int i = 0; i < EventoCiencia.getInstance().getEventos().size(); i++) {
+			for (int j = 0; j < EventoCiencia.getInstance().getEventos().get(i).getComisiones().size(); j++)
+			{
+				if(comi.equals(EventoCiencia.getInstance().getEventos().get(i).getComisiones().get(j))) 
+				{
+					encontrado=true;
+				}
+			}
+		}
+		return encontrado;
 	}
 
 }
