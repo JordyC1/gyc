@@ -181,15 +181,21 @@ public class RegComision extends JDialog {
 		btnagregarp = new JButton("Agregar presidente");
 		btnagregarp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(seleccionado>=0) {
-					presidenteJurado=EventoCiencia.getInstance().buscarJurado(modeltableadd.getValueAt(seleccionado, 0).toString());
-					if(presidenteJurado!=null ) {
-						txtpresidente.setText(presidenteJurado.getNombre());
-					}else {
-						JOptionPane.showMessageDialog(null, "Presidente anteriormente asignado a la misma comision", "Error", JOptionPane.OK_OPTION);
+				if(!(EventoCiencia.getInstance().buscarPresidentesrepetidos(modeltableadd.getValueAt(seleccionado, 0).toString())))
+				{
+					if(seleccionado>=0) {
+						presidenteJurado=EventoCiencia.getInstance().buscarJurado(modeltableadd.getValueAt(seleccionado, 0).toString());
+						if(presidenteJurado!=null ) {
+							txtpresidente.setText(presidenteJurado.getNombre());
+						}else {
+							JOptionPane.showMessageDialog(null, "Presidente anteriormente asignado a la misma comisión", "Error", JOptionPane.OK_OPTION);
+						}
 					}
+					btnagregarp.setEnabled(false);
 				}
-				btnagregarp.setEnabled(false);
+				else
+					JOptionPane.showMessageDialog(null, "Presidente asignado a otra comisión", "Error", JOptionPane.OK_OPTION);
+				
 			}
 		});
 		btnagregarp.setEnabled(false);
