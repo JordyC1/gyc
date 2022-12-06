@@ -246,9 +246,14 @@ public class Calificar extends JDialog {
 		btnCalificar = new JButton("Calificar");
 		btnCalificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EventoCiencia.getInstance().evaluartrabajo(trabajo.getCodigo(), Float.parseFloat(spnCalificacion.getValue().toString()));
-				JOptionPane.showMessageDialog(null, "Calificación registrada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-				spnCalificacion.setValue(Float.valueOf(0));
+				if(Float.parseFloat(spnCalificacion.getValue().toString()) != 0)
+				{
+					EventoCiencia.getInstance().evaluartrabajo(trabajo.getCodigo(), Float.parseFloat(spnCalificacion.getValue().toString()));
+					JOptionPane.showMessageDialog(null, "Calificación registrada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+					spnCalificacion.setValue(Float.valueOf(0));
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Calificación debe ser mayor de 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnCalificar.setEnabled(false);
@@ -300,7 +305,7 @@ public class Calificar extends JDialog {
 		model2.setRowCount(0);
 		rows = new Object[model2.getColumnCount()];
 		
-		for (Comision comi : evento.getComisiones()) {
+		for (Comision comi : EventoCiencia.getInstance().comisiondejurado(jurado.getCodjurado(), evento)) {
 			rows[0] = comi.getCodigo();
 			rows[1] = comi.getArea();
 			

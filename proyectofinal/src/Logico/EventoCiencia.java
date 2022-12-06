@@ -669,9 +669,23 @@ public class EventoCiencia implements Serializable{
 					}
 				}
 			}
+		}	
+		return event;
+	}
+	
+	public ArrayList<Comision> comisiondejurado(String codjurado,Evento event){
+		ArrayList<Comision> comis = new ArrayList<>();
+		
+		for (Comision comi : event.getComisiones()) {
+			for (Jurado jurad : comi.getJurados()) {
+				if(jurad.getCodjurado().equals(codjurado))
+				{
+					comis.add(comi);
+				}
+			}
 		}
 		
-		return event;
+		return comis;
 	}
 	
 	
