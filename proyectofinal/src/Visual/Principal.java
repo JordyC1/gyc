@@ -206,6 +206,16 @@ public class Principal extends JFrame {
 			}
 		});
 		mnNewMenu_6.add(mntmNewMenuItem_9);
+		
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Ver mejores trabajos");
+		mntmNewMenuItem_16.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MostrarMejoresproy aux=new MostrarMejoresproy();
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_16);
 		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
 			mnNewMenu_6.setEnabled(false);
 		
