@@ -688,6 +688,19 @@ public class EventoCiencia implements Serializable{
 		return comis;
 	}
 	
+	public ArrayList<Comision> todascomisionesdejurado(String codjurado){
+		ArrayList<Comision> comis = new ArrayList<>();
+		
+		for (Comision comic : comisiones) {
+			for (Jurado jura : comic.getJurados()) {
+				if(jura.getCodjurado().equals(codjurado))
+					comis.add(comic);
+			}
+		}
+		
+		return comis;
+	}
+	
 	public int cantparticipanteevento(String codevento) {
 		Evento event = buscarevento(codevento);
 		ArrayList<Participante> partis = new ArrayList<>();
