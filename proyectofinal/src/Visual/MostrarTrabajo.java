@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +19,8 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MostrarTrabajo extends JDialog {
 
@@ -28,6 +31,7 @@ public class MostrarTrabajo extends JDialog {
 	private static Object[] rows;
 	private static DefaultTableModel model;
 	private JButton btnOK;
+	private JButton btnEliminar;
 
 	/**
 	 * Launch the application.
@@ -66,6 +70,17 @@ public class MostrarTrabajo extends JDialog {
 					model.setColumnIdentifiers(columnas);
 					
 					table = new JTable();
+					table.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							int rowselected=-1;
+							rowselected=table.getSelectedRow();
+							if(rowselected>=0) {
+								btnEliminar.setEnabled(true);
+								trabajo = EventoCiencia.getInstance().buscatrabajo(table.getValueAt(rowselected, 0).toString());
+							}
+						}
+					});
 					scrollPane.setViewportView(table);
 					
 					table.setModel(model);
@@ -84,6 +99,25 @@ public class MostrarTrabajo extends JDialog {
 						dispose();
 					}
 				});
+				{
+					btnEliminar = new JButton("Eliminar");
+					btnEliminar.setEnabled(false);
+					btnEliminar.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							int opcion;
+							if(trabajo!=null) {
+								opcion= JOptionPane.showConfirmDialog(null, "Estas Seguro de querer eliminar el trabajo cod: "+trabajo.getCodigo(),
+										"Confirmacion", JOptionPane.YES_NO_OPTION);
+								if(opcion == JOptionPane.OK_OPTION) {
+										EventoCiencia.getInstance().eliminarTrabajo(trabajo);
+										cargardatos(prioridad);	
+								}
+							}
+							btnEliminar.setEnabled(false);
+						}
+					});
+					buttonPane.add(btnEliminar);
+				}
 				btnOK.setActionCommand("OK");
 				buttonPane.add(btnOK);
 				getRootPane().setDefaultButton(btnOK);
