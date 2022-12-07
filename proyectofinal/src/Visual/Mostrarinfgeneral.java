@@ -58,7 +58,7 @@ public class Mostrarinfgeneral extends JDialog {
 	 */
 	public Mostrarinfgeneral() {
 		setTitle("Informe Feria Cientifica");
-		setBounds(100, 100, 844, 341);
+		setBounds(100, 100, 844, 371);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,7 +67,7 @@ public class Mostrarinfgeneral extends JDialog {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 139, 808, 119);
+		scrollPane.setBounds(10, 154, 808, 135);
 		contentPanel.add(scrollPane);
 		
 		table = new JTable();

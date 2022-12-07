@@ -38,11 +38,15 @@ public class MostrarInfEvento extends JDialog {
 	private static Object[] rows;
 	private static DefaultTableModel model;
 	
-	private String[] Areas={"Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática"};
+	private String[] Areas={"Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática","Total"};
 	
 	private Evento auxEvento=null;
 	private JTextField txtrecursos;
 	private JTextField txtparticipante;
+	
+	private int totaltrabajo=0;
+	private int totaljurado=0;
+	private int totalcomisiones=0;
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +57,7 @@ public class MostrarInfEvento extends JDialog {
 	public MostrarInfEvento(Evento event) {
 		auxEvento=event;
 		setTitle("Mostrar Informe Evento codigo:"+event.getCodigo()+" Nombre:"+event.getNombre());
-		setBounds(100, 100, 844, 271);
+		setBounds(100, 100, 844, 289);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,7 +66,7 @@ public class MostrarInfEvento extends JDialog {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 69, 808, 119);
+		scrollPane.setBounds(10, 69, 808, 135);
 		contentPanel.add(scrollPane);
 		
 		table = new JTable();
@@ -116,7 +120,13 @@ public class MostrarInfEvento extends JDialog {
 
 		for (int i=0;i< Areas.length;i++) {
 			rows[0]=Areas[i];
+			if(i<6) {
 			contarareacomision(rows, Areas[i]);
+			}else {
+				rows[1]=totaltrabajo;
+				rows[2]=totalcomisiones;
+				rows[3]=totaljurado;
+			}
 			model.addRow(rows);
 		}
 	}
@@ -136,6 +146,9 @@ public class MostrarInfEvento extends JDialog {
 			}
 		}
 		txtrecursos.setText(String.valueOf(auxEvento.getRecursos().size()));
+		totalcomisiones+=cantareacomision;
+		totaljurado+=cantjurados;
+		totaltrabajo+=cantareatrabajo;
 		row[1]=cantareatrabajo;
 		row[2]=cantareacomision;
 		row[3]=cantjurados;
