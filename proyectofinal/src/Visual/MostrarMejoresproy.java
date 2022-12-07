@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Comision;
+import Logico.Evento;
 import Logico.EventoCiencia;
 import Logico.Jurado;
 import Logico.Participante;
@@ -31,7 +32,7 @@ public class MostrarMejoresproy extends JDialog {
 	private JTable tabletrabajo;
 	private DefaultTableModel modeltable;
 	private Object[] rows;
-
+	private Evento evento=null;
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +49,8 @@ public class MostrarMejoresproy extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarMejoresproy() {
+	public MostrarMejoresproy(Evento event ) {
+		evento=event;
 		setTitle("Mostrar mejores trabajos");
 		setBounds(100, 100, 672, 279);
 		setLocationRelativeTo(null);
@@ -102,16 +104,30 @@ public class MostrarMejoresproy extends JDialog {
 
 		modeltable.setRowCount(0);
 		rows =new Object[modeltable.getColumnCount()];
-		for (int i=0;i< EventoCiencia.getInstance().getComisiones().size();i++) 
-		{
-			ArrayList<Trabajo> mejoresTrabajos=new ArrayList<>();
-			for (int j = 0; j < EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size(); j++) {
-				if(EventoCiencia.getInstance().getComisiones().get(i).getArea().equalsIgnoreCase(String.valueOf(comboBox.getSelectedItem())))
-				{
-					mejoresTrabajos.add(EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().get(j));
+		if(evento==null) {
+			for (int i=0;i< EventoCiencia.getInstance().getComisiones().size();i++) 
+			{
+				ArrayList<Trabajo> mejoresTrabajos=new ArrayList<>();
+				for (int j = 0; j < EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size(); j++) {
+					if(EventoCiencia.getInstance().getComisiones().get(i).getArea().equalsIgnoreCase(String.valueOf(comboBox.getSelectedItem())))
+					{
+						mejoresTrabajos.add(EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().get(j));
+					}
 				}
+				organizarmejorestrabajos(rows, mejoresTrabajos);
 			}
-			organizarmejorestrabajos(rows, mejoresTrabajos);
+		}else {
+			for (int i=0;i< evento.getComisiones().size();i++) 
+			{
+				ArrayList<Trabajo> mejoresTrabajos=new ArrayList<>();
+				for (int j = 0; j < evento.getComisiones().get(i).getTrabajos().size(); j++) {
+					if(evento.getComisiones().get(i).getArea().equalsIgnoreCase(String.valueOf(comboBox.getSelectedItem())))
+					{
+						mejoresTrabajos.add(evento.getComisiones().get(i).getTrabajos().get(j));
+					}
+				}
+				organizarmejorestrabajos(rows, mejoresTrabajos);
+			}
 		}
 	}
 	

@@ -49,7 +49,7 @@ public class MostrarInforme extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MostrarInforme() {
+	public MostrarInforme(int opcion) {
 		setTitle("Eventos");
 		setBounds(100, 100, 803, 481);
 		getContentPane().setLayout(new BorderLayout());
@@ -96,9 +96,15 @@ public class MostrarInforme extends JDialog {
 				btnseleccionar = new JButton("Seleccionar");
 				btnseleccionar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						MostrarInfEvento auxEvento= new MostrarInfEvento(event);
-						auxEvento.setModal(true);
-						auxEvento.setVisible(true);
+						if(opcion!=1) {
+							MostrarInfEvento auxEvento= new MostrarInfEvento(event);
+							auxEvento.setModal(true);
+							auxEvento.setVisible(true);
+						}else {
+							MostrarMejoresproy aux= new MostrarMejoresproy(event);
+							aux.setModal(true);
+							aux.setVisible(true);
+						}
 					}
 				});
 				btnseleccionar.setEnabled(false);

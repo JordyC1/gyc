@@ -207,15 +207,28 @@ public class Principal extends JFrame {
 		});
 		mnNewMenu_6.add(mntmNewMenuItem_9);
 		
-		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Ver mejores trabajos");
-		mntmNewMenuItem_16.addActionListener(new ActionListener() {
+		JMenu mnNewMenu_9 = new JMenu("Ver mejores trabajos");
+		mnNewMenu_6.add(mnNewMenu_9);
+		
+		JMenuItem mntmNewMenuItem_18 = new JMenuItem("Trabajos feria");
+		mntmNewMenuItem_18.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MostrarMejoresproy aux=new MostrarMejoresproy();
+				MostrarMejoresproy aux=new MostrarMejoresproy(null);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}
 		});
-		mnNewMenu_6.add(mntmNewMenuItem_16);
+		mnNewMenu_9.add(mntmNewMenuItem_18);
+		
+		JMenuItem mntmNewMenuItem_19 = new JMenuItem("Por eventos");
+		mntmNewMenuItem_19.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MostrarInforme aux = new MostrarInforme(1);
+				aux.setModal(true);
+				aux.setVisible(true);
+			}
+		});
+		mnNewMenu_9.add(mntmNewMenuItem_19);
 		if(EventoCiencia.getInstance().getUser().getTipo().equals("Secretaria"))
 			mnNewMenu_6.setEnabled(false);
 		
@@ -254,7 +267,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Informe Eventos");
 		mntmNewMenuItem_15.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MostrarInforme aux = new MostrarInforme();
+				MostrarInforme aux = new MostrarInforme(2);
 				aux.setModal(true);
 				aux.setVisible(true);
 			}
