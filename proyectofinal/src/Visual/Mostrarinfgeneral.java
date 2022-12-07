@@ -38,13 +38,17 @@ public class Mostrarinfgeneral extends JDialog {
 	private static Object[] rows;
 	private static DefaultTableModel model;
 	
-	private String[] Areas={"Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática"};
+	private String[] Areas={"Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática","Total"};
 	
 	private Evento auxEvento=null;
 	private JTextField txtrecursos;
 	private JTextField txtparticipante;
 	private JTextField txtevento;
 	private JTextField txtusuario;
+	
+	private int totaltrabajo=0;
+	private int totaljurado=0;
+	private int totalcomisiones=0;
 	/**
 	 * Launch the application.
 	 */
@@ -138,7 +142,13 @@ public class Mostrarinfgeneral extends JDialog {
 		txtusuario.setText(String.valueOf(EventoCiencia.getInstance().getUsuarios().size()));
 		for (int i=0;i< Areas.length;i++) {
 			rows[0]=Areas[i];
-			contarareacomision(rows, Areas[i]);
+			if(i<6) {
+				contarareacomision(rows, Areas[i]);
+			}else {
+				rows[1]=totaltrabajo;
+				rows[2]=totalcomisiones;
+				rows[3]=totaljurado;
+			}
 			model.addRow(rows);
 		}
 	}
@@ -169,6 +179,9 @@ public class Mostrarinfgeneral extends JDialog {
 			}
 		}
 		txtparticipante.setText(String.valueOf(cantparticipante));
+		totalcomisiones+=cantareacomision;
+		totaljurado+=cantjurados;
+		totaltrabajo+=cantareatrabajo;
 		row[1]=cantareatrabajo;
 		row[2]=cantareacomision;
 		row[3]=cantjurados;
