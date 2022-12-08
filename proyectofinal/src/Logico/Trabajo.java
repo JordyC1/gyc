@@ -1,5 +1,7 @@
 package Logico;
 
+import java.util.ArrayList;
+
 public class Trabajo implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -9,6 +11,7 @@ public class Trabajo implements java.io.Serializable{
 	private float calificacion;
 	private String titulo;
 	private boolean primeracalificaion;
+	private ArrayList<String> calificadopor;
 	
 	public Trabajo(String codigo, Participante propietario, String titulo) {
 		super();
@@ -17,6 +20,7 @@ public class Trabajo implements java.io.Serializable{
 		calificacion = 0;
 		this.titulo = titulo;
 		primeracalificaion = false;
+		calificadopor=new ArrayList<>();
 	}
 	
 
@@ -61,5 +65,18 @@ public class Trabajo implements java.io.Serializable{
 			
 	}
 	
+	public void calificadopor(Jurado jurado) {
+		calificadopor.add(jurado.getCodjurado());
+	}
 	
+	public boolean verificarcalificacion(Jurado jurado) {
+		boolean yacalificado=false;
+		int i=0;
+		while(i < calificadopor.size() && yacalificado!=true) {
+			if(calificadopor.get(i).equalsIgnoreCase(jurado.getCodjurado())) {
+				yacalificado=true;
+			}
+		}
+		return yacalificado;
+	}
 }

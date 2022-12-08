@@ -252,9 +252,14 @@ public class Calificar extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Float.parseFloat(spnCalificacion.getValue().toString()) != 0)
 				{
-					EventoCiencia.getInstance().evaluartrabajo(trabajo.getCodigo(), Float.parseFloat(spnCalificacion.getValue().toString()));
-					JOptionPane.showMessageDialog(null, "Calificación registrada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-					spnCalificacion.setValue(Float.valueOf(0));
+					if(!trabajo.verificarcalificacion(jurado)) {
+						trabajo.calificadopor(jurado);
+						EventoCiencia.getInstance().evaluartrabajo(trabajo.getCodigo(), Float.parseFloat(spnCalificacion.getValue().toString()));
+						JOptionPane.showMessageDialog(null, "Calificación registrada", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						spnCalificacion.setValue(Float.valueOf(0));
+					}else {
+						JOptionPane.showMessageDialog(null, "Este jurado ya ha calificado este trabajo", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Calificación debe ser mayor de 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);

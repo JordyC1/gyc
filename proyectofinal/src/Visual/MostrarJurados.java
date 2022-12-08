@@ -36,6 +36,7 @@ public class MostrarJurados extends JDialog {
 	private static Object[] rows;
 	private Jurado juradoselect=null;
 	static JComboBox boxFiltro;
+	private JLabel lblNewLabel;
 	
 	/**
 	 * Launch the application.
@@ -110,7 +111,7 @@ public class MostrarJurados extends JDialog {
 				}
 			});
 			
-			JLabel lblNewLabel = new JLabel("Filtrar por:");
+			lblNewLabel = new JLabel("Filtrar por:");
 			buttonPane.add(lblNewLabel);
 			
 			boxFiltro = new JComboBox();
