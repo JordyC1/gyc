@@ -1,6 +1,7 @@
 package Logico;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.ArrayList;
 
 public class Evento implements java.io.Serializable{
@@ -10,13 +11,13 @@ public class Evento implements java.io.Serializable{
 	private String nombre;
 	private String codigo;
 	private String ubicacion;
-	private String fechainicio;
-	private String fechafinal;
+	private Date fechainicio;
+	private Date fechafinal;
 	private int cupo;
 	private ArrayList<Recurso>recursos;
 	private ArrayList<Comision>comisiones;
 	
-	public Evento(String nombre, String codigo,String ubicacion, String fechainicio,String fechafinal,int cupo) {
+	public Evento(String nombre, String codigo,String ubicacion, Date fechainicio,Date fechafinal,int cupo) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
@@ -27,7 +28,6 @@ public class Evento implements java.io.Serializable{
 		this.comisiones = new ArrayList<>();
 		this.recursos = new ArrayList<>();
 	}
-	
 	
 	public void agregarcomision(Comision c) {
 		comisiones.add(c);
@@ -91,19 +91,19 @@ public class Evento implements java.io.Serializable{
 		this.codigo = codigo;
 	}
 
-	public String getFechainicio() {
+	public Date getFechainicio() {
 		return fechainicio;
 	}
 
-	public void setFechainicio(String fechainicio) {
+	public void setFechainicio(Date fechainicio) {
 		this.fechainicio = fechainicio;
 	}
 
-	public String getFechafinal() {
+	public Date getFechafinal() {
 		return fechafinal;
 	}
 
-	public void setFechafinal(String fechafinal) {
+	public void setFechafinal(Date fechafinal) {
 		this.fechafinal = fechafinal;
 	}
 	

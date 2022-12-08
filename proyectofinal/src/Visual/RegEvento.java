@@ -30,6 +30,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.swing.border.BevelBorder;
 
 public class RegEvento extends JDialog {
@@ -44,6 +47,11 @@ public class RegEvento extends JDialog {
 	private JSpinner spnFechaInicio;
 	private JSpinner spnFechaFin;
 	private JTable tabledisponible;
+	
+	private JSpinner.DateEditor formato;
+	private JSpinner.DateEditor formato2;
+	private JSpinner.DateEditor formato3;
+	private JSpinner.DateEditor formato4;
 	
 	private static Object[] rows;
 	private static DefaultTableModel model;
@@ -63,6 +71,8 @@ public class RegEvento extends JDialog {
 	private Recurso rec1;
 	private Recurso rec2;
 	private JButton btnEliminar;
+	private JSpinner spnHorainicio;
+	private JSpinner spnHorafin;
 
 	/**
 	 * Launch the application.
@@ -95,68 +105,96 @@ public class RegEvento extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(12, 13, 609, 148);
+		panel.setBounds(12, 13, 609, 152);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("C\u00F3digo:");
-		lblNewLabel.setBounds(12, 13, 56, 16);
+		lblNewLabel.setBounds(12, 17, 56, 16);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(12, 58, 56, 16);
+		lblNewLabel_1.setBounds(12, 50, 56, 16);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Cupo:");
-		lblNewLabel_2.setBounds(290, 13, 56, 16);
+		lblNewLabel_2.setBounds(290, 17, 56, 16);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Ubicaci\u00F3n:");
-		lblNewLabel_3.setBounds(290, 58, 71, 16);
+		lblNewLabel_3.setBounds(290, 50, 71, 16);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha de inicio:");
-		lblNewLabel_4.setBounds(12, 98, 99, 16);
+		lblNewLabel_4.setBounds(12, 83, 99, 16);
 		panel.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Fecha de conclusi\u00F3n:");
-		lblNewLabel_5.setBounds(290, 98, 128, 16);
+		lblNewLabel_5.setBounds(290, 83, 128, 16);
 		panel.add(lblNewLabel_5);
 		
 		txtCodigo = new JTextField();
 		txtCodigo.setEnabled(false);
-		txtCodigo.setBounds(71, 10, 116, 22);
+		txtCodigo.setBounds(71, 15, 116, 22);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
 		txtCodigo.setText("Event-"+EventoCiencia.getInstance().getCodevento());
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(71, 55, 187, 22);
+		txtNombre.setBounds(71, 48, 187, 22);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		spnCupo = new JSpinner();
-		spnCupo.setBounds(353, 10, 61, 22);
+		spnCupo.setBounds(353, 15, 61, 22);
 		panel.add(spnCupo);
 		
 		txtUbicacion = new JTextField();
-		txtUbicacion.setBounds(353, 55, 244, 22);
+		txtUbicacion.setBounds(353, 48, 244, 22);
 		panel.add(txtUbicacion);
 		txtUbicacion.setColumns(10);
 		
-		spnFechaInicio = new JSpinner();
-		spnFechaInicio.setModel(new SpinnerDateModel(new Date(1669089600000L), null, null, Calendar.DAY_OF_YEAR));
-		spnFechaInicio.setBounds(106, 95, 140, 22);
+		
+		spnFechaInicio = new JSpinner(new SpinnerDateModel());
+		formato = new JSpinner.DateEditor(spnFechaInicio, "dd/MM/yyyy");
+		spnFechaInicio.setEditor(formato);
+		spnFechaInicio.setValue(new Date());
+		spnFechaInicio.setBounds(106, 81, 140, 22);
 		panel.add(spnFechaInicio);
 		
-		spnFechaFin = new JSpinner();
-		spnFechaFin.setModel(new SpinnerDateModel(new Date(1669089600000L), null, null, Calendar.DAY_OF_YEAR));
-		spnFechaFin.setBounds(414, 95, 140, 22);
+		
+		spnFechaFin = new JSpinner(new SpinnerDateModel());
+		formato2 = new JSpinner.DateEditor(spnFechaFin, "dd/MM/yyyy");
+		spnFechaFin.setEditor(formato2);
+		spnFechaFin.setValue(new Date());
+		spnFechaFin.setBounds(414, 81, 140, 22);
 		panel.add(spnFechaFin);
+		
+		JLabel lblNewLabel_11 = new JLabel("Hora de inicio:");
+		lblNewLabel_11.setBounds(12, 116, 99, 16);
+		panel.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_12 = new JLabel("Hora de cierre:");
+		lblNewLabel_12.setBounds(290, 116, 112, 16);
+		panel.add(lblNewLabel_12);
+		
+		spnHorainicio = new JSpinner(new SpinnerDateModel());
+		formato3 = new JSpinner.DateEditor(spnHorainicio, "HH:mm");
+		spnHorainicio.setEditor(formato3);
+		spnHorainicio.setValue(new Date());
+		spnHorainicio.setBounds(106, 114, 77, 20);
+		panel.add(spnHorainicio);
+		
+		spnHorafin = new JSpinner(new SpinnerDateModel());
+		formato4 = new JSpinner.DateEditor(spnHorafin, "HH:mm");
+		spnHorafin.setEditor(formato4);
+		spnHorafin.setValue(new Date());
+		spnHorafin.setBounds(414, 114, 77, 22);
+		panel.add(spnHorafin);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(12, 165, 609, 200);
+		panel_1.setBounds(12, 165, 609, 213);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -357,45 +395,63 @@ public class RegEvento extends JDialog {
 	}
 	
 	public void agregarevento(){
-		if(!(txtNombre.getText().equals("")))
+		
+		//Fecha tipo date
+		Date algo1 = (Date)spnFechaInicio.getValue();
+		Date cosa = (Date)spnHorainicio.getValue();
+		algo1.setHours(cosa.getHours());
+		algo1.setMinutes(cosa.getMinutes());
+		
+		Date algo2 = (Date)spnFechaFin.getValue();
+		cosa = (Date)spnHorafin.getValue();
+		algo2.setHours(cosa.getHours());
+		algo2.setMinutes(cosa.getMinutes());
+		
+		
+		if(algo1.after(new Date()))
 		{
-			if(!(txtUbicacion.getText().equals("")))
+			if(algo2.after(algo1))
 			{
-				if(!(spnFechaFin.getValue().toString().equals(spnFechaInicio.getValue().toString())))
+				if(!(txtNombre.getText().equals("")))
 				{
-					if(EventoCiencia.getInstance().getcomisionesaux().size() != 0)
+					if(!(txtUbicacion.getText().equals("")))
 					{
-						if(Integer.parseInt(spnCupo.getValue().toString()) > 0)
+						if(EventoCiencia.getInstance().getcomisionesaux().size() != 0)
 						{
-							Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
-									, spnFechaInicio.getValue().toString(), spnFechaFin.getValue().toString(), 
-									Integer.parseInt(spnCupo.getValue().toString()));
-							aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
-							aux.setRecursos(agregados);
-							EventoCiencia.getInstance().agregarevento(aux);
-							JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-							
-							//guardar las comisiones en la comision genral
-							for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+							if(Integer.parseInt(spnCupo.getValue().toString()) > 0)
 							{
-								EventoCiencia.getInstance().agregarcomisiones(com);
+								Evento aux = new Evento(txtNombre.getText(), txtCodigo.getText(), txtUbicacion.getText()
+										, algo1, algo2, Integer.parseInt(spnCupo.getValue().toString()));
+								aux.setComisiones(EventoCiencia.getInstance().getcomisionesaux());
+								aux.setRecursos(agregados);
+								EventoCiencia.getInstance().agregarevento(aux);
+								JOptionPane.showMessageDialog(null, "Evento creado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+								
+								//guardar las comisiones en la comision genral
+								for(Comision com : EventoCiencia.getInstance().getcomisionesaux()) 
+								{
+									EventoCiencia.getInstance().agregarcomisiones(com);
+								}
+								clear();
 							}
-							clear();
+							else
+								JOptionPane.showMessageDialog(null, "El cupo debe ser mayor que 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);	
 						}
 						else
-							JOptionPane.showMessageDialog(null, "El cupo debe ser mayor que 0", "Informacion", JOptionPane.INFORMATION_MESSAGE);	
+							JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else
-						JOptionPane.showMessageDialog(null, "Escoja al menos una comisión!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 				}
-				else	
-					JOptionPane.showMessageDialog(null, "Las fechas no pueden ser iguales", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(null, "Debe colocar un nombre!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
 			else
-				JOptionPane.showMessageDialog(null, "Debe colocar una ubicación!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Fecha final no puede ser menor o igual que la inicial", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Debe colocar un nombre!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Fecha de inicio no puede ser menor que la fecha actual", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 	
@@ -409,8 +465,8 @@ public class RegEvento extends JDialog {
 		EventoCiencia.getInstance().getcomisionesaux().clear();
 		spnCupo.setValue(Integer.valueOf(0));
 		cargardatos();
-		//spnFechaInicio.setValue(value);
-		//spnFechaFin.setValue(value);
+		spnFechaInicio.setValue(new Date());
+		spnFechaFin.setValue(new Date());
 	}
 	
 	public int inddisponible(Recurso rec) {
@@ -452,48 +508,5 @@ public class RegEvento extends JDialog {
 		int ind = indagregado(rec);
 		
 		agregados.remove(ind);
-	}
-	
-	public boolean validarfechas(Date inicio, Date fin) {
-		boolean	validar = false;
-		
-		
-		if(fin.getDate() > inicio.getDate())
-		{
-			validar = true;
-		}
-		else
-			validar = false;
-		
-		/*
-		if(fin.getYear() < inicio.getYear())
-		{
-			if(fin.getMonth() < inicio.getMonth())
-			{
-				if(fin.getDate() < inicio.getDate())
-				{
-					if(fin.getHours() < inicio.getHours())
-					{
-						if(fin.getMinutes() < inicio.getMinutes())
-						{
-							
-						}
-						else
-							validar 
-					}
-					else
-						validar = false;
-				}
-				else
-					validar = false;
-			}
-			else
-				validar = false;
-		}
-		else
-			validar = false;
-		*/
-		
-		return validar;
 	}
 }
