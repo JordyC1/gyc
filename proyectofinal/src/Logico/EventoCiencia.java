@@ -390,6 +390,31 @@ public class EventoCiencia implements Serializable{
 		return event;
 	}
 	
+	public Comision trabajoencomision(Trabajo trab) {
+		Comision aux = null;
+		boolean veredicto = false;
+		int i = 0;
+		int j = 0;
+		
+		while(i < comisiones.size() && veredicto == false)
+		{
+			while(j < comisiones.get(i).getTrabajos().size() && veredicto == false)
+			{
+				if(comisiones.get(i).getTrabajos().get(j).getCodigo().equals(trab.getCodigo()))
+				{
+					aux = comisiones.get(i);
+					veredicto = true;
+				}
+									
+				j++;
+			}
+			
+			i++;
+		}
+		
+		return aux;
+	}
+	
 	
 /////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -492,7 +517,10 @@ public class EventoCiencia implements Serializable{
 		int ind = indTrabajo(trabajo.getCodigo());
 		
 		if(ind != -1)
+		{
+			trabajoencomision(trabajo).removertrabajo(trabajo);
 			trabajos.remove(ind);
+		}
 	}
 	
 	public int indTrabajo(String codigo) {
