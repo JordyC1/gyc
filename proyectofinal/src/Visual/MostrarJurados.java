@@ -20,6 +20,9 @@ import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
 
 public class MostrarJurados extends JDialog {
 
@@ -32,6 +35,7 @@ public class MostrarJurados extends JDialog {
 	private static DefaultTableModel modeltable;
 	private static Object[] rows;
 	private Jurado juradoselect=null;
+	static JComboBox boxFiltro;
 	
 	/**
 	 * Launch the application.
@@ -105,6 +109,18 @@ public class MostrarJurados extends JDialog {
 					btncomisiones.setEnabled(false);
 				}
 			});
+			
+			JLabel lblNewLabel = new JLabel("Filtrar por:");
+			buttonPane.add(lblNewLabel);
+			
+			boxFiltro = new JComboBox();
+			boxFiltro.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					loadjurados(prioridad);
+				}
+			});
+			boxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "F\u00EDsica", "Qu\u00EDmica", "Biolog\u00EDa", "Astronom\u00EDa", "Tecnolog\u00EDa", "Matem\u00E1tica"}));
+			buttonPane.add(boxFiltro);
 			btnmodificar.setEnabled(false);
 			buttonPane.add(btnmodificar);
 			
@@ -164,17 +180,20 @@ public class MostrarJurados extends JDialog {
 	public static void loadjurados(ArrayList<Jurado> prioridad) {
 		modeltable.setRowCount(0);
 		rows = new Object[modeltable.getColumnCount()];
-		
 		if(prioridad == null)
 		{
 			for (int i = 0; i < EventoCiencia.getInstance().getPersonas().size(); i++) {
 				if(EventoCiencia.getInstance().getPersonas().get(i) instanceof Jurado) {
-					rows[0] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getCodjurado();
-					rows[1] = EventoCiencia.getInstance().getPersonas().get(i).getCedula();
-					rows[2] = EventoCiencia.getInstance().getPersonas().get(i).getNombre();
-					rows[3] = EventoCiencia.getInstance().getPersonas().get(i).getTelefono();
-					rows[4] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getAreaespecializado();
-					modeltable.addRow(rows);
+					if(((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getAreaespecializado().equals(boxFiltro.getSelectedItem().toString()) || boxFiltro.getSelectedItem().toString().equals("Todos"))
+					{
+						rows[0] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getCodjurado();
+						rows[1] = EventoCiencia.getInstance().getPersonas().get(i).getCedula();
+						rows[2] = EventoCiencia.getInstance().getPersonas().get(i).getNombre();
+						rows[3] = EventoCiencia.getInstance().getPersonas().get(i).getTelefono();
+						rows[4] = ((Jurado)EventoCiencia.getInstance().getPersonas().get(i)).getAreaespecializado();
+						modeltable.addRow(rows);
+					}
+					
 				}
 			}
 		}
