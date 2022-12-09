@@ -519,6 +519,7 @@ public class EventoCiencia implements Serializable{
 		if(ind != -1)
 		{
 			trabajoencomision(trabajo).removertrabajo(trabajo);
+			trabajo.getPropietario().removertrabajo(trabajo);
 			trabajos.remove(ind);
 		}
 	}

@@ -26,6 +26,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class RegRecurso extends JDialog {
 
@@ -37,6 +39,7 @@ public class RegRecurso extends JDialog {
 	private JComboBox BoxTipo;
 	private JLabel label4;
 	private JEditorPane ptxtDescripcion;
+	private JSpinner spnCant;
 
 	/**
 	 * Launch the application.
@@ -56,7 +59,7 @@ public class RegRecurso extends JDialog {
 	 */
 	public RegRecurso() {
 		setTitle("Agregar recurso");
-		setBounds(100, 100, 334, 317);
+		setBounds(100, 100, 396, 319);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -83,14 +86,14 @@ public class RegRecurso extends JDialog {
 		txtCodigo.setText("Recur-"+EventoCiencia.getInstance().getCodrecurso());
 		
 		txtUbicacion = new JTextField();
-		txtUbicacion.setBounds(80, 52, 226, 22);
+		txtUbicacion.setBounds(80, 52, 286, 22);
 		contentPanel.add(txtUbicacion);
 		txtUbicacion.setColumns(10);
 		
 		BoxTipo = new JComboBox();
 		BoxTipo.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Micr\u00F3fono", "Bocina", "Pantalla", "Cable HDMI a HDMI", "Cable tipo C a HDMI", "Cable VGA a HDMI", "Mesa", "Silla", "Soporte de micr\u00F3fono", "Luces"}));
 		BoxTipo.setToolTipText("");
-		BoxTipo.setBounds(80, 87, 141, 22);
+		BoxTipo.setBounds(80, 87, 151, 22);
 		contentPanel.add(BoxTipo);
 		
 		label4 = new JLabel("Descripci\u00F3n:");
@@ -99,12 +102,21 @@ public class RegRecurso extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(12, 146, 292, 72);
+		panel.setBounds(12, 146, 354, 72);
 		contentPanel.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		ptxtDescripcion = new JEditorPane();
 		panel.add(ptxtDescripcion, BorderLayout.CENTER);
+		
+		JLabel lblNewLabel_3 = new JLabel("Cantidad:");
+		lblNewLabel_3.setBounds(242, 90, 56, 16);
+		contentPanel.add(lblNewLabel_3);
+		
+		spnCant = new JSpinner();
+		spnCant.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spnCant.setBounds(300, 88, 61, 19);
+		contentPanel.add(spnCant);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -140,9 +152,17 @@ public class RegRecurso extends JDialog {
 		{
 			if(BoxTipo.getSelectedIndex() != 0) 
 			{
-				Recurso rec = new Recurso(txtCodigo.getText(),true, txtUbicacion.getText(), BoxTipo.getSelectedItem().toString(),ptxtDescripcion.getText());
-				EventoCiencia.getInstance().agregarrecurso(rec);
-				JOptionPane.showMessageDialog(null, "Recurso agregado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				Recurso rec = null;
+				for(int i = 0; i < Integer.parseInt(spnCant.getValue().toString()); i++)
+				{
+					rec = new Recurso("Recur-"+EventoCiencia.getInstance().getCodrecurso(),true, txtUbicacion.getText(), BoxTipo.getSelectedItem().toString(),ptxtDescripcion.getText());
+					EventoCiencia.getInstance().agregarrecurso(rec);
+				}
+				
+				if(Integer.parseInt(spnCant.getValue().toString()) > 1)
+					JOptionPane.showMessageDialog(null, "Recursos agregados!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(null, "Recurso agregado!", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 				clear();
 			}
 			else
