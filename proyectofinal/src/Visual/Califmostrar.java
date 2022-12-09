@@ -56,18 +56,18 @@ public class Califmostrar extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel label = new JLabel("Codigo jurado:");
-		label.setBounds(61, 31, 86, 14);
-		panel.add(label);
+		JLabel lblCdigoJurado = new JLabel("C\u00F3digo jurado:");
+		lblCdigoJurado.setBounds(61, 31, 86, 14);
+		panel.add(lblCdigoJurado);
 		
 		txtcod = new JTextField();
 		txtcod.setColumns(10);
 		txtcod.setBounds(155, 28, 86, 20);
 		panel.add(txtcod);
 		
-		JLabel label_1 = new JLabel("Calificacion:");
-		label_1.setBounds(73, 82, 86, 14);
-		panel.add(label_1);
+		JLabel lblCalificacin = new JLabel("Calificaci\u00F3n:");
+		lblCalificacin.setBounds(73, 82, 86, 14);
+		panel.add(lblCalificacin);
 		
 		spncali = new JSpinner();
 		spncali.setBounds(155, 79, 86, 20);

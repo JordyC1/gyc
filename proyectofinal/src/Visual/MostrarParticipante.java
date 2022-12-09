@@ -72,7 +72,7 @@ public class MostrarParticipante extends JDialog {
 				}
 			}
 		});
-		String[] columna= {"Codigo","Cedula","Nombre","Telefono","Cantidad de proyectos"};
+		String[] columna= {"Código","Cédula","Nombre","Teléfono","Cantidad de proyectos"};
 		modeltable.setColumnIdentifiers(columna);
 		table.setModel(modeltable);
 		scrollPane.setViewportView(table);

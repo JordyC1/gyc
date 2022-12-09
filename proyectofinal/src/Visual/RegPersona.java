@@ -109,7 +109,7 @@ public class RegPersona extends JDialog {
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
-				JLabel lblNewLabel = new JLabel("Cedula:");
+				JLabel lblNewLabel = new JLabel("C\u00E9dula:");
 				lblNewLabel.setBounds(10, 22, 51, 14);
 				panel.add(lblNewLabel);
 			}
@@ -125,12 +125,12 @@ public class RegPersona extends JDialog {
 				txtnombre.setColumns(10);
 			}
 			{
-				JLabel lblNewLabel_2 = new JLabel("Telefono:");
+				JLabel lblNewLabel_2 = new JLabel("Tel\u00E9fono:");
 				lblNewLabel_2.setBounds(209, 22, 59, 14);
 				panel.add(lblNewLabel_2);
 			}
 			{
-				JLabel lblNewLabel_3 = new JLabel("Codigo:");
+				JLabel lblNewLabel_3 = new JLabel("C\u00F3digo:");
 				lblNewLabel_3.setBounds(209, 59, 59, 14);
 				panel.add(lblNewLabel_3);
 			}
@@ -239,7 +239,7 @@ e.printStackTrace();
 				}
 			}
 			{
-				lblarea = new JLabel("Area de especializacion:");
+				lblarea = new JLabel("\u00C1rea de especializaci\u00F3n:");
 				lblarea.setBounds(10, 50, 144, 14);
 				panel.add(lblarea);
 			}

@@ -263,21 +263,27 @@ public class RegEvento extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int j = 0,i = 0;
 				
-				while(j < Integer.parseInt(spnCant1.getValue().toString()))
+				if(Integer.parseInt(spnCant1.getValue().toString()) <= cantarticulo(rec1, disponible))
 				{
-					if(disponible.get(i).getTipo().equals(rec1.getTipo()))
-						if(disponible.get(i).getDescripcion().equals(rec1.getDescripcion()))
-							if(disponible.get(i).getUbicacion().equals(rec1.getUbicacion()))
-							{
-								agregados.add(disponible.get(i));
-								eliminardisponible(disponible.get(i));
-								j++;
-							}
-					i++;
+					while(j < Integer.parseInt(spnCant1.getValue().toString()))
+					{
+						if(disponible.get(i).getTipo().equals(rec1.getTipo()))
+							if(disponible.get(i).getDescripcion().equals(rec1.getDescripcion()))
+								if(disponible.get(i).getUbicacion().equals(rec1.getUbicacion()))
+								{
+									agregados.add(disponible.get(i));
+									eliminardisponible(disponible.get(i));
+									j++;
+								}
+						i++;
+					}
+					btnDerecha.setEnabled(false);
+					cargardatos();
+					spnCant1.setValue(Integer.valueOf(1));
 				}
-				btnDerecha.setEnabled(false);
-				cargardatos();
-				spnCant1.setValue(Integer.valueOf(1));
+				else
+					JOptionPane.showMessageDialog(null, "No hay suficientes artículos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
 		});
 		btnDerecha.setBounds(268, 62, 85, 25);
@@ -289,21 +295,26 @@ public class RegEvento extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int j = 0,i = 0;
 				
-				while(j < Integer.parseInt(spnCant2.getValue().toString()))
+				if(Integer.parseInt(spnCant2.getValue().toString()) <= cantarticulo(rec2, agregados))
 				{
-					if(agregados.get(i).getTipo().equals(rec2.getTipo()))
-						if(agregados.get(i).getDescripcion().equals(rec2.getDescripcion()))
-							if(agregados.get(i).getUbicacion().equals(rec2.getUbicacion()))
-							{
-								disponible.add(agregados.get(i));
-								eliminaragregado(agregados.get(i));
-								j++;
-							}
-					i++;
+					while(j < Integer.parseInt(spnCant2.getValue().toString()))
+					{
+						if(agregados.get(i).getTipo().equals(rec2.getTipo()))
+							if(agregados.get(i).getDescripcion().equals(rec2.getDescripcion()))
+								if(agregados.get(i).getUbicacion().equals(rec2.getUbicacion()))
+								{
+									disponible.add(agregados.get(i));
+									eliminaragregado(agregados.get(i));
+									j++;
+								}
+						i++;
+					}
+					btnIsquierda.setEnabled(false);
+					cargardatos();	
+					spnCant2.setValue(Integer.valueOf(1));
 				}
-				btnIsquierda.setEnabled(false);
-				cargardatos();	
-				spnCant2.setValue(Integer.valueOf(1));
+				else
+					JOptionPane.showMessageDialog(null, "No hay suficientes artículos", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnIsquierda.setBounds(268, 122, 85, 25);
@@ -438,6 +449,19 @@ public class RegEvento extends JDialog {
 
 		}
 		
+	}
+	
+	public int cantarticulo(Recurso rec, ArrayList<Recurso> lista){
+		int cant = 0;
+		
+		for(int i = 0; i < lista.size();i++)
+		{
+			if(lista.get(i).getTipo().equals(rec.getTipo()))
+				if(lista.get(i).getDescripcion().equals(rec.getDescripcion()))
+					if(lista.get(i).getUbicacion().equals(rec.getUbicacion()))
+						cant++;
+		}
+		return cant;
 	}
 	
 	public void agregarevento(){
