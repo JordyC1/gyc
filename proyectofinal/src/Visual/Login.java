@@ -101,17 +101,19 @@ public class Login extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Feria de Ciencias");
-		lblNewLabel.setFont(new Font("Gloucester MT Extra Condensed", Font.BOLD, 25));
+		lblNewLabel.setFont(new Font("Gloucester MT Extra Condensed", Font.BOLD, 35));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(8, 5, 297, 51);
+		lblNewLabel.setBounds(0, 5, 321, 51);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Usuario");
-		lblNewLabel_1.setBounds(128, 77, 56, 16);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_1.setBounds(127, 81, 56, 16);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a");
-		lblNewLabel_2.setBounds(119, 130, 75, 16);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblNewLabel_2.setBounds(114, 140, 85, 16);
 		panel.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Iniciar seci\u00F3n");
