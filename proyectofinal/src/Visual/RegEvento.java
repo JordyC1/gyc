@@ -34,6 +34,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.border.BevelBorder;
+import javax.swing.SpinnerNumberModel;
 
 public class RegEvento extends JDialog {
 
@@ -73,6 +74,8 @@ public class RegEvento extends JDialog {
 	private JButton btnEliminar;
 	private JSpinner spnHorainicio;
 	private JSpinner spnHorafin;
+	private JSpinner spnCant1;
+	private JSpinner spnCant2;
 
 	/**
 	 * Launch the application.
@@ -178,7 +181,7 @@ public class RegEvento extends JDialog {
 		lblNewLabel_12.setBounds(290, 116, 112, 16);
 		panel.add(lblNewLabel_12);
 		
-		spnHorainicio = new JSpinner(new SpinnerDateModel());
+		spnHorainicio = new JSpinner(new SpinnerDateModel(new Date(1670561607769L), null, null, Calendar.DAY_OF_MONTH));
 		formato3 = new JSpinner.DateEditor(spnHorainicio, "HH:mm");
 		spnHorainicio.setEditor(formato3);
 		spnHorainicio.setValue(new Date());
@@ -194,7 +197,7 @@ public class RegEvento extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(12, 165, 609, 213);
+		panel_1.setBounds(12, 165, 609, 221);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -258,11 +261,23 @@ public class RegEvento extends JDialog {
 		btnDerecha.setEnabled(false);
 		btnDerecha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				agregados.add(rec1);
-				eliminardisponible(rec1);
+				int j = 0,i = 0;
+				
+				while(j < Integer.parseInt(spnCant1.getValue().toString()))
+				{
+					if(disponible.get(i).getTipo().equals(rec1.getTipo()))
+						if(disponible.get(i).getDescripcion().equals(rec1.getDescripcion()))
+							if(disponible.get(i).getUbicacion().equals(rec1.getUbicacion()))
+							{
+								agregados.add(disponible.get(i));
+								eliminardisponible(disponible.get(i));
+								j++;
+							}
+					i++;
+				}
 				btnDerecha.setEnabled(false);
 				cargardatos();
-				
+				spnCant1.setValue(Integer.valueOf(0));
 			}
 		});
 		btnDerecha.setBounds(268, 62, 85, 25);
@@ -272,18 +287,49 @@ public class RegEvento extends JDialog {
 		btnIsquierda.setEnabled(false);
 		btnIsquierda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				disponible.add(rec2);
-				eliminaragregado(rec2);
+				int j = 0,i = 0;
+				
+				while(j < Integer.parseInt(spnCant2.getValue().toString()))
+				{
+					if(agregados.get(i).getTipo().equals(rec2.getTipo()))
+						if(agregados.get(i).getDescripcion().equals(rec2.getDescripcion()))
+							if(agregados.get(i).getUbicacion().equals(rec2.getUbicacion()))
+							{
+								disponible.add(agregados.get(i));
+								eliminaragregado(agregados.get(i));
+								j++;
+							}
+					i++;
+				}
 				btnIsquierda.setEnabled(false);
-				cargardatos();		
+				cargardatos();	
+				spnCant2.setValue(Integer.valueOf(0));
 			}
 		});
 		btnIsquierda.setBounds(268, 122, 85, 25);
 		panel_1.add(btnIsquierda);
 		
+		spnCant1 = new JSpinner();
+		spnCant1.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spnCant1.setBounds(123, 194, 59, 22);
+		panel_1.add(spnCant1);
+		
+		spnCant2 = new JSpinner();
+		spnCant2.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spnCant2.setBounds(464, 194, 59, 22);
+		panel_1.add(spnCant2);
+		
+		JLabel lblNewLabel_13 = new JLabel("Cantidad:");
+		lblNewLabel_13.setBounds(64, 197, 65, 16);
+		panel_1.add(lblNewLabel_13);
+		
+		JLabel label = new JLabel("Cantidad:");
+		label.setBounds(405, 197, 65, 16);
+		panel_1.add(label);
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(12, 378, 609, 200);
+		panel_2.setBounds(12, 385, 609, 200);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		

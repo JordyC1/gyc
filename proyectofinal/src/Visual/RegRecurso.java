@@ -178,5 +178,6 @@ public class RegRecurso extends JDialog {
 		txtUbicacion.setText("");
 		BoxTipo.setSelectedIndex(0);
 		ptxtDescripcion.setText("");
+		spnCant.setValue(Integer.valueOf(0));
 	}
 }
