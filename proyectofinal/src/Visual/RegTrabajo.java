@@ -232,18 +232,22 @@ e.printStackTrace();
 			public void actionPerformed(ActionEvent e) {
 				Participante BuscarP=null;
 				BuscarP=EventoCiencia.getInstance().buscaparticipantebycedula(txtcedula.getText());
-				if(BuscarP!=null) {
-					txtcedula.setText(BuscarP.getCedula());
-					JOptionPane.showMessageDialog(null, "Participante encontrado", "Aviso", JOptionPane.INFORMATION_MESSAGE);	
-				}else {
-					int opcion= JOptionPane.showConfirmDialog(null, "Participante no contenido ¿Desea Agregarlo?",
-							"Confirmacion", JOptionPane.YES_NO_OPTION);
-					if(opcion == JOptionPane.OK_OPTION) {
-						BuscarP=new Participante(txtcedula.getText(), "", "", "buscar");
-						RegPersona regPersona=new RegPersona(BuscarP);
-						regPersona.setModal(true);
-						regPersona.setVisible(true);
+				if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText())) {
+					if(BuscarP!=null) {
+						txtcedula.setText(BuscarP.getCedula());
+						JOptionPane.showMessageDialog(null, "Participante encontrado", "Aviso", JOptionPane.INFORMATION_MESSAGE);	
+					}else {
+						int opcion= JOptionPane.showConfirmDialog(null, "Participante no contenido ¿Desea Agregarlo?",
+								"Confirmacion", JOptionPane.YES_NO_OPTION);
+						if(opcion == JOptionPane.OK_OPTION) {
+							BuscarP=new Participante(txtcedula.getText(), "", "", "buscar");
+							RegPersona regPersona=new RegPersona(BuscarP);
+							regPersona.setModal(true);
+							regPersona.setVisible(true);
+						}
 					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Cedula ya contenida", "Aviso", JOptionPane.INFORMATION_MESSAGE);	
 				}
 			}
 		});
@@ -286,7 +290,7 @@ e.printStackTrace();
 								JOptionPane.showMessageDialog(null, "Ingrese un titulo al trabajo", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Cedula inexistente", "Error", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Cedula inexistente o ya contenida", "Error", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});

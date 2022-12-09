@@ -433,7 +433,15 @@ public class EventoCiencia implements Serializable{
 		
 		return mejortrabajo;
 	}
-	
+	public boolean buscarcedularepetida(String cedula) {
+		boolean encontrado=false;
+		for (Persona persona : personas) {
+			if(persona.getCedula().equals(cedula)) {
+				encontrado=true;
+			}
+		}
+		return encontrado;
+	}
 	public Participante mejorparticipante() {
 		float mayorprom=0;
 		Participante mejorparticipante=null;

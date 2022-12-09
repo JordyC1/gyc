@@ -305,22 +305,30 @@ e.printStackTrace();
 					public void actionPerformed(ActionEvent e) {
 						if(modpersona!=null ) {
 							if(modpersona instanceof Jurado) {
-								modpersona.setCedula(txtcedula.getText());
-								modpersona.setNombre(txtnombre.getText());
-								modpersona.setTelefono(txttelefono.getText());
-								((Jurado) modpersona).setCodjurado(txtcodigo.getText());
-								((Jurado) modpersona).setAreaespecializado(cmbarea.getSelectedItem().toString());
-								EventoCiencia.getInstance().modifJurado((Jurado)modpersona);
-								MostrarJurados.loadjurados(null);
-								dispose();
+								if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText())) {
+									modpersona.setCedula(txtcedula.getText());
+									modpersona.setNombre(txtnombre.getText());
+									modpersona.setTelefono(txttelefono.getText());
+									((Jurado) modpersona).setCodjurado(txtcodigo.getText());
+									((Jurado) modpersona).setAreaespecializado(cmbarea.getSelectedItem().toString());
+									EventoCiencia.getInstance().modifJurado((Jurado)modpersona);
+									MostrarJurados.loadjurados(null);
+									dispose();
+								}else {
+									JOptionPane.showMessageDialog(null, "Cedula ya contenida", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								}
 							}else if( modpersona instanceof Participante && !(((Participante)modpersona).getCodparticipante()).equalsIgnoreCase("buscar")) {
-								modpersona.setCedula(txtcedula.getText());
-								modpersona.setNombre(txtnombre.getText());
-								modpersona.setTelefono(txttelefono.getText());
-								((Participante) modpersona).setCodparticipante(txtcodigo.getText());
-								EventoCiencia.getInstance().modifparticipante((Participante)modpersona);
-								MostrarParticipante.loadparticipantes(null);
-								dispose();
+								if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText())) {
+									modpersona.setCedula(txtcedula.getText());
+									modpersona.setNombre(txtnombre.getText());
+									modpersona.setTelefono(txttelefono.getText());
+									((Participante) modpersona).setCodparticipante(txtcodigo.getText());
+									EventoCiencia.getInstance().modifparticipante((Participante)modpersona);
+									MostrarParticipante.loadparticipantes(null);
+									dispose();
+								}else {
+									JOptionPane.showMessageDialog(null, "Cedula ya contenida", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								}
 							}else {
 								RegTrabajo.participantebuscar=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
 								EventoCiencia.getInstance().agregarpersonas(RegTrabajo.participantebuscar);
@@ -329,18 +337,26 @@ e.printStackTrace();
 							}
 						}else{
 							if(rdbtnjurado.isSelected()) {
+								if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText())) {
 								Jurado persona=new Jurado(txtcedula.getText(),txtnombre.getText() , txttelefono.getText(), txtcodigo.getText(),
 										cmbarea.getSelectedItem().toString());
 								EventoCiencia.getInstance().agregarpersonas(persona);
 								JOptionPane.showMessageDialog(null, "Jurado registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 								clean();
+								}else {
+									JOptionPane.showMessageDialog(null, "Cedula ya contenida", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								}
 							}else if (rdbtnparticipante.isSelected() && participante!=null) {
-								Participante persona=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
-								agregartrabajos(persona);
-								EventoCiencia.getInstance().agregarpersonas(persona);
-								JOptionPane.showMessageDialog(null, "Participante registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-								participante=null;
-								clean();
+								if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText())) {
+									Participante persona=new Participante(txtcedula.getText(), txtnombre.getText(), txttelefono.getText(), txtcodigo.getText());
+									agregartrabajos(persona);
+									EventoCiencia.getInstance().agregarpersonas(persona);
+									JOptionPane.showMessageDialog(null, "Participante registrado correctamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+									participante=null;
+									clean();
+								}else {
+									JOptionPane.showMessageDialog(null, "Cedula ya contenida", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+								}
 							}else {
 								JOptionPane.showMessageDialog(null, "Ingrese almenos 1 trabajo al participante", "Aviso", JOptionPane.INFORMATION_MESSAGE);
 							}
