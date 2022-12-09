@@ -21,6 +21,9 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.DefaultComboBoxModel;
 
 public class MostrarRecurso extends JDialog {
 
@@ -35,6 +38,8 @@ public class MostrarRecurso extends JDialog {
 	private static Object[] rows;
 	private static DefaultTableModel model;
 	private JButton btnDescrip;
+	private JLabel lblNewLabel;
+	private JComboBox boxFiltro;
 
 	/**
 	 * Launch the application.
@@ -117,6 +122,20 @@ public class MostrarRecurso extends JDialog {
 						}
 					}
 				});
+				{
+					lblNewLabel = new JLabel("Filtrar por:");
+					buttonPane.add(lblNewLabel);
+				}
+				{
+					boxFiltro = new JComboBox();
+					boxFiltro.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							cargardatos(recaux);
+						}
+					});
+					boxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos","Micr\u00F3fono", "Bocina", "Pantalla", "Cable HDMI a HDMI", "Cable tipo C a HDMI", "Cable VGA a HDMI", "Mesa", "Silla", "Soporte de micr\u00F3fono", "Luces"}));
+					buttonPane.add(boxFiltro);
+				}
 				btnEliminar.setActionCommand("OK");
 				buttonPane.add(btnEliminar);
 				getRootPane().setDefaultButton(btnEliminar);
@@ -153,18 +172,21 @@ public class MostrarRecurso extends JDialog {
 		if(recaux == null)
 		{
 			for (int i = 0; i < EventoCiencia.getInstance().getRecursos().size(); i++) {
-				  
-				rows[0] = EventoCiencia.getInstance().getRecursos().get(i).getCodigo();
-				rows[1] = EventoCiencia.getInstance().getRecursos().get(i).getTipo();
-				
-				if(EventoCiencia.getInstance().getRecursos().get(i).getdisponible() == true)
-					rows[2] = "Disponible";
-				else
-					rows[2] = "No disponible";
-				
-				rows[3] = EventoCiencia.getInstance().getRecursos().get(i).getUbicacion();
-			   
-			   model.addRow(rows);
+				if(EventoCiencia.getInstance().getRecursos().get(i).getTipo().equals(boxFiltro.getSelectedItem().toString())|| boxFiltro.getSelectedItem().toString().equals("Todos")) { 
+					rows[0] = EventoCiencia.getInstance().getRecursos().get(i).getCodigo();
+					rows[1] = EventoCiencia.getInstance().getRecursos().get(i).getTipo();
+
+					if(EventoCiencia.getInstance().getRecursos().get(i).getdisponible() == true)
+						rows[2] = "Disponible";
+					else
+						rows[2] = "No disponible";
+
+					rows[3] = EventoCiencia.getInstance().getRecursos().get(i).getUbicacion();
+
+					model.addRow(rows);
+				}else {
+					
+				}
 			}
 		}
 			
