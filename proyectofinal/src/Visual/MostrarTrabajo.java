@@ -37,7 +37,8 @@ public class MostrarTrabajo extends JDialog {
 	private JButton btnOK;
 	private JButton btnEliminar;
 	private JLabel lblNewLabel;
-	private JComboBox boxFiltro;
+	private static JComboBox boxFiltro;
+	private JButton btncalificar;
 
 	/**
 	 * Launch the application.
@@ -83,6 +84,7 @@ public class MostrarTrabajo extends JDialog {
 							rowselected=table.getSelectedRow();
 							if(rowselected>=0) {
 								btnEliminar.setEnabled(true);
+								btncalificar.setEnabled(true);
 								trabajo = EventoCiencia.getInstance().buscatrabajo(table.getValueAt(rowselected, 0).toString());
 							}
 						}
@@ -136,6 +138,19 @@ public class MostrarTrabajo extends JDialog {
 						boxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "F\u00EDsica", "Biolog\u00EDa", "Qu\u00EDmica", "Astronom\u00EDa", "Tecnolog\u00EDa", "Matem\u00E1tica"}));
 						buttonPane.add(boxFiltro);
 					}
+					{
+						btncalificar = new JButton("Calificar");
+						btncalificar.setEnabled(false);
+						btncalificar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								Califmostrar auxCalifmostrar = new Califmostrar(prioridad,trabajo);
+								auxCalifmostrar.setModal(true);
+								auxCalifmostrar.setVisible(true);
+								btncalificar.setEnabled(false);
+							}
+						});
+						buttonPane.add(btncalificar);
+					}
 					buttonPane.add(btnEliminar);
 				}
 				btnOK.setActionCommand("OK");
@@ -146,7 +161,7 @@ public class MostrarTrabajo extends JDialog {
 		cargardatos(prioridad);
 	}
 	
-	public void cargardatos(ArrayList<Trabajo> prioridad) {
+	public static void cargardatos(ArrayList<Trabajo> prioridad) {
 		model.setRowCount(0);
 		rows = new Object[model.getColumnCount()];
 
@@ -180,7 +195,7 @@ public class MostrarTrabajo extends JDialog {
 		
 	}
 	
-	public boolean filtrartrabajo(Trabajo trabajo) {
+	public static boolean filtrartrabajo(Trabajo trabajo) {
 		boolean filtrado=false;
 		for (int i=0 ; i<EventoCiencia.getInstance().getComisiones().size() && filtrado!=true;i++) {
 			for (int j = 0; j <EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size() && filtrado!=true; j++) {

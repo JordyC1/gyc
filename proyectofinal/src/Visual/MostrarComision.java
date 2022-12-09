@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Logico.Comision;
 import Logico.EventoCiencia;
+import Logico.Jurado;
+import Logico.Trabajo;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,6 +22,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.DefaultComboBoxModel;
 
 public class MostrarComision extends JDialog {
 
@@ -33,6 +38,8 @@ public class MostrarComision extends JDialog {
 	private static DefaultTableModel model;
 	private JButton btnTrabajos;
 	private JButton btnJurados;
+	private JComboBox boxFiltro;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -105,6 +112,20 @@ public class MostrarComision extends JDialog {
 						btnJurados.setEnabled(false);
 					}
 				});
+				{
+					lblNewLabel = new JLabel("Filtrar por:");
+					buttonPane.add(lblNewLabel);
+				}
+				{
+					boxFiltro = new JComboBox();
+					boxFiltro.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							cargardatos(prioridad);
+						}
+					});
+					boxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos","Física", "Biología", "Química", "Astronomía", "Tecnología","Matemática"}));
+					buttonPane.add(boxFiltro);
+				}
 				buttonPane.add(btnJurados);
 			}
 			{
@@ -166,26 +187,28 @@ public class MostrarComision extends JDialog {
 		if(prioridad == null)
 		{	
 			for (int i = 0; i < EventoCiencia.getInstance().getComisiones().size(); i++) {
-			  
-				rows[0] = EventoCiencia.getInstance().getComisiones().get(i).getCodigo();
-				rows[1] = EventoCiencia.getInstance().getComisiones().get(i).getArea();
-				rows[2] = EventoCiencia.getInstance().getComisiones().get(i).getPresidente().getNombre();
-				rows[3] = EventoCiencia.getInstance().getComisiones().get(i).getJurados().size();
-				rows[4] = EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size();
-			   
-			   model.addRow(rows);
+				if(EventoCiencia.getInstance().getComisiones().get(i).getArea().equals(boxFiltro.getSelectedItem().toString()) || boxFiltro.getSelectedItem().toString().equals("Todos")) {
+					rows[0] = EventoCiencia.getInstance().getComisiones().get(i).getCodigo();
+					rows[1] = EventoCiencia.getInstance().getComisiones().get(i).getArea();
+					rows[2] = EventoCiencia.getInstance().getComisiones().get(i).getPresidente().getNombre();
+					rows[3] = EventoCiencia.getInstance().getComisiones().get(i).getJurados().size();
+					rows[4] = EventoCiencia.getInstance().getComisiones().get(i).getTrabajos().size();
+
+					model.addRow(rows);
+				}
 			}
 		}
-		
 		else
 		{
-			for (Comision comision : prioridad) {
-				rows[0] = comision.getCodigo();
-				rows[1] = comision.getArea();
-				rows[2] = comision.getPresidente().getNombre();
-				rows[3] = comision.getJurados().size();
-				rows[4] = comision.getTrabajos().size();
-				model.addRow(rows);
+			for (int i=0;i<prioridad.size();i++) {
+				if(prioridad.get(i).getArea().equals(boxFiltro.getSelectedItem().toString()) || boxFiltro.getSelectedItem().toString().equals("Todos")) {
+					rows[0] = prioridad.get(i).getCodigo();
+					rows[1] = prioridad.get(i).getArea();
+					rows[2] = prioridad.get(i).getPresidente().getNombre();
+					rows[3] = prioridad.get(i).getJurados().size();
+					rows[4] = prioridad.get(i).getTrabajos().size();
+					model.addRow(rows);
+				}
 			}
 		}
 		
@@ -203,5 +226,6 @@ public class MostrarComision extends JDialog {
 		}
 		return encontrado;
 	}
+	
 
 }

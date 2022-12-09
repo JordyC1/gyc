@@ -120,7 +120,12 @@ public class MostrarJurados extends JDialog {
 					loadjurados(prioridad);
 				}
 			});
+			if(prioridad==null) {
 			boxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos", "F\u00EDsica", "Qu\u00EDmica", "Biolog\u00EDa", "Astronom\u00EDa", "Tecnolog\u00EDa", "Matem\u00E1tica"}));
+			}else {
+				boxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Todos"}));
+				boxFiltro.setEnabled(false);
+			}
 			buttonPane.add(boxFiltro);
 			btnmodificar.setEnabled(false);
 			buttonPane.add(btnmodificar);
@@ -202,12 +207,14 @@ public class MostrarJurados extends JDialog {
 		else
 		{
 			for (Jurado jurado : prioridad) {
-						rows[0] = jurado.getCodjurado();
-						rows[1] = jurado.getCedula();
-						rows[2] = jurado.getNombre();
-						rows[3] = jurado.getTelefono();
-						rows[4] = jurado.getAreaespecializado();
-						modeltable.addRow(rows);
+				if(jurado.getAreaespecializado().equals(boxFiltro.getSelectedItem().toString()) || boxFiltro.getSelectedItem().toString().equals("Todos")) {
+					rows[0] = jurado.getCodjurado();
+					rows[1] = jurado.getCedula();
+					rows[2] = jurado.getNombre();
+					rows[3] = jurado.getTelefono();
+					rows[4] = jurado.getAreaespecializado();
+					modeltable.addRow(rows);
+				}
 			}
 		}
 		

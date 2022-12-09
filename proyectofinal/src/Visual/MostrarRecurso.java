@@ -193,13 +193,15 @@ public class MostrarRecurso extends JDialog {
 		else
 		{
 			for (int i = 0; i < recaux.size(); i++) {
-				  
-				rows[0] = recaux.get(i).getCodigo();
-				rows[1] = recaux.get(i).getTipo();
-				rows[2] = "No disponible";
-				rows[3] = recaux.get(i).getUbicacion();
-			   
-			   model.addRow(rows);
+				if(EventoCiencia.getInstance().getRecursos().get(i).getTipo().equals(boxFiltro.getSelectedItem().toString())|| boxFiltro.getSelectedItem().toString().equals("Todos") )
+				{ 
+					rows[0] = recaux.get(i).getCodigo();
+					rows[1] = recaux.get(i).getTipo();
+					rows[2] = "No disponible";
+					rows[3] = recaux.get(i).getUbicacion();
+
+					model.addRow(rows);
+				}
 			}
 		}
 			

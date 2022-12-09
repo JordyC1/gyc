@@ -76,6 +76,7 @@ public class Trabajo implements java.io.Serializable{
 			if(calificadopor.get(i).equalsIgnoreCase(jurado.getCodjurado())) {
 				yacalificado=true;
 			}
+			i++;
 		}
 		return yacalificado;
 	}
