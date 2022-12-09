@@ -232,7 +232,7 @@ e.printStackTrace();
 			public void actionPerformed(ActionEvent e) {
 				Participante BuscarP=null;
 				BuscarP=EventoCiencia.getInstance().buscaparticipantebycedula(txtcedula.getText());
-				if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText())) {
+				if(!EventoCiencia.getInstance().buscarcedularepetida(txtcedula.getText(),null)) {
 					if(BuscarP!=null) {
 						txtcedula.setText(BuscarP.getCedula());
 						JOptionPane.showMessageDialog(null, "Participante encontrado", "Aviso", JOptionPane.INFORMATION_MESSAGE);	

@@ -433,11 +433,20 @@ public class EventoCiencia implements Serializable{
 		
 		return mejortrabajo;
 	}
-	public boolean buscarcedularepetida(String cedula) {
+	public boolean buscarcedularepetida(String cedula,Persona persona) {
 		boolean encontrado=false;
-		for (Persona persona : personas) {
-			if(persona.getCedula().equals(cedula)) {
+		if(persona==null) {
+		for (Persona persona2 : personas) {
+			if(persona2.getCedula().equals(cedula)) {
 				encontrado=true;
+			}
+		}
+		}else {
+			encontrado=true;
+			for (Persona persona2 : personas) {
+				if(persona2.getCedula().equals(cedula) && persona2.equals(persona)) {
+					encontrado=false;
+				}
 			}
 		}
 		return encontrado;
