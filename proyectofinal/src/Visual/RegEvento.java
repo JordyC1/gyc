@@ -277,7 +277,7 @@ public class RegEvento extends JDialog {
 				}
 				btnDerecha.setEnabled(false);
 				cargardatos();
-				spnCant1.setValue(Integer.valueOf(0));
+				spnCant1.setValue(Integer.valueOf(1));
 			}
 		});
 		btnDerecha.setBounds(268, 62, 85, 25);
@@ -303,7 +303,7 @@ public class RegEvento extends JDialog {
 				}
 				btnIsquierda.setEnabled(false);
 				cargardatos();	
-				spnCant2.setValue(Integer.valueOf(0));
+				spnCant2.setValue(Integer.valueOf(1));
 			}
 		});
 		btnIsquierda.setBounds(268, 122, 85, 25);

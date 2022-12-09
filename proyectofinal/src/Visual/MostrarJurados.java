@@ -90,7 +90,7 @@ public class MostrarJurados extends JDialog {
 				}
 			}
 		});
-		String[] columna= {"Codigo","Cedula","Nombre","Telefono","Area especializada"};
+		String[] columna= {"Código","Cédula","Nombre","Teléfono","Área especializada"};
 		modeltable.setColumnIdentifiers(columna);
 		table.setModel(modeltable);
 		scrollPane.setViewportView(table);
